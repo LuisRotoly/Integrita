@@ -8,7 +8,6 @@ import java.util.List;
 
 @RestController
 public class controller {
-
     @GetMapping("/courses")
     public List<Course> getAllCourses(){
         return Arrays.asList(new Course(1, "learn"));
