@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(246, 230, 200);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.centralizado{
+  text-align: center;
+}
+
+.titulo {
+  color:rgb(122, 78, 76);
+  font-family: "Great Vibes", cursive;
+  font-size: 60px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  text-align: center;
+}
