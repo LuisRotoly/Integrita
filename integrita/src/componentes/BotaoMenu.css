@@ -1,0 +1,30 @@
+.botao_cadastro {
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0.7em 1.4em 0.7em 1.1em;
+  color: rgb(122, 78, 76);
+  background: linear-gradient(
+    0deg,
+    rgba(209, 140, 126) 0%,
+    rgba(246, 230, 200) 100%
+  );
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em #7a4e4c;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  display:inline-block;
+  margin-left:10px;
+}
+
+.botao_cadastro:hover {
+  transform: scale(1.03);
+}
+
+.botao_cadastro:active {
+  box-shadow: 0 0.3em 1em -0.5em #7a4e4c;
+}
