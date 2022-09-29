@@ -1,40 +1,37 @@
-import React, { useState } from 'react';
-import BotaoMenu from "./componentes/BotaoMenu";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Agenda from "./pages/Agenda";
+import Cadastro from "./pages/Cadastro";
+import Avaliacao from "./pages/Avaliacao";
+import Mensalidade from "./pages/Mensalidade";
+import NovoCadastro from "./pages/NovoCadastro";
+import EditarCadastro from "./pages/EditarCadastro";
+import Navbar from "./pages/Navbar";
 
 function App() {
-  const [conteudoAgenda, setConteudoAgenda] = useState('');
-  const [conteudoCadastro, setConteudoCadastro] = useState('');
-  const [conteudoAvaliacao, setConteudoAvaliacao] = useState('');
-  const [conteudoMensalidade, setConteudoMensalidade] = useState('');
-
-  function chamarAgenda(){
-    console.log("Agenda");
-    //TODO: chamar rota do backend e no retorno mandar resultado no setConteudoAgenda
-    setConteudoAgenda('updated');
-  }
-
-  function chamarCadastro(){
-    console.log("Cadastro Paciente");
-  }
-
-  function chamarAvaliacao(){
-    console.log("Avaliação Acupuntura");
-  }
-
-  function chamarMensalidade(){
-    console.log("Mensalidade");
-  }
-
   return (
     <div>
-      <div className="centralizado">
-        <p className="titulo">Clínica Integrità</p>
-        <BotaoMenu onClick={chamarAgenda} titulo="Agenda"></BotaoMenu>
-        <BotaoMenu onClick={chamarCadastro} titulo="Cadastro Paciente"></BotaoMenu>
-        <BotaoMenu onClick={chamarAvaliacao} titulo="Avaliação Acupuntura"></BotaoMenu>
-        <BotaoMenu onClick={chamarMensalidade} titulo="Mensalidade"></BotaoMenu>
-      </div>
-      <div id="conteudo">{conteudoAgenda}</div>
+      <Navbar />
+      <Switch>
+        <Route exact path="/agenda">
+          <Agenda />
+        </Route>
+        <Route exact path="/cadastro">
+          <Cadastro />
+        </Route>
+        <Route exact path="/avaliacao">
+          <Avaliacao />
+        </Route>
+        <Route exact path="/mensalidade">
+          <Mensalidade />
+        </Route>
+        <Route exact path="/cadastro/novo">
+          <NovoCadastro />
+        </Route>
+        <Route exact path="/cadastro/editar">
+          <EditarCadastro />
+        </Route>
+      </Switch>
     </div>
   );
 }

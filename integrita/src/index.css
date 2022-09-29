@@ -15,15 +15,19 @@ code {
     monospace;
 }
 
-.centralizado{
+.centralizado {
   text-align: center;
 }
 
 .titulo {
-  color:rgb(122, 78, 76);
+  color: rgb(122, 78, 76);
   font-family: "Great Vibes", cursive;
   font-size: 60px;
   margin-bottom: 0px;
   margin-top: 10px;
   text-align: center;
+}
+
+.alinharDireita {
+  text-align: right;
 }

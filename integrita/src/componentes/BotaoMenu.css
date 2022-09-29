@@ -1,4 +1,4 @@
-.botao_cadastro {
+.botao_menu {
   font-family: inherit;
   font-weight: 500;
   font-size: 14px;
@@ -21,10 +21,10 @@
   margin-left:10px;
 }
 
-.botao_cadastro:hover {
+.botao_menu:hover {
   transform: scale(1.03);
 }
 
-.botao_cadastro:active {
+.botao_menu:active {
   box-shadow: 0 0.3em 1em -0.5em #7a4e4c;
 }
