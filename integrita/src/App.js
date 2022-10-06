@@ -5,6 +5,7 @@ import Cadastro from "./pages/Cadastro";
 import Avaliacao from "./pages/Avaliacao";
 import Mensalidade from "./pages/Mensalidade";
 import NovoCadastro from "./pages/NovoCadastro";
+import PesquisarCadastro from "./pages/PesquisarCadastro";
 import EditarCadastro from "./pages/EditarCadastro";
 import Navbar from "./pages/Navbar";
 
@@ -13,23 +14,26 @@ function App() {
     <div>
       <Navbar />
       <Switch>
-        <Route exact path="/agenda">
-          <Agenda />
-        </Route>
-        <Route exact path="/cadastro">
-          <Cadastro />
-        </Route>
-        <Route exact path="/avaliacao">
-          <Avaliacao />
-        </Route>
-        <Route exact path="/mensalidade">
-          <Mensalidade />
-        </Route>
-        <Route exact path="/cadastro/novo">
+        <Route path="/cadastro/novo">
           <NovoCadastro />
         </Route>
         <Route exact path="/cadastro/editar">
+          <PesquisarCadastro />
+        </Route>
+        <Route path="/cadastro/editar/:codigo">
           <EditarCadastro />
+        </Route>
+        <Route path="/agenda">
+          <Agenda />
+        </Route>
+        <Route path="/cadastro">
+          <Cadastro />
+        </Route>
+        <Route path="/avaliacao">
+          <Avaliacao />
+        </Route>
+        <Route path="/mensalidade">
+          <Mensalidade />
         </Route>
       </Switch>
     </div>

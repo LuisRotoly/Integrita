@@ -1,15 +1,16 @@
 import BotaoSimples from "../componentes/BotaoSimples";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Cadastro() {
+  
   return (
     <div className="centralizado">
-      <NavLink to="./cadastro/novo">
+      <Link to="./cadastro/novo">
         <BotaoSimples titulo="Novo Paciente"></BotaoSimples>
-      </NavLink>
-      <NavLink to="./cadastro/editar">
+      </Link>
+      <Link to="./cadastro/editar">
         <BotaoSimples titulo="Editar Paciente"></BotaoSimples>
-      </NavLink>
+      </Link>
     </div>
   );
 }

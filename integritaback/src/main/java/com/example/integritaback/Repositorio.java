@@ -7,7 +7,10 @@ public interface Repositorio extends CrudRepository<PacienteModelo, Integer> {
     //lista todos os pacientes
     List<PacienteModelo> findAll();
 
-    //pesquisa por idpaciente
+    //pesquisa por nome
+    List<PacienteModelo> findByNomePaciente(String nomePaciente);
+
+    //pesquisa por idPaciente
     PacienteModelo findByCodigo(int codigo);
 
     //remove paciente
