@@ -1,11 +1,13 @@
 package com.example.integritaback;
 import java.util.List;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RepositorioPaciente extends CrudRepository<PacienteModelo, Integer> {
 
     //lista todos os pacientes
-    List<PacienteModelo> findAll();
+    List<PacienteModelo> findAll(Sort sort);
 
     //pesquisa por nome
     List<PacienteModelo> findByNomePaciente(String nomePaciente);

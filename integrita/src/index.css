@@ -37,6 +37,33 @@ code {
   white-space: nowrap;
 }
 
+.pagamentoEscritoDireita {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.pagamentoEscritoEsquerda {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bolder;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.pagamentoTitulo {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: bolder;
+  text-align: center;
+  white-space: nowrap;
+}
+
 .formAvaliacao {
   color: rgb(122, 78, 76);
   font-family: inherit;
@@ -191,6 +218,18 @@ select {
   font-size: 18px;
 }
 
+.selectPagamento {
+  margin-top: 8px;
+  width: 60px;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
 label {
   display: inline-block;
   width: 120px;
@@ -290,4 +329,22 @@ td{
     0 2px 0 hsla(0, 0%, 100%, 0.15);
   color: rgb(122, 78, 76);
   font-size: 18px;
+}
+
+.inputMensalidade{
+  margin-top: 8px;
+  width: 100px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.theadMensalidade{
+  color: rgb(122, 78, 76);
+  font-size: 20px;
+  border-color: rgb(122, 78, 76);
 }
