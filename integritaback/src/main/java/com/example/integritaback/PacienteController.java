@@ -1,6 +1,7 @@
 package com.example.integritaback;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,10 +11,11 @@ public class PacienteController {
     @Autowired
     private RepositorioPaciente acoes;
 
-    //listar todos os pacientes
+    //listar todos os pacientes ordenados pelo nome
     @RequestMapping(value="/paciente", method=RequestMethod.GET)
     public @ResponseBody List<PacienteModelo> listar(){
-        return acoes.findAll();
+        Sort sort = Sort.by("nomePaciente");
+        return acoes.findAll(sort);
     }
 
     //listar paciente especifico pelo nome

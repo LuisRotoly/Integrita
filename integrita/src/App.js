@@ -8,6 +8,7 @@ import NovoCadastro from "./pages/NovoCadastro";
 import EditarCadastro from "./pages/EditarCadastro";
 import AvaliacaoAcupuntura from "./pages/AvaliacaoAcupuntura";
 import AvaliacaoPilates from "./pages/AvaliacaoPilates";
+import Pagamento from "./pages/Pagamento";
 import Navbar from "./pages/Navbar";
 
 function App() {
@@ -36,8 +37,11 @@ function App() {
         <Route path="/avaliacao/pilates/:codigo">
           <AvaliacaoPilates />
         </Route>
-        <Route path="/mensalidade">
+        <Route exact path="/mensalidade">
           <Mensalidade />
+        </Route>
+        <Route exact path="/mensalidade/:codigo">
+          <Pagamento />
         </Route>
       </Switch>
     </div>

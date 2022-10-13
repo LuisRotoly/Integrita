@@ -15,6 +15,7 @@ function EditarCadastro() {
   const [entradaEndereco, setEntradaEndereco] = useState("");
   const [entradaPilates, setEntradaPilates] = useState("");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("");
+  const [entradaAtivo, setAtivo] = useState("");
   const history = useHistory();
   var datas = new Date();
   var dia = String(datas.getDate()).padStart(2, "0");
@@ -49,6 +50,10 @@ function EditarCadastro() {
   function acupunturaHandler(event) {
     setEntradaAcupuntura(event.target.checked);
   }
+  function ativoHandler(event) {
+    setAtivo(event.target.checked);
+  }
+
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
@@ -62,6 +67,7 @@ function EditarCadastro() {
       endereco: entradaEndereco,
       pilates: entradaPilates,
       acupuntura: entradaAcupuntura,
+      ativo: entradaAtivo,
       dataAtual: dataAtual,
     };
     try {
@@ -97,6 +103,7 @@ function EditarCadastro() {
         setEntradaEndereco(apiData.endereco);
         setEntradaPilates(apiData.pilates);
         setEntradaAcupuntura(apiData.acupuntura);
+        setAtivo(apiData.ativo);
       });
   }, [lastSegment]);
 
@@ -106,14 +113,16 @@ function EditarCadastro() {
       <div className="formCadastro">
         <form onSubmit={submitHandler}>
           <label>Nome: </label>
-          <input className="inputCadastro"
+          <input
+            className="inputCadastro"
             value={entradaNome}
             type="text"
             onChange={nomeHandler}
           ></input>
           <br />
           <label>CPF: </label>
-          <InputMask className="inputCadastro"
+          <InputMask
+            className="inputCadastro"
             value={entradaCPF}
             mask="999.999.999-99"
             maskChar=""
@@ -122,7 +131,8 @@ function EditarCadastro() {
           ></InputMask>
           <br />
           <label>Telefone: </label>
-          <InputMask className="inputCadastro"
+          <InputMask
+            className="inputCadastro"
             value={entradaTelefone}
             mask="(99)999999999"
             maskChar=""
@@ -131,47 +141,57 @@ function EditarCadastro() {
           ></InputMask>
           <br />
           <label>Idade: </label>
-          <input className="inputCadastro"
+          <input
+            className="inputCadastro"
             value={entradaIdade}
             type="text"
             onChange={idadeHandler}
           ></input>
           <br />
           <label>Profissão: </label>
-          <input className="inputCadastro"
+          <input
+            className="inputCadastro"
             value={entradaProfissao}
             type="text"
             onChange={profissaoHandler}
           ></input>
           <br />
-          <select
-            value={entradaSexo}
-            onChange={sexoHandler}
-          >
+          <select value={entradaSexo} onChange={sexoHandler}>
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
           </select>
           <br />
           <label>Endereço: </label>
-          <input className="inputCadastro"
+          <input
+            className="inputCadastro"
             value={entradaEndereco}
             type="text"
             onChange={enderecoHandler}
           ></input>
           <br />
-          <input 
+          <input
             checked={entradaPilates}
             type="checkbox"
             onChange={pilatesHandler}
-          ></input>&nbsp;
+          ></input>
+          &nbsp;
           <label>Pilates</label>
           <br />
           <input
             checked={entradaAcupuntura}
             type="checkbox"
             onChange={acupunturaHandler}
-          ></input>&nbsp;
+          ></input>
+          &nbsp;
           <label>Acupuntura</label>
+          <br />
+          <input
+            checked={entradaAtivo}
+            type="checkbox"
+            onChange={ativoHandler}
+          ></input>
+          &nbsp;
+          <label>Paciente Ativo</label>
           <div>
             <Link to={"/cadastro"}>
               <BotaoSimples titulo="Cancelar"></BotaoSimples>

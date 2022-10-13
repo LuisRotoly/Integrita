@@ -26,6 +26,8 @@ public class PacienteModelo {
     private boolean acupuntura;
     @Column(name="pilates")
     private boolean pilates;
+    @Column(name="ativo")
+    private boolean ativo;
     @Column(name="dataAtual")
     private String dataAtual;
 
@@ -107,6 +109,14 @@ public class PacienteModelo {
 
     public void setPilates(boolean pilates) {
         this.pilates = pilates;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     public String getDataAtual() {

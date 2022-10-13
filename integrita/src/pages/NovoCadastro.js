@@ -13,6 +13,7 @@ function NovoCadastro() {
   const [entradaEndereco, setEntradaEndereco] = useState("");
   const [entradaPilates, setEntradaPilates] = useState("false");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("false");
+  const [entradaAtivo, setAtivo] = useState("false");
   const history = useHistory();
   var data = new Date();
   var dia = String(data.getDate()).padStart(2, "0");
@@ -47,6 +48,10 @@ function NovoCadastro() {
   function acupunturaHandler(event) {
     setEntradaAcupuntura(event.target.checked);
   }
+  function ativoHandler(event) {
+    setAtivo(event.target.checked);
+  }
+
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
@@ -59,7 +64,8 @@ function NovoCadastro() {
       endereco: entradaEndereco,
       pilates: entradaPilates,
       acupuntura: entradaAcupuntura,
-      dataAtual: dataAtual,
+      ativo: entradaAtivo,
+      dataAtual: dataAtual
     };
     try {
       const resposta = await fetch("http://localhost:8080/paciente", {
@@ -121,6 +127,9 @@ function NovoCadastro() {
           <br />
           <input type="checkbox" onChange={acupunturaHandler}></input>&nbsp;
           <label>Acupuntura</label>
+          <br />
+          <input type="checkbox" onChange={ativoHandler}></input>&nbsp;
+          <label>Paciente Ativo</label>
           <div>
             <Link to={"/cadastro"}>
               <BotaoSimples titulo="Cancelar"></BotaoSimples>
