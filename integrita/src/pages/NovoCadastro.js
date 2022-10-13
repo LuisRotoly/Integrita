@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import BotaoSimples from "../componentes/BotaoSimples";
+import InputMask from "react-input-mask";
 
 function NovoCadastro() {
   const [entradaNome, setEntradaNome] = useState("");
@@ -13,6 +14,11 @@ function NovoCadastro() {
   const [entradaPilates, setEntradaPilates] = useState("false");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("false");
   const history = useHistory();
+  var data = new Date();
+  var dia = String(data.getDate()).padStart(2, "0");
+  var mes = String(data.getMonth() + 1).padStart(2, "0");
+  var ano = data.getFullYear();
+  var dataAtual = dia + "/" + mes + "/" + ano;
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -43,11 +49,6 @@ function NovoCadastro() {
   }
   async function submitHandler(event) {
     event.preventDefault();
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
     const dados = {
       nomePaciente: entradaNome,
       cpf: entradaCPF,
@@ -70,7 +71,7 @@ function NovoCadastro() {
         throw new Error("Algo deu Errado");
       } else {
         alert("Novo paciente cadastrado com sucesso!");
-        history.push('/cadastro');
+        history.push("/cadastro");
       }
     } catch (e) {
       alert("Erro: Não foi possível se conectar ao servidor");
@@ -79,22 +80,33 @@ function NovoCadastro() {
 
   return (
     <div>
+      <div className="data">Data: {dataAtual}</div>
       <div className="formCadastro">
         <form onSubmit={submitHandler}>
           <label>Nome: </label>
-          <input type="text" onChange={nomeHandler}></input>
+          <input className="inputCadastro" type="text" onChange={nomeHandler}></input>
           <br />
           <label>CPF: </label>
-          <input type="text" onChange={cpfHandler}></input>
+          <InputMask className="inputCadastro"
+            mask="999.999.999-99"
+            maskChar=""
+            type="text"
+            onChange={cpfHandler}
+          ></InputMask>
           <br />
           <label>Telefone: </label>
-          <input type="text" onChange={telefoneHandler}></input>
+          <InputMask className="inputCadastro"
+            mask="(99)999999999"
+            maskChar=""
+            type="text"
+            onChange={telefoneHandler}
+          ></InputMask>
           <br />
           <label>Idade: </label>
-          <input type="text" onChange={idadeHandler}></input>
+          <input className="inputCadastro" type="text" onChange={idadeHandler}></input>
           <br />
           <label>Profissão: </label>
-          <input type="text" onChange={profissaoHandler}></input>
+          <input className="inputCadastro" type="text" onChange={profissaoHandler}></input>
           <br />
           <select onChange={sexoHandler}>
             <option value="M">Masculino</option>
@@ -102,18 +114,17 @@ function NovoCadastro() {
           </select>
           <br />
           <label>Endereço: </label>
-          <input type="text" onChange={enderecoHandler}></input>
+          <input className="inputCadastro" type="text" onChange={enderecoHandler}></input>
           <br />
-          <input type="checkbox" onChange={pilatesHandler}></input>
+          <input type="checkbox" onChange={pilatesHandler}></input>&nbsp;
           <label>Pilates</label>
           <br />
-          <input type="checkbox" onChange={acupunturaHandler}></input>
+          <input type="checkbox" onChange={acupunturaHandler}></input>&nbsp;
           <label>Acupuntura</label>
-          <div className="alinharDireita">
+          <div>
             <Link to={"/cadastro"}>
               <BotaoSimples titulo="Cancelar"></BotaoSimples>
             </Link>
-
             <BotaoSimples type="submit" titulo="Confirmar"></BotaoSimples>
           </div>
         </form>

@@ -14,12 +14,12 @@ function Navbar() {
           <BotaoMenu titulo="Cadastro Paciente"></BotaoMenu>
         </Link>
         <Link to="/avaliacao">
-          <BotaoMenu titulo="Avaliação Acupuntura"></BotaoMenu>
+          <BotaoMenu titulo="Avaliação Acupuntura/Pilates"></BotaoMenu>
         </Link>
         <Link to="/mensalidade">
           <BotaoMenu titulo="Mensalidade"></BotaoMenu>
         </Link>
-        <hr color="#804E4C" size="5" width="100%"></hr>
+        <hr></hr>
       </div>
     </div>
   );

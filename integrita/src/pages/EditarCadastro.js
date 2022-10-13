@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
-import { Link,useHistory  } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 function EditarCadastro() {
   const url = window.location.pathname;
@@ -14,8 +15,12 @@ function EditarCadastro() {
   const [entradaEndereco, setEntradaEndereco] = useState("");
   const [entradaPilates, setEntradaPilates] = useState("");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("");
-  const [data, setData] = useState([]);
   const history = useHistory();
+  var datas = new Date();
+  var dia = String(datas.getDate()).padStart(2, "0");
+  var mes = String(datas.getMonth() + 1).padStart(2, "0");
+  var ano = datas.getFullYear();
+  var dataAtual = dia + "/" + mes + "/" + ano;
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -34,28 +39,18 @@ function EditarCadastro() {
   }
   function sexoHandler(event) {
     setEntradaSexo(event.target.value);
-    console.log(event.target.value);
   }
   function enderecoHandler(event) {
     setEntradaEndereco(event.target.value);
   }
   function pilatesHandler(event) {
     setEntradaPilates(event.target.checked);
-    console.log(event.target.checked);
   }
   function acupunturaHandler(event) {
     setEntradaAcupuntura(event.target.checked);
-    console.log(event.target.checked);
   }
   async function submitHandler(event) {
     event.preventDefault();
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
-    console.log(entradaPilates);
-    console.log(entradaAcupuntura);
     const dados = {
       codigo: lastSegment,
       nomePaciente: entradaNome,
@@ -69,18 +64,20 @@ function EditarCadastro() {
       acupuntura: entradaAcupuntura,
       dataAtual: dataAtual,
     };
-    console.log(JSON.stringify(dados));
     try {
-      const resposta = await fetch("http://localhost:8080/editar/"+lastSegment, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados),
-      });
+      const resposta = await fetch(
+        "http://localhost:8080/editar/" + lastSegment,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados),
+        }
+      );
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
-      }else {
+      } else {
         alert("Paciente editado com sucesso!");
-        history.push('/cadastro');
+        history.push("/cadastro");
       }
     } catch (e) {
       alert("Erro: Não foi possível se conectar ao servidor");
@@ -91,7 +88,6 @@ function EditarCadastro() {
     fetch("http://localhost:8080/editar/" + lastSegment)
       .then((resp) => resp.json())
       .then((apiData) => {
-        setData(apiData);
         setEntradaNome(apiData.nomePaciente);
         setEntradaCPF(apiData.cpf);
         setEntradaTelefone(apiData.telefone);
@@ -106,63 +102,77 @@ function EditarCadastro() {
 
   return (
     <div>
+      <div className="data">Data: {dataAtual}</div>
       <div className="formCadastro">
         <form onSubmit={submitHandler}>
           <label>Nome: </label>
-          <input
-          defaultValue={data.nomePaciente}
+          <input className="inputCadastro"
+            value={entradaNome}
             type="text"
             onChange={nomeHandler}
           ></input>
           <br />
           <label>CPF: </label>
-          <input defaultValue={data.cpf} type="text" onChange={cpfHandler}></input>
+          <InputMask className="inputCadastro"
+            value={entradaCPF}
+            mask="999.999.999-99"
+            maskChar=""
+            type="text"
+            onChange={cpfHandler}
+          ></InputMask>
           <br />
           <label>Telefone: </label>
-          <input
-            defaultValue={data.telefone}
+          <InputMask className="inputCadastro"
+            value={entradaTelefone}
+            mask="(99)999999999"
+            maskChar=""
             type="text"
             onChange={telefoneHandler}
-          ></input>
+          ></InputMask>
           <br />
           <label>Idade: </label>
-          <input defaultValue={data.idade} type="text" onChange={idadeHandler}></input>
+          <input className="inputCadastro"
+            value={entradaIdade}
+            type="text"
+            onChange={idadeHandler}
+          ></input>
           <br />
           <label>Profissão: </label>
-          <input
-            defaultValue={data.profissao}
+          <input className="inputCadastro"
+            value={entradaProfissao}
             type="text"
             onChange={profissaoHandler}
           ></input>
           <br />
-          <select //não está funcionando o defaultValue 
-          defaultValue={data.sexo} onChange={sexoHandler}>
+          <select
+            value={entradaSexo}
+            onChange={sexoHandler}
+          >
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
           </select>
           <br />
           <label>Endereço: </label>
-          <input
-            defaultValue={data.endereco}
+          <input className="inputCadastro"
+            value={entradaEndereco}
             type="text"
             onChange={enderecoHandler}
           ></input>
           <br />
-          <input
-          //não está funcionando a volta do true para o false do checkbox
-            defaultChecked={data.pilates}
+          <input 
+            checked={entradaPilates}
             type="checkbox"
             onChange={pilatesHandler}
-          ></input>
+          ></input>&nbsp;
           <label>Pilates</label>
           <br />
           <input
-            defaultChecked={data.acupuntura}
+            checked={entradaAcupuntura}
             type="checkbox"
             onChange={acupunturaHandler}
-          ></input>
+          ></input>&nbsp;
           <label>Acupuntura</label>
-          <div className="alinharDireita">
+          <div>
             <Link to={"/cadastro"}>
               <BotaoSimples titulo="Cancelar"></BotaoSimples>
             </Link>

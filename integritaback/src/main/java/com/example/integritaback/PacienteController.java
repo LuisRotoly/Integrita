@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 public class PacienteController {
     @Autowired
-    private Repositorio acoes;
+    private RepositorioPaciente acoes;
 
     //listar todos os pacientes
     @RequestMapping(value="/paciente", method=RequestMethod.GET)

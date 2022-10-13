@@ -5,8 +5,9 @@ import Cadastro from "./pages/Cadastro";
 import Avaliacao from "./pages/Avaliacao";
 import Mensalidade from "./pages/Mensalidade";
 import NovoCadastro from "./pages/NovoCadastro";
-import PesquisarCadastro from "./pages/PesquisarCadastro";
 import EditarCadastro from "./pages/EditarCadastro";
+import AvaliacaoAcupuntura from "./pages/AvaliacaoAcupuntura";
+import AvaliacaoPilates from "./pages/AvaliacaoPilates";
 import Navbar from "./pages/Navbar";
 
 function App() {
@@ -17,9 +18,6 @@ function App() {
         <Route path="/cadastro/novo">
           <NovoCadastro />
         </Route>
-        <Route exact path="/cadastro/editar">
-          <PesquisarCadastro />
-        </Route>
         <Route path="/cadastro/editar/:codigo">
           <EditarCadastro />
         </Route>
@@ -29,8 +27,14 @@ function App() {
         <Route path="/cadastro">
           <Cadastro />
         </Route>
-        <Route path="/avaliacao">
+        <Route exact path="/avaliacao">
           <Avaliacao />
+        </Route>
+        <Route path="/avaliacao/acunpuntura/:codigo">
+          <AvaliacaoAcupuntura />
+        </Route>
+        <Route path="/avaliacao/pilates/:codigo">
+          <AvaliacaoPilates />
         </Route>
         <Route path="/mensalidade">
           <Mensalidade />

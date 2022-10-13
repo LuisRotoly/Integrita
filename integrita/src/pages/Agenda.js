@@ -1,4 +1,10 @@
-function Agenda(){
-    return <h1>Agenda</h1>
+function Agenda() {
+
+
+  return (
+    <div>
+        <p>Agenda</p>
+    </div>
+  );
 }
 export default Agenda;
