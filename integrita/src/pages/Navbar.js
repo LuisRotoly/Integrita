@@ -16,10 +16,13 @@ function Navbar() {
         <Link to="/avaliacao">
           <BotaoMenu titulo="Avaliação Acupuntura/Pilates"></BotaoMenu>
         </Link>
+        <Link to="/acompanhamento">
+          <BotaoMenu titulo="Acompanhamento Acupuntura"></BotaoMenu>
+        </Link>
         <Link to="/mensalidade">
           <BotaoMenu titulo="Mensalidade"></BotaoMenu>
         </Link>
-        <hr></hr>
+        <hr className="hrNavbar"></hr>
       </div>
     </div>
   );

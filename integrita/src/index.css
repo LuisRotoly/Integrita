@@ -64,6 +64,13 @@ code {
   white-space: nowrap;
 }
 
+.acompanhamentoTitulo {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
 .formAvaliacao {
   color: rgb(122, 78, 76);
   font-family: inherit;
@@ -82,6 +89,12 @@ code {
   position: absolute;
   top: 165px;
   right: 250px;
+}
+
+.imprimir {
+  position: absolute;
+  top: 175px;
+  right: 80px;
 }
 
 .alinharEsquerda{
@@ -127,6 +140,15 @@ code {
   font-size: 20px;
 }
 
+.descricao {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  position: absolute;
+  top: 225px;
+  right: 1120px;
+}
+
 .inputCadastro{
   margin-top: 8px;
   width: 380px;
@@ -149,6 +171,11 @@ code {
   border-radius: 4px;
   box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
     0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.dataSessao{
   color: rgb(122, 78, 76);
   font-size: 18px;
 }
@@ -206,6 +233,22 @@ code {
   resize: none;
 }
 
+.texteAreaAcomp{
+  margin-top: 12px;
+  width: 900px;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+  resize: none;
+  display: inline-block;
+  vertical-align: top;
+}
+
 select {
   margin-top: 8px;
   width: 130px;
@@ -236,9 +279,17 @@ label {
   text-align: left;
 }
 
-hr{
+.hrNavbar{
   border: 5px solid rgb(122, 78, 76);
   width: 100%;
+}
+
+.hrAcompanhamento{
+  border: 3px solid rgb(122, 78, 76);
+  width: 70%;
+  position: absolute;
+  left: 0; right: 0;
+  margin: auto;
 }
 
 tr{
@@ -262,6 +313,18 @@ td{
 
 .tamanhoColuna{
   width: 800px;
+  text-align: center;
+  margin: auto;
+}
+
+.tamanhoColunaAcompanhamento{
+  width: 1040px;
+  text-align: center;
+  margin: auto;
+}
+
+.tamanhoColunaAcomp{
+  width: 400px;
   text-align: center;
   margin: auto;
 }

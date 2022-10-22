@@ -7,12 +7,14 @@ import edit from "../images/editIcon.png";
 function Cadastro() {
   const [data, setData] = useState([]);
   const [busca, setBusca] = useState("");
+  const [buscainicial, setBuscaInicial] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:8080/paciente")
       .then((resp) => resp.json())
       .then((apiData) => {
         setData(apiData);
+        setBuscaInicial(apiData);
       });
   }, []);
 
@@ -26,12 +28,16 @@ function Cadastro() {
 
   function digitaHandler(event){
     setBusca(event.target.value);
+    if(event.target.value!==''){
+      fetch("http://localhost:8080/editar/listar/"+ event.target.value)
+        .then((resp) => resp.json())
+        .then((apiData) => {
+          setData(apiData);
+        });
+      }else{
+        setData(buscainicial);
+      }
   }
-
-  function filtrar(data,busca){
-    return data.filter(i=>i.nomePaciente.toLowerCase().startsWith(busca.toLowerCase()));
-  }
-  const pacientesFiltrados = filtrar(data,busca);
 
   return (
     <div>
@@ -60,7 +66,7 @@ function Cadastro() {
             </tr>
           </thead>
           <tbody>
-            {pacientesFiltrados.map(
+            {data.map(
               ({
                 codigo,
                 nomePaciente,

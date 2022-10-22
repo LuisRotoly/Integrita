@@ -16,10 +16,14 @@ function NovoCadastro() {
   const [entradaAtivo, setAtivo] = useState("false");
   const history = useHistory();
   var data = new Date();
-  var dia = String(data.getDate()).padStart(2, "0");
-  var mes = String(data.getMonth() + 1).padStart(2, "0");
-  var ano = data.getFullYear();
-  var dataAtual = dia + "/" + mes + "/" + ano;
+
+  function transformarData(data) {
+    var dia = String(data.getDate()).padStart(2, "0");
+    var mes = String(data.getMonth() + 1).padStart(2, "0");
+    var ano = data.getFullYear();
+    var dataAtual = dia + "/" + mes + "/" + ano;
+    return dataAtual;
+  }
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -65,7 +69,7 @@ function NovoCadastro() {
       pilates: entradaPilates,
       acupuntura: entradaAcupuntura,
       ativo: entradaAtivo,
-      dataAtual: dataAtual
+      dataAtual: data
     };
     try {
       const resposta = await fetch("http://localhost:8080/paciente", {
@@ -86,7 +90,7 @@ function NovoCadastro() {
 
   return (
     <div>
-      <div className="data">Data: {dataAtual}</div>
+      <div className="data">Data: {transformarData(data)}</div>
       <div className="formCadastro">
         <form onSubmit={submitHandler}>
           <label>Nome: </label>

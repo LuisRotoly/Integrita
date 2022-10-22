@@ -17,11 +17,15 @@ function EditarCadastro() {
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("");
   const [entradaAtivo, setAtivo] = useState("");
   const history = useHistory();
-  var datas = new Date();
-  var dia = String(datas.getDate()).padStart(2, "0");
-  var mes = String(datas.getMonth() + 1).padStart(2, "0");
-  var ano = datas.getFullYear();
-  var dataAtual = dia + "/" + mes + "/" + ano;
+  var data = new Date();
+
+  function transformarData(data) {
+    var dia = String(data.getDate()).padStart(2, "0");
+    var mes = String(data.getMonth() + 1).padStart(2, "0");
+    var ano = data.getFullYear();
+    var dataAtual = dia + "/" + mes + "/" + ano;
+    return dataAtual;
+  }
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -68,7 +72,7 @@ function EditarCadastro() {
       pilates: entradaPilates,
       acupuntura: entradaAcupuntura,
       ativo: entradaAtivo,
-      dataAtual: dataAtual,
+      dataAtual: data,
     };
     try {
       const resposta = await fetch(
@@ -109,7 +113,7 @@ function EditarCadastro() {
 
   return (
     <div>
-      <div className="data">Data: {dataAtual}</div>
+      <div className="data">Data: {transformarData(data)}</div>
       <div className="formCadastro">
         <form onSubmit={submitHandler}>
           <label>Nome: </label>

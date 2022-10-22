@@ -9,6 +9,8 @@ import EditarCadastro from "./pages/EditarCadastro";
 import AvaliacaoAcupuntura from "./pages/AvaliacaoAcupuntura";
 import AvaliacaoPilates from "./pages/AvaliacaoPilates";
 import Pagamento from "./pages/Pagamento";
+import Acompanhamento from "./pages/Acompanhamento";
+import AcompanhamentoPaciente from "./pages/AcompanhamentoPaciente";
 import Navbar from "./pages/Navbar";
 
 function App() {
@@ -40,8 +42,14 @@ function App() {
         <Route exact path="/mensalidade">
           <Mensalidade />
         </Route>
-        <Route exact path="/mensalidade/:codigo">
+        <Route path="/mensalidade/:codigo">
           <Pagamento />
+        </Route>
+        <Route exact path="/acompanhamento">
+          <Acompanhamento />
+        </Route>
+        <Route path="/acompanhamento/:codigo">
+          <AcompanhamentoPaciente />
         </Route>
       </Switch>
     </div>

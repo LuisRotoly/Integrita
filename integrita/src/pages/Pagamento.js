@@ -7,14 +7,18 @@ function Pagamento() {
   const lastSegment = url.split("/").pop();
   const [entradaNome, setEntradaNome] = useState("");
   const [entradaValorTotal, setValorTotal] = useState("");
-  const [entradaQuantPilates, setQuantPilates] = useState("");
-  const [entradaQuantAcupuntura, setQuantAcupuntura] = useState("");
-  const [entradaDadosMensalidade, setDadosMensalidade] = useState("");
-  var datas = new Date();
-  var dia = String(datas.getDate()).padStart(2, "0");
-  var mes = String(datas.getMonth() + 1).padStart(2, "0");
-  var ano = datas.getFullYear();
-  const dataAtual = dia + "/" + mes + "/" + ano;
+  const [entradaQuantPilates, setQuantPilates] = useState("0");
+  const [entradaQuantAcupuntura, setQuantAcupuntura] = useState("0");
+  const [entradaDadosMensalidade, setDadosMensalidade] = useState([]);
+  var data = new Date();
+
+  function transformarData(data) {
+    var dia = String(data.getDate()).padStart(2, "0");
+    var mes = String(data.getMonth() + 1).padStart(2, "0");
+    var ano = data.getFullYear();
+    var dataAtual = dia + "/" + mes + "/" + ano;
+    return dataAtual;
+  }
 
   function valorTotalHandler(event) {
     setValorTotal(event.target.value);
@@ -28,26 +32,35 @@ function Pagamento() {
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
-      codigo: lastSegment,
-      quantidadePilates: entradaQuantPilates,
-      quantidadeAcupuntura: entradaQuantAcupuntura,
-      valorTotal: entradaValorTotal,
-      dataAtual: dataAtual,
+      codigo: parseInt(lastSegment),
+      pilates: parseInt(entradaQuantPilates),
+      acupuntura: parseInt(entradaQuantAcupuntura),
+      valorTotal: parseInt(entradaValorTotal),
+      dataAtual: data,
     };
-    console.log(dados);
-    try {
-      const resposta = await fetch("http://localhost:8080/mensalidade", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados),
-      });
-      if (!resposta.ok) {
-        throw new Error("Algo deu Errado");
-      } else {
-        alert("Mensalidade cadastrada com sucesso!");
+    if (
+      entradaValorTotal >= "1" &&
+      entradaValorTotal !== "" &&
+      (entradaQuantAcupuntura !== "0" || entradaQuantPilates !== "0")
+    ) {
+      try {
+        const resposta = await fetch("http://localhost:8080/mensalidade", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados),
+        });
+        if (!resposta.ok) {
+          throw new Error("Algo deu Errado");
+        } else {
+          alert("Mensalidade cadastrada com sucesso!");
+        }
+      } catch (e) {
+        alert("Erro: Não foi possível se conectar ao servidor");
       }
-    } catch (e) {
-      alert("Erro: Não foi possível se conectar ao servidor");
+      setValorTotal("");
+      setQuantAcupuntura("0");
+      setQuantPilates("0");
+      setDadosMensalidade([dados, ...entradaDadosMensalidade]);
     }
   }
 
@@ -57,10 +70,10 @@ function Pagamento() {
   }, [lastSegment]);
 
   function fetchNomePaciente(lastSegment) {
-    fetch("http://localhost:8080/editar/" + lastSegment)
-      .then((resp) => resp.json())
+    fetch("http://localhost:8080/paciente/" + lastSegment)
+      .then((resp) => resp.text())
       .then((apiData) => {
-        setEntradaNome(apiData.nomePaciente);
+        setEntradaNome(apiData);
       });
   }
 
@@ -78,15 +91,23 @@ function Pagamento() {
         <form onSubmit={submitHandler}>
           <p className="pagamentoTitulo">Pagamento {entradaNome}</p>
           <label className="pagamentoEscritoDireita">Pilates:</label>
-          <select className="selectPagamento" onChange={aulasPilatesHandler}>
+          <select
+            value={entradaQuantPilates}
+            className="selectPagamento"
+            onChange={aulasPilatesHandler}
+          >
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label className="pagamentoEscritoEsquerda">vezes na semana</label>
+          <label className="pagamentoEscritoEsquerda">vez(es) na semana</label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <label className="pagamentoEscritoDireita">Acupuntura:</label>
-          <select className="selectPagamento" onChange={acupunturaHandler}>
+          <select
+            value={entradaQuantAcupuntura}
+            className="selectPagamento"
+            onChange={acupunturaHandler}
+          >
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -94,9 +115,10 @@ function Pagamento() {
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-          <label className="pagamentoEscritoEsquerda">vezes</label>
+          <label className="pagamentoEscritoEsquerda">vez(es)</label>
           <label className="pagamentoEscritoDireita">Valor Total:</label>
           <input
+            value={entradaValorTotal}
             className="inputMensalidade"
             type="text"
             onChange={valorTotalHandler}
@@ -116,16 +138,16 @@ function Pagamento() {
           </tr>
         </thead>
         <tbody>
-          {/*entradaDadosMensalidade.map(
-            ({ index, pilates, acupuntura, valorPago, data }) => (
-              <tr className="linhaTabela" key={index}>
-                <td>{pilates}</td>
-                <td>{acupuntura}</td>
-                <td>{valorPago}</td>
-                <td>{data}</td>
+          {entradaDadosMensalidade.map(
+            ({ idMensalidade, pilates, acupuntura, valorTotal, dataAtual }) => (
+              <tr className="linhaTabela" key={idMensalidade}>
+                <td>{pilates} vez(es) na semana</td>
+                <td>{acupuntura} vez(es)</td>
+                <td>{valorTotal}R$</td>
+                <td>{transformarData(new Date(dataAtual))}</td>
               </tr>
             )
-            )*/}
+          )}
         </tbody>
       </Table>
     </div>

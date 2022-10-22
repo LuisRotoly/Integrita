@@ -7,11 +7,6 @@ function AvaliacaoPilates() {
   const url = window.location.pathname;
   const lastSegment = url.split("/").pop();
   const [entradaNome, setEntradaNome] = useState("");
-  var datas = new Date();
-  var dia = String(datas.getDate()).padStart(2, "0");
-  var mes = String(datas.getMonth() + 1).padStart(2, "0");
-  var ano = datas.getFullYear();
-  const dataAtual = dia + "/" + mes + "/" + ano;
   const [entradaQueixa, setQueixa] = useState("");
   const [entradaHDA, setHDA] = useState("");
   const [entradaHDP, setHDP] = useState("");
@@ -24,6 +19,15 @@ function AvaliacaoPilates() {
   const [entradaOmbro, setOmbro] = useState("");
   const [entradaArticulacoes, setArticulacoes] = useState("");
   const [entradaObservacoes, setObservacoes] = useState("");
+  var data = new Date();
+
+  function transformarData(data) {
+    var dia = String(data.getDate()).padStart(2, "0");
+    var mes = String(data.getMonth() + 1).padStart(2, "0");
+    var ano = data.getFullYear();
+    var dataAtual = dia + "/" + mes + "/" + ano;
+    return dataAtual;
+  }
 
   useEffect(() => {
     fetchNomePaciente(lastSegment);
@@ -31,10 +35,10 @@ function AvaliacaoPilates() {
   }, [lastSegment]);
 
   function fetchNomePaciente(lastSegment) {
-    fetch("http://localhost:8080/editar/" + lastSegment)
-      .then((resp) => resp.json())
+    fetch("http://localhost:8080/paciente/" + lastSegment)
+      .then((resp) => resp.text())
       .then((apiData) => {
-        setEntradaNome(apiData.nomePaciente);
+        setEntradaNome(apiData);
       });
   }
 
@@ -110,7 +114,7 @@ function AvaliacaoPilates() {
       ombro: entradaOmbro,
       articulacoes: entradaArticulacoes,
       observacoes: entradaObservacoes,
-      dataAtual: dataAtual,
+      dataAtual: data,
     };
     try {
       const resposta = await fetch("http://localhost:8080/avaliacao/pilates", {
@@ -131,7 +135,7 @@ function AvaliacaoPilates() {
 
   return (
     <div>
-      <div className="data">Data: {dataAtual}</div>
+      <div className="data">Data: {transformarData(data)}</div>
       <div className="formCadastro">
         <h2 className="fontBold">Ficha de Avaliação Pilates</h2>
         <form onSubmit={submitHandler}>
