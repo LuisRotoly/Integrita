@@ -15,7 +15,7 @@ public class AcompanhamentoModelo {
     @Column(name="descricao")
     private String descricao;
     @Column(name="dataAtual")
-    private Date dataAtual;
+    private Date dataAtual = new Date();
 
     public int getIdAcompanhamento() {
         return idAcompanhamento;

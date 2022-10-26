@@ -63,7 +63,7 @@ public class AvaliacaoAcunpunturaModelo {
     @Column(name="observacaoGeral")
     private String observacaoGeral;
     @Column(name="dataAtual")
-    private Date dataAtual;
+    private Date dataAtual = new Date();
 
     public Date getDataAtual() {
         return dataAtual;

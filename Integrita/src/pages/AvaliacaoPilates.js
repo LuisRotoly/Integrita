@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
 import { Link, useHistory } from "react-router-dom";
+import {transformarData, pegaLastSegment} from './helper';
 
 function AvaliacaoPilates() {
   const history = useHistory();
-  const url = window.location.pathname;
-  const lastSegment = url.split("/").pop();
   const [entradaNome, setEntradaNome] = useState("");
   const [entradaQueixa, setQueixa] = useState("");
   const [entradaHDA, setHDA] = useState("");
@@ -19,20 +18,11 @@ function AvaliacaoPilates() {
   const [entradaOmbro, setOmbro] = useState("");
   const [entradaArticulacoes, setArticulacoes] = useState("");
   const [entradaObservacoes, setObservacoes] = useState("");
-  var data = new Date();
-
-  function transformarData(data) {
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
-    return dataAtual;
-  }
 
   useEffect(() => {
-    fetchNomePaciente(lastSegment);
-    fetchDataAvaliacao(lastSegment);
-  }, [lastSegment]);
+    fetchNomePaciente(pegaLastSegment(window.location.pathname));
+    fetchDataAvaliacao(pegaLastSegment(window.location.pathname));
+  }, []);
 
   function fetchNomePaciente(lastSegment) {
     fetch("http://localhost:8080/paciente/" + lastSegment)
@@ -101,7 +91,7 @@ function AvaliacaoPilates() {
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
-      codigo: lastSegment,
+      codigo: pegaLastSegment(window.location.pathname),
       queixa: entradaQueixa,
       hda: entradaHDA,
       hdp: entradaHDP,
@@ -113,8 +103,7 @@ function AvaliacaoPilates() {
       joelho: entradaJoelho,
       ombro: entradaOmbro,
       articulacoes: entradaArticulacoes,
-      observacoes: entradaObservacoes,
-      dataAtual: data,
+      observacoes: entradaObservacoes
     };
     try {
       const resposta = await fetch("http://localhost:8080/avaliacao/pilates", {
@@ -135,7 +124,7 @@ function AvaliacaoPilates() {
 
   return (
     <div>
-      <div className="data">Data: {transformarData(data)}</div>
+      <div className="data">Data: {transformarData(new Date())}</div>
       <div className="formCadastro">
         <h2 className="fontBold">Ficha de Avaliação Pilates</h2>
         <form onSubmit={submitHandler}>

@@ -34,7 +34,7 @@ public class AvaliacaoPilatesModelo {
     @Column(name="observacoes")
     private String observacoes;
     @Column(name="dataAtual")
-    private Date dataAtual;
+    private Date dataAtual = new Date();
 
     public int getCodigo() {
         return codigo;

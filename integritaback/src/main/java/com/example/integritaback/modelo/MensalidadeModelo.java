@@ -19,7 +19,7 @@ public class MensalidadeModelo {
     @Column(name="valorTotal")
     private int valorTotal;
     @Column(name="dataAtual")
-    private Date dataAtual;
+    private Date dataAtual = new Date();
 
     public int getIdMensalidade() {
         return idMensalidade;

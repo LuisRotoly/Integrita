@@ -2,27 +2,17 @@ import { useState, useEffect } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
 import Table from "react-bootstrap/Table";
 import imprimir from "../images/imprimir.png";
+import {transformarData, pegaLastSegment} from './helper';
 
 function AcompanhamentoPaciente() {
-  const url = window.location.pathname;
-  const lastSegment = url.split("/").pop();
   const [entradaNome, setEntradaNome] = useState("");
   const [entradaDescricao, setDescricao] = useState("");
   const [entradaDadosAcompanhamento, setDadosAcompanhamento] = useState([]);
-  var data = new Date();
-
-  function transformarData(data) {
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
-    return dataAtual;
-  }
 
   useEffect(() => {
-    fetchNomePaciente(lastSegment);
-    fetchAcompanhamento(lastSegment);
-  }, [lastSegment]);
+    fetchNomePaciente(pegaLastSegment(window.location.pathname));
+    fetchAcompanhamento(pegaLastSegment(window.location.pathname));
+  }, []);
 
   function fetchNomePaciente(lastSegment) {
     fetch("http://localhost:8080/paciente/" + lastSegment)
@@ -43,9 +33,8 @@ function AcompanhamentoPaciente() {
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
-      codigo: parseInt(lastSegment),
-      descricao: entradaDescricao,
-      dataAtual: data
+      codigo: parseInt(pegaLastSegment(window.location.pathname)),
+      descricao: entradaDescricao
     };
     if (entradaDescricao !== "") {
       try {
@@ -73,7 +62,7 @@ function AcompanhamentoPaciente() {
 
   return (
     <div>
-      <div className="data">Data: {transformarData(data)}</div>
+      <div className="data">Data: {transformarData(new Date())}</div>
       <div className="imprimir"><img src={imprimir} width="30" height="30" alt="Edit" /></div>
       <div className="centralizado">
         <form onSubmit={submitHandler}>

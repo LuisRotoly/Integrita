@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import BotaoSimples from "../componentes/BotaoSimples";
 import InputMask from "react-input-mask";
+import {transformarData} from './helper';
 
 function NovoCadastro() {
   const [entradaNome, setEntradaNome] = useState("");
@@ -15,15 +16,6 @@ function NovoCadastro() {
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("false");
   const [entradaAtivo, setAtivo] = useState("false");
   const history = useHistory();
-  var data = new Date();
-
-  function transformarData(data) {
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
-    return dataAtual;
-  }
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -68,8 +60,7 @@ function NovoCadastro() {
       endereco: entradaEndereco,
       pilates: entradaPilates,
       acupuntura: entradaAcupuntura,
-      ativo: entradaAtivo,
-      dataAtual: data
+      ativo: entradaAtivo
     };
     try {
       const resposta = await fetch("http://localhost:8080/paciente", {
@@ -90,7 +81,7 @@ function NovoCadastro() {
 
   return (
     <div>
-      <div className="data">Data: {transformarData(data)}</div>
+      <div className="data">Data: {transformarData(new Date())}</div>
       <div className="formCadastro">
         <form onSubmit={submitHandler}>
           <label>Nome: </label>

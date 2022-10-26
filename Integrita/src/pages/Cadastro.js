@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import edit from "../images/editIcon.png";
+import {verificarSexo} from './helper';
 
 function Cadastro() {
   const [data, setData] = useState([]);
@@ -17,14 +18,6 @@ function Cadastro() {
         setBuscaInicial(apiData);
       });
   }, []);
-
-  function verificarSexo(sexo) {
-    if (sexo === "M") {
-      return "Masculino";
-    } else {
-      return "Feminino";
-    }
-  }
 
   function digitaHandler(event){
     setBusca(event.target.value);

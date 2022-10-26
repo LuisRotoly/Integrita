@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
 import { Link, useHistory } from "react-router-dom";
 import InputMask from "react-input-mask";
+import { transformarData, pegaLastSegment } from "./helper";
 
 function EditarCadastro() {
-  const url = window.location.pathname;
-  const lastSegment = url.split("/").pop();
   const [entradaNome, setEntradaNome] = useState("");
   const [entradaCPF, setEntradaCPF] = useState("");
   const [entradaTelefone, setEntradaTelefone] = useState("");
@@ -17,15 +16,6 @@ function EditarCadastro() {
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("");
   const [entradaAtivo, setAtivo] = useState("");
   const history = useHistory();
-  var data = new Date();
-
-  function transformarData(data) {
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
-    return dataAtual;
-  }
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -61,7 +51,7 @@ function EditarCadastro() {
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
-      codigo: lastSegment,
+      codigo: pegaLastSegment(window.location.pathname),
       nomePaciente: entradaNome,
       cpf: entradaCPF,
       telefone: entradaTelefone,
@@ -72,11 +62,10 @@ function EditarCadastro() {
       pilates: entradaPilates,
       acupuntura: entradaAcupuntura,
       ativo: entradaAtivo,
-      dataAtual: data,
     };
     try {
       const resposta = await fetch(
-        "http://localhost:8080/editar/" + lastSegment,
+        "http://localhost:8080/editar/" + pegaLastSegment(window.location.pathname),
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -95,7 +84,7 @@ function EditarCadastro() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8080/editar/" + lastSegment)
+    fetch("http://localhost:8080/editar/" + pegaLastSegment(window.location.pathname))
       .then((resp) => resp.json())
       .then((apiData) => {
         setEntradaNome(apiData.nomePaciente);
@@ -109,11 +98,11 @@ function EditarCadastro() {
         setEntradaAcupuntura(apiData.acupuntura);
         setAtivo(apiData.ativo);
       });
-  }, [lastSegment]);
+  }, []);
 
   return (
     <div>
-      <div className="data">Data: {transformarData(data)}</div>
+      <div className="data">Data: {transformarData(new Date())}</div>
       <div className="formCadastro">
         <form onSubmit={submitHandler}>
           <label>Nome: </label>

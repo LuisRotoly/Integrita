@@ -1,24 +1,14 @@
 import { useState, useEffect } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
 import Table from "react-bootstrap/Table";
+import {transformarData, pegaLastSegment} from './helper';
 
 function Pagamento() {
-  const url = window.location.pathname;
-  const lastSegment = url.split("/").pop();
   const [entradaNome, setEntradaNome] = useState("");
   const [entradaValorTotal, setValorTotal] = useState("");
   const [entradaQuantPilates, setQuantPilates] = useState("0");
   const [entradaQuantAcupuntura, setQuantAcupuntura] = useState("0");
   const [entradaDadosMensalidade, setDadosMensalidade] = useState([]);
-  var data = new Date();
-
-  function transformarData(data) {
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
-    return dataAtual;
-  }
 
   function valorTotalHandler(event) {
     setValorTotal(event.target.value);
@@ -32,11 +22,10 @@ function Pagamento() {
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
-      codigo: parseInt(lastSegment),
+      codigo: parseInt(pegaLastSegment(window.location.pathname)),
       pilates: parseInt(entradaQuantPilates),
       acupuntura: parseInt(entradaQuantAcupuntura),
-      valorTotal: parseInt(entradaValorTotal),
-      dataAtual: data,
+      valorTotal: parseInt(entradaValorTotal)
     };
     if (
       entradaValorTotal >= "1" &&
@@ -65,9 +54,9 @@ function Pagamento() {
   }
 
   useEffect(() => {
-    fetchNomePaciente(lastSegment);
-    fetchMensalidade(lastSegment);
-  }, [lastSegment]);
+    fetchNomePaciente(pegaLastSegment(window.location.pathname));
+    fetchMensalidade(pegaLastSegment(window.location.pathname));
+  }, []);
 
   function fetchNomePaciente(lastSegment) {
     fetch("http://localhost:8080/paciente/" + lastSegment)

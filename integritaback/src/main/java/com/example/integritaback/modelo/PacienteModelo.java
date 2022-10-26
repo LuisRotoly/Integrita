@@ -30,7 +30,7 @@ public class PacienteModelo {
     @Column(name="ativo")
     private boolean ativo;
     @Column(name="dataAtual")
-    private Date dataAtual;
+    private Date dataAtual = new Date();
 
     public int getCodigo() {
         return codigo;
