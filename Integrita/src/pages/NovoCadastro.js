@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import BotaoSimples from "../componentes/BotaoSimples";
 import InputMask from "react-input-mask";
-import {transformarData} from './helper';
+import { transformarData } from "./helper";
 
 function NovoCadastro() {
   const [entradaNome, setEntradaNome] = useState("");
@@ -60,7 +60,7 @@ function NovoCadastro() {
       endereco: entradaEndereco,
       pilates: entradaPilates,
       acupuntura: entradaAcupuntura,
-      ativo: entradaAtivo
+      ativo: entradaAtivo,
     };
     try {
       const resposta = await fetch("http://localhost:8080/paciente", {
@@ -85,10 +85,15 @@ function NovoCadastro() {
       <div className="formCadastro">
         <form onSubmit={submitHandler}>
           <label>Nome: </label>
-          <input className="inputCadastro" type="text" onChange={nomeHandler}></input>
+          <input
+            className="inputCadastro"
+            type="text"
+            onChange={nomeHandler}
+          ></input>
           <br />
           <label>CPF: </label>
-          <InputMask className="inputCadastro"
+          <InputMask
+            className="inputCadastro"
             mask="999.999.999-99"
             maskChar=""
             type="text"
@@ -96,7 +101,8 @@ function NovoCadastro() {
           ></InputMask>
           <br />
           <label>Telefone: </label>
-          <InputMask className="inputCadastro"
+          <InputMask
+            className="inputCadastro"
             mask="(99)999999999"
             maskChar=""
             type="text"
@@ -104,10 +110,18 @@ function NovoCadastro() {
           ></InputMask>
           <br />
           <label>Idade: </label>
-          <input className="inputCadastro" type="text" onChange={idadeHandler}></input>
+          <input
+            className="inputCadastro"
+            type="text"
+            onChange={idadeHandler}
+          ></input>
           <br />
           <label>Profissão: </label>
-          <input className="inputCadastro" type="text" onChange={profissaoHandler}></input>
+          <input
+            className="inputCadastro"
+            type="text"
+            onChange={profissaoHandler}
+          ></input>
           <br />
           <select onChange={sexoHandler}>
             <option value="M">Masculino</option>
@@ -115,7 +129,11 @@ function NovoCadastro() {
           </select>
           <br />
           <label>Endereço: </label>
-          <input className="inputCadastro" type="text" onChange={enderecoHandler}></input>
+          <input
+            className="inputCadastro"
+            type="text"
+            onChange={enderecoHandler}
+          ></input>
           <br />
           <input type="checkbox" onChange={pilatesHandler}></input>&nbsp;
           <label>Pilates</label>

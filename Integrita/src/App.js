@@ -12,6 +12,7 @@ import Pagamento from "./pages/Pagamento";
 import Acompanhamento from "./pages/Acompanhamento";
 import AcompanhamentoPaciente from "./pages/AcompanhamentoPaciente";
 import Navbar from "./pages/Navbar";
+import Relatorio from "./pages/Relatorio"
 
 function App() {
   return (
@@ -50,6 +51,9 @@ function App() {
         </Route>
         <Route path="/acompanhamento/:codigo">
           <AcompanhamentoPaciente />
+        </Route>
+        <Route path="/relatorio">
+          <Relatorio />
         </Route>
       </Switch>
     </div>

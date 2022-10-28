@@ -1,8 +1,10 @@
 package com.example.integritaback.repositorios;
 import java.util.List;
 
+import com.example.integritaback.projections.MensalidadeProjecao;
 import com.example.integritaback.modelo.MensalidadeModelo;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RepositorioMensalidade extends CrudRepository<MensalidadeModelo, Integer> {
@@ -19,4 +21,9 @@ public interface RepositorioMensalidade extends CrudRepository<MensalidadeModelo
 
     //cadastra/altera mensalidade
     <MenMod extends MensalidadeModelo> MenMod save(MenMod mensalidade);
+
+    //listar soma dos recebiveis do mes do ano
+    @Query(value = "SELECT SUM(`valor_total`) as `soma`, MONTHNAME(`data_atual`) AS `mes`\n" +
+            "FROM mensalidade WHERE year(`data_atual`)= :ano GROUP BY YEAR(`data_atual`), MONTH(`data_atual`) ORDER BY MONTH(`data_atual`);", nativeQuery = true)
+    List<MensalidadeProjecao> listarRecebiveisdoMes(String ano);
 }

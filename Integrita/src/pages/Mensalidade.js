@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import select from "../images/selecionar.png";
+import BotaoSimples from "../componentes/BotaoSimples";
 
 function Mensalidade() {
   const [data, setData] = useState([]);
@@ -32,6 +33,11 @@ function Mensalidade() {
 
   return (
     <div>
+      <div className="relatorio">
+        <Link to={"/relatorio"}>
+          <BotaoSimples type="button" titulo="Relatório"></BotaoSimples>
+        </Link>
+      </div>
       <div className="formCadastro">
         Pesquisar:&nbsp;
         <input

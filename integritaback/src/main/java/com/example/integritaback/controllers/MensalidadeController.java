@@ -1,4 +1,5 @@
 package com.example.integritaback.controllers;
+import com.example.integritaback.projections.MensalidadeProjecao;
 import com.example.integritaback.modelo.MensalidadeModelo;
 import com.example.integritaback.repositorios.RepositorioMensalidade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 public class MensalidadeController {
@@ -35,5 +37,11 @@ public class MensalidadeController {
     @RequestMapping(value="/mensalidade/{codigo}", method=RequestMethod.DELETE)
     public @ResponseBody void remover(@RequestBody MensalidadeModelo mensalidade){
         acoes.delete(mensalidade);
+    }
+
+    //listar soma dos recebiveis do mes do ano
+    @RequestMapping(value="/mensalidade/relatorio/{ano}", method=RequestMethod.GET)
+    public @ResponseBody List<MensalidadeProjecao> listarRecebiveis(@PathVariable String ano){
+        return acoes.listarRecebiveisdoMes(ano);
     }
 }

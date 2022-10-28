@@ -91,6 +91,12 @@ code {
   right: 250px;
 }
 
+.relatorio{
+  position: absolute;
+  top: 165px;
+  right: 130px;
+}
+
 .imprimir {
   position: absolute;
   top: 175px;
