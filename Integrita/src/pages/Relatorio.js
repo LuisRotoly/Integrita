@@ -25,10 +25,7 @@ function Relatorio() {
   function pegaSoma() {
     const soma = [entradaAno.toString()];
     for (let i = 0, k = 0; i < entradaDadosMensalidade.length; i++) {
-      while (
-        entradaDadosMensalidade[k].mes.toUpperCase() !==
-        meses[i + 1].toUpperCase()
-      ) {
+      while (entradaDadosMensalidade[k].mes.toUpperCase() !== meses[i + 1].toUpperCase()) {
         soma.push(0);
         i = i + 1;
       }

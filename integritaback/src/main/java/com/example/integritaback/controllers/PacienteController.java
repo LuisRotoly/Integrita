@@ -1,4 +1,5 @@
 package com.example.integritaback.controllers;
+import com.example.integritaback.projections.PacienteProjecao;
 import com.example.integritaback.repositorios.RepositorioPaciente;
 import com.example.integritaback.modelo.PacienteModelo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,11 @@ public class PacienteController {
     @RequestMapping(value="/editar/{codigo}", method=RequestMethod.PUT)
     public @ResponseBody PacienteModelo editar(@RequestBody PacienteModelo paciente){
         return acoes.save(paciente);
+    }
+
+    //listar ID e nomePaciente pelo nomePaciente
+    @RequestMapping(value="/paciente/listarIdNome/{nomePaciente}", method=RequestMethod.GET)
+    public @ResponseBody List<PacienteProjecao> listarIdNome(@PathVariable String nomePaciente){
+        return acoes.listIdNome(nomePaciente);
     }
 }

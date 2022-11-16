@@ -7,6 +7,9 @@ function Navbar() {
     <div>
       <div className="centralizado">
         <p className="titulo">Clínica Integrità</p>
+        <Link to="/agendas">
+          <BotaoMenu titulo="Agendas"></BotaoMenu>
+        </Link>
         <Link to="/agenda">
           <BotaoMenu titulo="Agenda"></BotaoMenu>
         </Link>

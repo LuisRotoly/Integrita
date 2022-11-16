@@ -2,6 +2,7 @@ package com.example.integritaback.repositorios;
 import java.util.List;
 
 import com.example.integritaback.modelo.PacienteModelo;
+import com.example.integritaback.projections.PacienteProjecao;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -32,4 +33,8 @@ public interface RepositorioPaciente extends CrudRepository<PacienteModelo, Inte
 
     //cadastra/altera paciente
     <PacMod extends PacienteModelo> PacMod save(PacMod paciente);
+
+    //lista nome e id de paciente, usando pelo nome
+    @Query(value = "SELECT (`id_paciente`) as `codigo`, (`nome_paciente`) as `nomePaciente` FROM paciente WHERE (`nome_paciente`) LIKE CONCAT(:nomePaciente,'%')", nativeQuery = true)
+    List<PacienteProjecao> listIdNome(String nomePaciente);
 }

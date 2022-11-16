@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Agenda from "./pages/Agenda";
+import Agendas from "./pages/Agendas";
 import Cadastro from "./pages/Cadastro";
 import Avaliacao from "./pages/Avaliacao";
 import Mensalidade from "./pages/Mensalidade";
@@ -25,8 +26,11 @@ function App() {
         <Route path="/cadastro/editar/:codigo">
           <EditarCadastro />
         </Route>
-        <Route path="/agenda">
+        <Route exact path="/agenda">
           <Agenda />
+        </Route>
+        <Route path="/agendas">
+          <Agendas />
         </Route>
         <Route path="/cadastro">
           <Cadastro />

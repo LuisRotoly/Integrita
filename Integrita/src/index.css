@@ -78,7 +78,7 @@ code {
   text-align: center;
 }
 
-.fontBold{
+.fontBold {
   font-weight: bolder;
 }
 
@@ -91,7 +91,7 @@ code {
   right: 250px;
 }
 
-.relatorio{
+.relatorio {
   position: absolute;
   top: 165px;
   right: 130px;
@@ -103,19 +103,19 @@ code {
   right: 80px;
 }
 
-.alinharEsquerda{
+.alinharEsquerda {
   position: absolute;
   top: 165px;
   right: 1000px;
 }
 
-.alinharColuna{
+.alinharColuna {
   position: absolute;
   top: 570px;
   right: 1180px;
 }
 
-.alinharDireita{
+.alinharDireita {
   color: rgb(122, 78, 76);
   font-family: inherit;
   font-size: 20px;
@@ -124,18 +124,18 @@ code {
   top: 180px;
   right: 450px;
 }
-.alinharTabela{
+.alinharTabela {
   padding: 75px;
   text-align: center;
 }
 
-.alinharObs{
+.alinharObs {
   position: absolute;
   top: 900px;
   right: 1132px;
 }
 
-.alinharTabelaPesquisa{
+.alinharTabelaPesquisa {
   padding: 40px;
   text-align: center;
 }
@@ -155,7 +155,7 @@ code {
   right: 1120px;
 }
 
-.inputCadastro{
+.inputCadastro {
   margin-top: 8px;
   width: 380px;
   height: 35px;
@@ -168,7 +168,7 @@ code {
   font-size: 18px;
 }
 
-.inputAvaliacao{
+.inputAvaliacao {
   margin-top: 8px;
   width: 800px;
   height: 35px;
@@ -181,12 +181,12 @@ code {
   font-size: 18px;
 }
 
-.dataSessao{
+.dataSessao {
   color: rgb(122, 78, 76);
   font-size: 18px;
 }
 
-.inputQueixa{
+.inputQueixa {
   margin-top: 8px;
   width: 760px;
   height: 35px;
@@ -199,7 +199,7 @@ code {
   font-size: 18px;
 }
 
-.inputColuna{
+.inputColuna {
   margin-top: 8px;
   width: 550px;
   height: 35px;
@@ -212,7 +212,7 @@ code {
   font-size: 18px;
 }
 
-.inputArt{
+.inputArt {
   margin-top: 8px;
   width: 715px;
   height: 35px;
@@ -225,7 +225,7 @@ code {
   font-size: 18px;
 }
 
-.texteAreaObs{
+.texteAreaObs {
   margin-top: 12px;
   width: 900px;
   height: 80px;
@@ -239,7 +239,7 @@ code {
   resize: none;
 }
 
-.texteAreaAcomp{
+.texteAreaAcomp {
   margin-top: 12px;
   width: 900px;
   height: 80px;
@@ -262,7 +262,8 @@ select {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),0 2px 0 hsla(0, 0%, 100%, 0.15);
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
   color: rgb(122, 78, 76);
   font-size: 18px;
 }
@@ -274,7 +275,8 @@ select {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),0 2px 0 hsla(0, 0%, 100%, 0.15);
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
   color: rgb(122, 78, 76);
   font-size: 18px;
 }
@@ -285,30 +287,31 @@ label {
   text-align: left;
 }
 
-.hrNavbar{
+.hrNavbar {
   border: 5px solid rgb(122, 78, 76);
   width: 100%;
 }
 
-.hrAcompanhamento{
+.hrAcompanhamento {
   border: 3px solid rgb(122, 78, 76);
   width: 70%;
   position: absolute;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   margin: auto;
 }
 
-tr{
+tr {
   background-color: rgba(246, 230, 200);
   border-color: rgba(246, 230, 200);
 }
 
-th{
+th {
   color: rgb(122, 78, 76);
   font-size: 18px;
 }
 
-td{
+td {
   color: rgb(122, 78, 76);
 }
 
@@ -317,25 +320,25 @@ td{
   background-color: #0a0a0a15;
 }
 
-.tamanhoColuna{
+.tamanhoColuna {
   width: 800px;
   text-align: center;
   margin: auto;
 }
 
-.tamanhoColunaAcompanhamento{
+.tamanhoColunaAcompanhamento {
   width: 1040px;
   text-align: center;
   margin: auto;
 }
 
-.tamanhoColunaAcomp{
+.tamanhoColunaAcomp {
   width: 400px;
   text-align: center;
   margin: auto;
 }
 
-.inputCardio{
+.inputCardio {
   margin-top: 8px;
   width: 740px;
   height: 35px;
@@ -348,7 +351,7 @@ td{
   font-size: 18px;
 }
 
-.inputDermato{
+.inputDermato {
   margin-top: 8px;
   width: 770px;
   height: 35px;
@@ -361,7 +364,7 @@ td{
   font-size: 18px;
 }
 
-.inputVasc{
+.inputVasc {
   margin-top: 8px;
   width: 775px;
   height: 35px;
@@ -374,7 +377,7 @@ td{
   font-size: 18px;
 }
 
-.inputAltera{
+.inputAltera {
   margin-top: 8px;
   width: 690px;
   height: 35px;
@@ -387,7 +390,7 @@ td{
   font-size: 18px;
 }
 
-.inputMat{
+.inputMat {
   margin-top: 8px;
   width: 750px;
   height: 35px;
@@ -400,7 +403,7 @@ td{
   font-size: 18px;
 }
 
-.inputMensalidade{
+.inputMensalidade {
   margin-top: 8px;
   width: 100px;
   height: 35px;
@@ -412,8 +415,72 @@ td{
   font-size: 18px;
 }
 
-.theadMensalidade{
+.theadMensalidade {
   color: rgb(122, 78, 76);
   font-size: 20px;
   border-color: rgb(122, 78, 76);
+}
+
+.inputModal {
+  text-align: center;
+  margin-top: 8px;
+  width: 200px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.dropdown {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 380px;
+  margin-left: 40px;
+  z-index:1;
+}
+
+.dropdown:empty {
+  border: none;
+}
+
+.dropdown-row {
+  cursor: pointer;
+  text-align: start;
+  margin: 2px 0;
+}
+
+.formModal{
+  position: absolute;
+  top: 100px; left: 40px;
+  z-index:0;
+}
+
+.modal{
+  position: relative;
+  z-index:2;
+}
+
+.calendar{
+  position: relative;
+  z-index:0;
+}
+
+.fc-event{
+  cursor: pointer;
+}
+
+.fc-col-header-cell-cushion{
+  color:gray;
+}
+.fc-col-header-cell-cushion:hover{
+  color:gray;
+}
+.fc-toolbar-title {
+  color:gray;
 }
