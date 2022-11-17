@@ -50,7 +50,7 @@ function Mensalidade() {
       <div>
         <Table className="tamanhoColuna">
           <thead>
-            <tr>
+            <tr className="tr">
               <th>Paciente</th>
               <th>Pilates</th>
               <th>Acupuntura</th>

@@ -17,6 +17,12 @@ public class AgendaController {
         return acoes.findAll();
     }
 
+    //listar um atendimento pelo idAgenda
+    @RequestMapping(value="/agenda/{idAgenda}", method=RequestMethod.GET)
+    public @ResponseBody AgendaModelo listarPeloidAgenda(@PathVariable Integer idAgenda){
+        return acoes.findByidAgenda(idAgenda);
+    }
+
     //cadastrar o atendimento na agenda
     @RequestMapping(value="/agenda", method=RequestMethod.POST)
     public @ResponseBody AgendaModelo cadastrar(@RequestBody AgendaModelo agendaModelo){
@@ -24,8 +30,8 @@ public class AgendaController {
     }
 
     //remover o atendimento
-    @RequestMapping(value="/agenda/{idAgenda}", method=RequestMethod.POST)
-    public @ResponseBody AgendaModelo remover(@RequestBody AgendaModelo agendaModelo){
-        return acoes.save(agendaModelo);
-    }
+    @RequestMapping(value="/agenda/{idAgenda}", method=RequestMethod.DELETE)
+    public @ResponseBody void remover(@PathVariable Integer idAgenda){
+        AgendaModelo agendaModelo = listarPeloidAgenda(idAgenda);
+        acoes.delete(agendaModelo);}
 }

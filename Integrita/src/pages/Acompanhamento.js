@@ -45,7 +45,7 @@ function Acompanhamento() {
         <br/>
         <Table className="tamanhoColunaAcomp">
           <thead>
-            <tr>
+            <tr className="tr">
               <th>Paciente</th>
               <th>Selecionar</th>
             </tr>

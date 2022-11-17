@@ -44,7 +44,7 @@ function Avaliacao() {
       <div>
         <Table className="tamanhoColuna">
           <thead>
-            <tr>
+            <tr className="tr">
               <th>Paciente</th>
               <th>Acupuntura</th>
               <th>Pilates</th>

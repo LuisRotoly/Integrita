@@ -45,7 +45,7 @@ function Cadastro() {
       <div className="alinharTabela">
         <Table size="sm">
           <thead>
-            <tr>
+            <tr className="tr">
               <th>Paciente</th>
               <th>CPF</th>
               <th>Telefone</th>

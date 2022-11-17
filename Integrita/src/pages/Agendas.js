@@ -8,10 +8,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import BotaoSimples from "../componentes/BotaoSimples";
+import ptBR from 'date-fns/locale/pt-BR';
 
 function Agendas() {
   const calendarRef = createRef();
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [dataAtual, setDataAtual] = useState("");
   const [pilates, setPilates] = useState(false);
@@ -19,18 +20,13 @@ function Agendas() {
   const [busca, setBusca] = useState("");
   const [dadosPaciente, setDadosPaciente] = useState([]);
   const [buscaEncontrada, setBuscaEncontrada] = useState(false);
-  const horarios = [
-    { id: 5, title: "Aline", date: "2022-11-15 17:00", color: "green" },
-    { id: 9, title: "Aline", date: "2022-11-15 14:00", color: "green" },
-    { id: 10, title: "Aline", date: "2022-11-15 14:00", color: "red" },
-  ];
-  //const [horario, setHorario] = useState([]);
+  const [horario, setHorario] = useState([]);
 
   function onSubmit(event) {
     event.preventDefault();
     if (
       dadosPaciente[0].nomePaciente !== "" &&
-      (acupuntura !== false || pilates !== false)
+      (acupuntura !== false || pilates !== false) && dataAtual !== ""
     ) {
       var calendar = calendarRef.current.getApi();
       if (pilates !== false) {
@@ -65,6 +61,7 @@ function Agendas() {
       setBusca("");
       setModalOpen(false);
       setStartDate(new Date());
+      window.location.reload(false);
     }
   }
 
@@ -138,46 +135,25 @@ function Agendas() {
     setDadosPaciente([{ nomePaciente, codigo }]);
   }
 
-  /*useEffect(() => {
-    fetch("http://localhost:8080/agenda")
+  useEffect(() => {
+    pegaHorarios();
+  }, []);
+
+  async function pegaHorarios() {
+    const horarioProv = [];
+    await fetch("http://localhost:8080/agenda")
       .then((resp) => resp.json())
       .then((apiData) => {
         for (let i = 0; i < apiData.length; i++) {
           if (apiData[i].pilates !== false) {
-            horarios.push({
+            horarioProv.push({
               id: apiData[i].idAgenda,
               title: apiData[i].nomePaciente,
               date: apiData[i].data,
               color: "green",
             });
           } else if (apiData[i].acupuntura !== false) {
-            horarios.push({
-              id: apiData[i].idAgenda,
-              title: apiData[i].nomePaciente,
-              date: apiData[i].data,
-              color: "red",
-            });
-          }
-        }console.log(horario);console.log(horarios);
-      });
-  }, []);*/
-
-  function pegaHorarios() {
-    const horario = [];
-    fetch("http://localhost:8080/agenda")
-      .then((resp) => resp.json())
-      .then((apiData) => {
-        for (let i = 0; i < apiData.length; i++) {
-          if (apiData[i].pilates !== false) {
-            horario.push({
-                  id: apiData[i].idAgenda,
-                  title: apiData[i].nomePaciente,
-                  date: apiData[i].data,
-                  color: "green",
-                },
-              );
-          } else if (apiData[i].acupuntura !== false) {
-              horario.push({
+            horarioProv.push({
               id: apiData[i].idAgenda,
               title: apiData[i].nomePaciente,
               date: apiData[i].data,
@@ -185,30 +161,26 @@ function Agendas() {
             });
           }
         }
+        setHorario(horarioProv);
       });
-    console.log(horarios);
-    console.log(horario);
-    return horarios;
   }
 
-  function onClickEventHandler(info){
-    /*try {
-      const resposta = fetch("http://localhost:8080/agenda/" + info.event.id, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados),
+  async function onClickEventHandler(info) {
+    try {
+      const resposta = await fetch("http://localhost:8080/agenda/" + info.event.id, {
+        method: "DELETE"
       });
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
+        var calendar = calendarRef.current.getApi();
+        var removeEvents = calendar.getEventById(info.event.id);
+        removeEvents.remove();
         alert("Horário removido com sucesso!");
       }
     } catch (e) {
       alert("Erro: Não foi possível se conectar ao servidor");
-    }*/
-    var calendar = calendarRef.current.getApi();
-    var removeEvents = calendar.getEventById(info.event.id);
-    removeEvents.remove();
+    }
   }
 
   return (
@@ -219,7 +191,7 @@ function Agendas() {
           plugins={[timeGridPlugin]}
           initialView="timeGridWeek"
           weekends={false}
-          events={pegaHorarios()}
+          events={horario}
           allDaySlot={false}
           slotMinTime="06:00:00"
           slotMaxTime="21:00:00"
@@ -235,7 +207,9 @@ function Agendas() {
               click: (e) => openModal(),
             },
           }}
-          eventClick={function(info){onClickEventHandler(info)}}
+          eventClick={function (info) {
+            onClickEventHandler(info);
+          }}
           locale="pt-br"
         />
       </div>
@@ -256,10 +230,10 @@ function Agendas() {
             content: {
               textAlign: "center",
               position: "absolute",
-              width: "500px",
-              height: "350px",
-              top: "150px",
-              left: "550px",
+              width: "600px",
+              height: "435px",
+              top: "130px",
+              left: "500px",
               right: "500px",
               bottom: "200px",
               border: "1px solid #ccc",
@@ -295,18 +269,22 @@ function Agendas() {
                 ))}
             </div>
             <p></p>
+            <p></p>
             <div className="formModal">
               <span className="formCadastro">Data do atendimento:</span>
-              <DatePicker
-                className="inputModal"
-                selected={startDate}
-                onChange={(date) => dateHandler(date)}
-                showTimeSelect
-                timeIntervals={30}
-                minTime={setHours(setMinutes(new Date(), 0), 6)}
-                maxTime={setHours(setMinutes(new Date(), 0), 20)}
-                dateFormat="dd/MM/yyyy h:mm aa"
-              />
+                <DatePicker
+                  className="inputModal"
+                  selected={startDate}
+                  onChange={(date) => dateHandler(date)}
+                  showTimeSelect
+                  timeIntervals={30}
+                  minTime={setHours(setMinutes(new Date(), 0), 6)}
+                  maxTime={setHours(setMinutes(new Date(), 0), 20)}
+                  dateFormat="dd/MM/yyyy HH:mm"
+                  timeFormat="HH:mm"
+                  placeholderText="Selecione a data e hora"
+                  locale={ptBR}
+                />
               <p></p>
               <span className="formCadastro">Pilates:</span>&nbsp;
               <input
