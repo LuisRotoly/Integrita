@@ -1,5 +1,5 @@
 import "./ModalConfirma.css";
-import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Modal from "react-modal";
 import BotaoSimples from "../componentes/BotaoSimples";
 import question from "../images/question.png";
@@ -7,30 +7,34 @@ import erro from "../images/erro.png";
 import check from "../images/check.png";
 
 function ModalConfirma(props) {
-  const [modalOpen, setModalOpen] = useState(false);
-  function openModal() {
-    setModalOpen(true);
-  }
+  const { modal, setModal } = props;
+  const history = useHistory();
 
   function closeModal() {
-    setModalOpen(false);
+    setModal({ ...modal, isOpen: false });
   }
+
+  function backPage(){
+    setModal({ ...modal, isOpen: false });
+    history.push(props.modal.voltarPagina);
+  }
+
   function onSubmit(event) {
     event.preventDefault();
-    console.log(props.tipo);
-    setModalOpen(false);
+    //console.log(props.tipo);
+    //setModalOpen(false);
   }
 
   return (
     <div>
+        {console.log(props.modal)}
       {(() => {
-        if (props.tipo === "sair") {
+        if (props.modal.tipo === "sair?") {
           return (
             <div>
-              <button onClick={openModal}>Sair</button>
               <Modal
                 ariaHideApp={false}
-                isOpen={modalOpen}
+                isOpen={modal.isOpen}
                 onRequestClose={closeModal}
                 style={{
                   overlay: {
@@ -59,7 +63,6 @@ function ModalConfirma(props) {
                   },
                 }}
               >
-                <form onSubmit={onSubmit}>
                   <img src={question} width="150" height="150" alt="Question" />
                   <p></p>
                   <p className="title">Tem certeza que deseja sair?</p>
@@ -69,20 +72,19 @@ function ModalConfirma(props) {
                       titulo="Cancelar"
                     ></BotaoSimples>
                     <BotaoSimples
-                      type="submit"
+                      onClick={backPage}
                       titulo="Confirmar"
                     ></BotaoSimples>
                   </div>
-                </form>
               </Modal>
             </div>
           );
-        } else if (props.tipo === "erro") {
+        } else if (props.modal.tipo === "erro") {
           return (
             <div>
               <Modal
                 ariaHideApp={false}
-                isOpen={modalOpen}
+                isOpen={modal.isOpen}
                 onRequestClose={closeModal}
                 style={{
                   overlay: {
@@ -111,7 +113,6 @@ function ModalConfirma(props) {
                   },
                 }}
               >
-                <form onSubmit={onSubmit}>
                   <img src={erro} width="150" height="150" alt="Erro" />
                   <p></p>
                   <p className="title">Erro: Algo deu errado!</p>
@@ -121,16 +122,15 @@ function ModalConfirma(props) {
                       titulo="OK"
                     ></BotaoSimples>
                   </div>
-                </form>
               </Modal>
             </div>
           );
-        } else if (props.tipo === "ok") {
+        } else if (props.modal.tipo === "ok") {
           return (
             <div>
               <Modal
                 ariaHideApp={false}
-                isOpen={modalOpen}
+                isOpen={modal.isOpen}
                 onRequestClose={closeModal}
                 style={{
                   overlay: {
@@ -159,17 +159,15 @@ function ModalConfirma(props) {
                   },
                 }}
               >
-                <form onSubmit={onSubmit}>
                   <img src={check} width="150" height="150" alt="Erro" />
                   <p></p>
                   <p className="title">Paciente salvo com sucesso!</p>
                   <div className="botaoOk">
                     <BotaoSimples
-                      onClick={closeModal}
+                      onClick={backPage}
                       titulo="OK"
                     ></BotaoSimples>
                   </div>
-                </form>
               </Modal>
             </div>
           );

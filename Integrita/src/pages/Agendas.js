@@ -23,9 +23,8 @@ function Agendas() {
   const [horario, setHorario] = useState([]);
 
   /*var gapi = window.gapi;
-  var CLIENT_ID =
-    "165129495407-nlu9867emhnaccjh8319co077qr2gbgc.apps.googleusercontent.com";
-  var API_KEY = "AIzaSyCm8mZa_zJc9qdaARKdbg9-WDd19t7-7uw";
+  var CLIENT_ID =;
+  var API_KEY = ;
   var DISCOVERY_DOCS = [
     "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
   ];

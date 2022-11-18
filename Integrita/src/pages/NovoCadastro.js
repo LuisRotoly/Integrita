@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import BotaoSimples from "../componentes/BotaoSimples";
 import InputMask from "react-input-mask";
 import { transformarData } from "./helper";
+import ModalConfirma from "../componentes/ModalConfirma";
 
 function NovoCadastro() {
   const [entradaNome, setEntradaNome] = useState("");
@@ -15,7 +16,7 @@ function NovoCadastro() {
   const [entradaPilates, setEntradaPilates] = useState("false");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("false");
   const [entradaAtivo, setAtivo] = useState("false");
-  const history = useHistory();
+  const [modal, setModal] = useState({ isOpen: false, tipo: "" , voltarPagina: ""});
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -48,6 +49,10 @@ function NovoCadastro() {
     setAtivo(event.target.checked);
   }
 
+  function cancelar(){
+    setModal({ isOpen: true, tipo: "sair?", voltarPagina:"/cadastro" });
+  }
+
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
@@ -71,11 +76,10 @@ function NovoCadastro() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        alert("Novo paciente cadastrado com sucesso!");
-        history.push("/cadastro");
+        setModal({ isOpen: true, tipo: "ok", voltarPagina:"/cadastro" });
       }
     } catch (e) {
-      alert("Erro: Não foi possível se conectar ao servidor");
+      setModal({ isOpen: true, tipo: "erro", voltarPagina:"" });
     }
   }
 
@@ -144,13 +148,12 @@ function NovoCadastro() {
           <input type="checkbox" onChange={ativoHandler}></input>&nbsp;
           <label>Paciente Ativo</label>
           <div>
-            <Link to={"/cadastro"}>
-              <BotaoSimples titulo="Cancelar"></BotaoSimples>
-            </Link>
+            <BotaoSimples onClick={cancelar} titulo="Cancelar"></BotaoSimples>
             <BotaoSimples type="submit" titulo="Confirmar"></BotaoSimples>
           </div>
         </form>
       </div>
+      <ModalConfirma modal={modal} setModal={setModal} />
     </div>
   );
 }

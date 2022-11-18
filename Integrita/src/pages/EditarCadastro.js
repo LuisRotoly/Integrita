@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import InputMask from "react-input-mask";
 import { transformarData, pegaLastSegment } from "./helper";
 import ModalConfirma from "../componentes/ModalConfirma";
@@ -16,7 +16,7 @@ function EditarCadastro() {
   const [entradaPilates, setEntradaPilates] = useState("");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("");
   const [entradaAtivo, setAtivo] = useState("");
-  const history = useHistory();
+  const [modal, setModal] = useState({ isOpen: false, tipo: "" , voltarPagina: ""});
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -49,6 +49,10 @@ function EditarCadastro() {
     setAtivo(event.target.checked);
   }
 
+  function cancelar(){
+    setModal({ isOpen: true, tipo: "sair?", voltarPagina:"/cadastro" });
+  }
+
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
@@ -77,11 +81,10 @@ function EditarCadastro() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        <ModalConfirma tipo="ok" />;
-        history.push("/cadastro");
+        setModal({ isOpen: true, tipo: "ok", voltarPagina:"/cadastro" });
       }
     } catch (e) {
-      <ModalConfirma tipo="erro" />;
+      setModal({ isOpen: true, tipo: "erro", voltarPagina:"" });
     }
   }
 
@@ -191,13 +194,12 @@ function EditarCadastro() {
           &nbsp;
           <label>Paciente Ativo</label>
           <div>
-            <Link to={"/cadastro"}>
-              <BotaoSimples titulo="Cancelar"></BotaoSimples>
-            </Link>
+            <BotaoSimples onClick={cancelar} titulo="Cancelar"></BotaoSimples>
             <BotaoSimples type="submit" titulo="Confirmar"></BotaoSimples>
           </div>
         </form>
       </div>
+      <ModalConfirma modal={modal} setModal={setModal} />
     </div>
   );
 }
