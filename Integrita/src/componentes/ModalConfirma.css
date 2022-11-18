@@ -1,0 +1,10 @@
+.title {
+  color: rgb(122, 78, 76);
+  font-size: 25px;
+}
+
+.botaoOk{
+  position: absolute;
+  top: 230px;
+  right: 225px;
+}

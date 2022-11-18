@@ -23,7 +23,6 @@ public interface RepositorioMensalidade extends CrudRepository<MensalidadeModelo
     <MenMod extends MensalidadeModelo> MenMod save(MenMod mensalidade);
 
     //listar soma dos recebiveis do mes do ano
-    @Query(value = "SELECT SUM(`valor_total`) as `soma`, MONTHNAME(`data_atual`) AS `mes`\n" +
-            "FROM mensalidade WHERE year(`data_atual`)= :ano GROUP BY YEAR(`data_atual`), MONTH(`data_atual`) ORDER BY MONTH(`data_atual`);", nativeQuery = true)
+    @Query(value = "SELECT SUM(`valor_total`) as `soma`, data_atual as `data` FROM mensalidade WHERE year(`data_atual`)= :ano GROUP BY YEAR(`data_atual`), MONTH(`data_atual`) ORDER BY MONTH(`data_atual`);", nativeQuery = true)
     List<MensalidadeProjecao> listarRecebiveisdoMes(String ano);
 }

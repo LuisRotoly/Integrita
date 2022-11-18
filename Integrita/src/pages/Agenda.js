@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
+//import ModalConfirma from "../componentes/ModalConfirma";
 
 function Agenda() {
   const history = useHistory();
@@ -21,6 +22,7 @@ function Agenda() {
   return (
     <div>
       <p>Agenda</p>
+      {/*<ModalConfirma tipo="ok"/>*/}
       <button
         type="button"
         className="btn btn-outline-danger"

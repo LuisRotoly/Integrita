@@ -3,6 +3,7 @@ import BotaoSimples from "../componentes/BotaoSimples";
 import { Link, useHistory } from "react-router-dom";
 import InputMask from "react-input-mask";
 import { transformarData, pegaLastSegment } from "./helper";
+import ModalConfirma from "../componentes/ModalConfirma";
 
 function EditarCadastro() {
   const [entradaNome, setEntradaNome] = useState("");
@@ -65,7 +66,8 @@ function EditarCadastro() {
     };
     try {
       const resposta = await fetch(
-        "http://localhost:8080/editar/" + pegaLastSegment(window.location.pathname),
+        "http://localhost:8080/editar/" +
+          pegaLastSegment(window.location.pathname),
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -75,16 +77,19 @@ function EditarCadastro() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        alert("Paciente editado com sucesso!");
+        <ModalConfirma tipo="ok" />;
         history.push("/cadastro");
       }
     } catch (e) {
-      alert("Erro: Não foi possível se conectar ao servidor");
+      <ModalConfirma tipo="erro" />;
     }
   }
 
   useEffect(() => {
-    fetch("http://localhost:8080/editar/" + pegaLastSegment(window.location.pathname))
+    fetch(
+      "http://localhost:8080/editar/" +
+        pegaLastSegment(window.location.pathname)
+    )
       .then((resp) => resp.json())
       .then((apiData) => {
         setEntradaNome(apiData.nomePaciente);

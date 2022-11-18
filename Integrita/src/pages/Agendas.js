@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import BotaoSimples from "../componentes/BotaoSimples";
-import ptBR from 'date-fns/locale/pt-BR';
+import ptBR from "date-fns/locale/pt-BR";
 
 function Agendas() {
   const calendarRef = createRef();
@@ -22,11 +22,77 @@ function Agendas() {
   const [buscaEncontrada, setBuscaEncontrada] = useState(false);
   const [horario, setHorario] = useState([]);
 
+  /*var gapi = window.gapi;
+  var CLIENT_ID =
+    "165129495407-nlu9867emhnaccjh8319co077qr2gbgc.apps.googleusercontent.com";
+  var API_KEY = "AIzaSyCm8mZa_zJc9qdaARKdbg9-WDd19t7-7uw";
+  var DISCOVERY_DOCS = [
+    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+  ];
+  var SCOPES = "https://www.googleapis.com/auth/calendar.events";
+
+  function sign() {
+    gapi.load("client:auth2", () => {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES,
+      });
+      gapi.client.load("calendar", "v3", () => console.log("bam!"));
+
+      gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(() => {
+          var event = {
+            summary: "Awesome Event!",
+            location: "800 Howard St., San Francisco, CA 94103",
+            description: "Really great refreshments",
+            start: {
+              dateTime: "2022-11-18T09:00:00-07:00",
+              timeZone: "America/Los_Angeles",
+            },
+            end: {
+              dateTime: "2022-11-18T17:00:00-07:00",
+              timeZone: "America/Los_Angeles",
+            },
+            recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
+            attendees: [
+              { email: "lpage@example.com" },
+              { email: "sbrin@example.com" },
+            ],
+            reminders: {
+              useDefault: false,
+              overrides: [
+                { method: "email", minutes: 24 * 60 },
+                { method: "popup", minutes: 10 },
+              ],
+            },
+          };
+          console.log("oi");
+          var request = gapi.client.calendar.events.insert({
+            calendarId: "primary",
+            resource: event,
+          });
+          console.log("oi2");
+          request.execute((event) => {
+            console.log(event);
+            window.open(event.htmlLink);
+          });
+          console.log("oi3");
+        });
+    });
+  }*/
+
   function onSubmit(event) {
     event.preventDefault();
+    //sign();
     if (
       dadosPaciente[0].nomePaciente !== "" &&
-      (acupuntura !== false || pilates !== false) && dataAtual !== ""
+      (acupuntura !== false || pilates !== false) &&
+      (acupuntura !== true || pilates !== true) &&
+      dataAtual !== ""
     ) {
       var calendar = calendarRef.current.getApi();
       if (pilates !== false) {
@@ -167,9 +233,12 @@ function Agendas() {
 
   async function onClickEventHandler(info) {
     try {
-      const resposta = await fetch("http://localhost:8080/agenda/" + info.event.id, {
-        method: "DELETE"
-      });
+      const resposta = await fetch(
+        "http://localhost:8080/agenda/" + info.event.id,
+        {
+          method: "DELETE",
+        }
+      );
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
@@ -239,7 +308,7 @@ function Agendas() {
               border: "1px solid #ccc",
               overflow: "auto",
               WebkitOverflowScrolling: "touch",
-              borderRadius: "4px",
+              borderRadius: "10px",
               outline: "none",
               padding: "20px",
             },
@@ -272,19 +341,19 @@ function Agendas() {
             <p></p>
             <div className="formModal">
               <span className="formCadastro">Data do atendimento:</span>
-                <DatePicker
-                  className="inputModal"
-                  selected={startDate}
-                  onChange={(date) => dateHandler(date)}
-                  showTimeSelect
-                  timeIntervals={30}
-                  minTime={setHours(setMinutes(new Date(), 0), 6)}
-                  maxTime={setHours(setMinutes(new Date(), 0), 20)}
-                  dateFormat="dd/MM/yyyy HH:mm"
-                  timeFormat="HH:mm"
-                  placeholderText="Selecione a data e hora"
-                  locale={ptBR}
-                />
+              <DatePicker
+                className="inputModal"
+                selected={startDate}
+                onChange={(date) => dateHandler(date)}
+                showTimeSelect
+                timeIntervals={30}
+                minTime={setHours(setMinutes(new Date(), 0), 6)}
+                maxTime={setHours(setMinutes(new Date(), 0), 20)}
+                dateFormat="dd/MM/yyyy HH:mm"
+                timeFormat="HH:mm"
+                placeholderText="Selecione a data e hora"
+                locale={ptBR}
+              />
               <p></p>
               <span className="formCadastro">Pilates:</span>&nbsp;
               <input
