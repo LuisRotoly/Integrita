@@ -12,7 +12,7 @@ public class AcompanhamentoModelo {
     private int idAcompanhamento;
     @Column(name="idPaciente")
     private int codigo;
-    @Column(name="descricao")
+    @Column(name="descricao", columnDefinition="LONGTEXT")
     private String descricao;
     @Column(name="dataAtual")
     private Date dataAtual = new Date();

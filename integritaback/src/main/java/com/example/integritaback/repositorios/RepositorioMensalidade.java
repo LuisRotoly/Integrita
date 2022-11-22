@@ -9,15 +9,16 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RepositorioMensalidade extends CrudRepository<MensalidadeModelo, Integer> {
 
-    //lista todas as mensalidade
-    List<MensalidadeModelo> findAll();
+    //listar uma mensalidade pelo idMensalidade
+    MensalidadeModelo findByidMensalidade(Integer idMensalidade);
 
-    //pesquisa por as mensalidades pagas e ordena desc
+    //listar a mensalidade de um paciente especifico pelo codigo do paciente
 
     List<MensalidadeModelo> findByCodigo(int codigo, Sort sort);
 
     //remove mensalidade
-    void delete(MensalidadeModelo mensalidade);
+    @Query(value = "DELETE mensalidade FROM mensalidade WHERE id_mensalidade = :idMensalidade;", nativeQuery = true)
+    void delete(Integer idMensalidade);
 
     //cadastra/altera mensalidade
     <MenMod extends MensalidadeModelo> MenMod save(MenMod mensalidade);

@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
-import { Link , useHistory } from "react-router-dom";
 import {transformarData, pegaLastSegment} from './helper';
+import ModalConfirma from "../componentes/ModalConfirma";
 
 function AvaliacaoAcupuntura() {
-  const history = useHistory();
   const [entradaNome, setEntradaNome] = useState("");
   const [entradaQueixa, setQueixa] = useState("");
   const [entradaHDA, setHDA] = useState("");
@@ -33,6 +32,12 @@ function AvaliacaoAcupuntura() {
   const [entradaPSN, setPSN] = useState("");
   const [entradaPSE, setPSE] = useState("");
   const [entradaObsGerais, setObsGerais] = useState("");
+  const [modal, setModal] = useState({
+    isOpen: false,
+    tipo: "",
+    voltarPagina: "",
+    frase: ""
+  });
 
   useEffect(() => {
     fetchNomePaciente(pegaLastSegment(window.location.pathname));
@@ -163,6 +168,10 @@ function AvaliacaoAcupuntura() {
     setObsGerais(event.target.value);
   }
 
+  function cancelar() {
+    setModal({ isOpen: true, tipo: "sair?", voltarPagina: "/avaliacao" });
+  }
+
   async function submitHandler(event) {
     event.preventDefault();
     const dados = {
@@ -207,11 +216,10 @@ function AvaliacaoAcupuntura() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        alert("Avaliação cadastrada com sucesso!");
-        history.push("/avaliacao");
+        setModal({ isOpen: true, tipo: "ok", voltarPagina: "/avaliacao", frase:"Avaliação cadastrada com sucesso!" });
       }
     } catch (e) {
-      alert("Erro: Não foi possível se conectar ao servidor");
+      setModal({ isOpen: true, tipo: "erro", voltarPagina: "" });
     }
   }
 
@@ -220,7 +228,6 @@ function AvaliacaoAcupuntura() {
       <div className="data">Data: {transformarData(new Date())}</div>
       <div className="formCadastro">
         <h2 className="fontBold">Ficha de Avaliação Acupuntura</h2>
-        <form onSubmit={submitHandler}>
           <label className="fontBold">Nome:</label>
           {entradaNome}
           <br />
@@ -235,21 +242,21 @@ function AvaliacaoAcupuntura() {
             onChange={queixaHandler}
           ></input>
           <br />
-          <label>HDA:</label>
-          <input
+          <label className="alinharHDAeHDP">HDA:</label>
+          <textarea
             value={entradaHDA}
-            className="inputAvaliacao"
+            className="inputAvaliacaoDuasLinhas"
             type="text"
             onChange={hdaHandler}
-          ></input>
+          ></textarea>
           <br />
-          <label>HDP:</label>
-          <input
+          <label className="alinharHDAeHDP">HDP:</label>
+          <textarea
             value={entradaHDP}
-            className="inputAvaliacao"
+            className="inputAvaliacaoDuasLinhas"
             type="text"
             onChange={hdpHandler}
-          ></input>
+          ></textarea>
           <br />
           <label>Medicações:</label>
           <input
@@ -378,7 +385,7 @@ function AvaliacaoAcupuntura() {
           <br />
           <br />
           <h4 className="fontBold">Aplicação:</h4>
-          <label>Orelha:</label>&nbsp;
+          <label>Orelha:</label>
           <select value={entradaOrelha} onChange={orelhaHandler}>
             <option value="N">Nenhuma</option>
             <option value="D">Direita</option>
@@ -462,14 +469,15 @@ function AvaliacaoAcupuntura() {
           ></textarea>
           <br />
           <div>
-            <Link to={"/avaliacao"}>
-              <BotaoSimples titulo="Cancelar"></BotaoSimples>
-            </Link>
-            <BotaoSimples type="submit" titulo="Confirmar"></BotaoSimples>
+          <BotaoSimples onClick={cancelar} titulo="Cancelar"></BotaoSimples>
+          <BotaoSimples
+            onClick={submitHandler}
+            titulo="Confirmar"
+          ></BotaoSimples>
           </div>
           <br />
-        </form>
       </div>
+      <ModalConfirma modal={modal} setModal={setModal} />
     </div>
   );
 }

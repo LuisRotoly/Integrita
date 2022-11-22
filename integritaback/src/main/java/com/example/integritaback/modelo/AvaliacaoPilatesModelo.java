@@ -31,7 +31,7 @@ public class AvaliacaoPilatesModelo {
     private String ombro;
     @Column(name="articulacoes")
     private String articulacoes;
-    @Column(name="observacoes")
+    @Column(name="observacoes", columnDefinition="LONGTEXT")
     private String observacoes;
     @Column(name="dataAtual")
     private Date dataAtual = new Date();

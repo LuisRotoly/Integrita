@@ -20,6 +20,8 @@ public class MensalidadeModelo {
     private int valorTotal;
     @Column(name="dataAtual")
     private Date dataAtual = new Date();
+    @Column(name="mesReferencia")
+    private String mesReferencia;
 
     public int getIdMensalidade() {
         return idMensalidade;
@@ -66,5 +68,13 @@ public class MensalidadeModelo {
 
     public void setDataAtual(Date dataAtual) {
         this.dataAtual = dataAtual;
+    }
+
+    public String getMesReferencia() {
+        return mesReferencia;
+    }
+
+    public void setMesReferencia(String mesReferencia) {
+        this.mesReferencia = mesReferencia;
     }
 }

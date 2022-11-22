@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import BotaoSimples from "../componentes/BotaoSimples";
 import InputMask from "react-input-mask";
 import { transformarData } from "./helper";
@@ -16,7 +15,7 @@ function NovoCadastro() {
   const [entradaPilates, setEntradaPilates] = useState("false");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("false");
   const [entradaAtivo, setAtivo] = useState("false");
-  const [modal, setModal] = useState({ isOpen: false, tipo: "" , voltarPagina: ""});
+  const [modal, setModal] = useState({ isOpen: false, tipo: "" , voltarPagina: "", frase:""});
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -76,7 +75,7 @@ function NovoCadastro() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        setModal({ isOpen: true, tipo: "ok", voltarPagina:"/cadastro" });
+        setModal({ isOpen: true, tipo: "ok", voltarPagina:"/cadastro", frase:"Paciente cadastrado com sucesso!" });
       }
     } catch (e) {
       setModal({ isOpen: true, tipo: "erro", voltarPagina:"" });
@@ -87,7 +86,6 @@ function NovoCadastro() {
     <div>
       <div className="data">Data: {transformarData(new Date())}</div>
       <div className="formCadastro">
-        <form onSubmit={submitHandler}>
           <label>Nome: </label>
           <input
             className="inputCadastro"
@@ -113,12 +111,14 @@ function NovoCadastro() {
             onChange={telefoneHandler}
           ></InputMask>
           <br />
-          <label>Idade: </label>
-          <input
+          <label>Data Nasc.: </label>
+          <InputMask
             className="inputCadastro"
+            mask="99/99/9999"
+            maskChar=""
             type="text"
             onChange={idadeHandler}
-          ></input>
+          ></InputMask>
           <br />
           <label>Profissão: </label>
           <input
@@ -149,9 +149,8 @@ function NovoCadastro() {
           <label>Paciente Ativo</label>
           <div>
             <BotaoSimples onClick={cancelar} titulo="Cancelar"></BotaoSimples>
-            <BotaoSimples type="submit" titulo="Confirmar"></BotaoSimples>
+            <BotaoSimples onClick={submitHandler} titulo="Confirmar"></BotaoSimples>
           </div>
-        </form>
       </div>
       <ModalConfirma modal={modal} setModal={setModal} />
     </div>

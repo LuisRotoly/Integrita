@@ -1,4 +1,5 @@
 package com.example.integritaback.controllers;
+import com.example.integritaback.modelo.AgendaModelo;
 import com.example.integritaback.projections.MensalidadeProjecao;
 import com.example.integritaback.modelo.MensalidadeModelo;
 import com.example.integritaback.repositorios.RepositorioMensalidade;
@@ -14,13 +15,13 @@ public class MensalidadeController {
     @Autowired
     private RepositorioMensalidade acoes;
 
-    //listar todas as mensalidade
-    @RequestMapping(value="/mensalidade", method=RequestMethod.GET)
-    public @ResponseBody List<MensalidadeModelo> listar(){
-        return acoes.findAll();
+    //listar uma mensalidade pelo idMensalidade
+    @RequestMapping(value="/mensalidade/listar/{idMensalidade}", method=RequestMethod.GET)
+    public @ResponseBody MensalidadeModelo listarPeloidMensalidade(@PathVariable Integer idMensalidade){
+        return acoes.findByidMensalidade(idMensalidade);
     }
 
-    //listar um paciente especifico pelo codigo
+    //listar a mensalidade de um paciente especifico pelo codigo do paciente
     @RequestMapping(value="/mensalidade/{codigo}", method=RequestMethod.GET)
     public @ResponseBody List<MensalidadeModelo> filtrar(@PathVariable Integer codigo, Sort sort){
         sort = Sort.by(Sort.Direction.DESC,"dataAtual");
@@ -34,9 +35,10 @@ public class MensalidadeController {
     }
 
     //remover mensalidade
-    @RequestMapping(value="/mensalidade/{codigo}", method=RequestMethod.DELETE)
-    public @ResponseBody void remover(@RequestBody MensalidadeModelo mensalidade){
-        acoes.delete(mensalidade);
+    @RequestMapping(value="/mensalidade/{idMensalidade}", method=RequestMethod.DELETE)
+    public @ResponseBody void remover(@PathVariable Integer idMensalidade){
+        MensalidadeModelo mensalidadeModelo = listarPeloidMensalidade(idMensalidade);
+        acoes.delete(mensalidadeModelo);
     }
 
     //listar soma dos recebiveis do mes do ano

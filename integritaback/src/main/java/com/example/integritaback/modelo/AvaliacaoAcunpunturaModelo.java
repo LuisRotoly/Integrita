@@ -30,7 +30,7 @@ public class AvaliacaoAcunpunturaModelo {
     private String dermatologico;
     @Column(name="neurologico")
     private String neurologico;
-    @Column(name="exameFisico")
+    @Column(name="exameFisico", columnDefinition="LONGTEXT")
     private String exameFisico;
     @Column(name="manchas")
     private String manchas;
@@ -60,7 +60,7 @@ public class AvaliacaoAcunpunturaModelo {
     private String psn;
     @Column(name="pse")
     private String pse;
-    @Column(name="observacaoGeral")
+    @Column(name="observacaoGeral", columnDefinition="LONGTEXT")
     private String observacaoGeral;
     @Column(name="dataAtual")
     private Date dataAtual = new Date();

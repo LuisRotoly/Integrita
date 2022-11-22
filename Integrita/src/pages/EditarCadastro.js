@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
-import { Link } from "react-router-dom";
 import InputMask from "react-input-mask";
 import { transformarData, pegaLastSegment } from "./helper";
 import ModalConfirma from "../componentes/ModalConfirma";
@@ -16,7 +15,12 @@ function EditarCadastro() {
   const [entradaPilates, setEntradaPilates] = useState("");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("");
   const [entradaAtivo, setAtivo] = useState("");
-  const [modal, setModal] = useState({ isOpen: false, tipo: "" , voltarPagina: ""});
+  const [modal, setModal] = useState({
+    isOpen: false,
+    tipo: "",
+    voltarPagina: "",
+    frase: ""
+  });
 
   function nomeHandler(event) {
     setEntradaNome(event.target.value);
@@ -49,8 +53,8 @@ function EditarCadastro() {
     setAtivo(event.target.checked);
   }
 
-  function cancelar(){
-    setModal({ isOpen: true, tipo: "sair?", voltarPagina:"/cadastro" });
+  function cancelar() {
+    setModal({ isOpen: true, tipo: "sair?", voltarPagina: "/cadastro" });
   }
 
   async function submitHandler(event) {
@@ -81,10 +85,10 @@ function EditarCadastro() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        setModal({ isOpen: true, tipo: "ok", voltarPagina:"/cadastro" });
+        setModal({ isOpen: true, tipo: "ok", voltarPagina: "/cadastro", frase:"Paciente editado com sucesso!"});
       }
     } catch (e) {
-      setModal({ isOpen: true, tipo: "erro", voltarPagina:"" });
+      setModal({ isOpen: true, tipo: "erro", voltarPagina: "" });
     }
   }
 
@@ -112,92 +116,95 @@ function EditarCadastro() {
     <div>
       <div className="data">Data: {transformarData(new Date())}</div>
       <div className="formCadastro">
-        <form onSubmit={submitHandler}>
-          <label>Nome: </label>
-          <input
-            className="inputCadastro"
-            value={entradaNome}
-            type="text"
-            onChange={nomeHandler}
-          ></input>
-          <br />
-          <label>CPF: </label>
-          <InputMask
-            className="inputCadastro"
-            value={entradaCPF}
-            mask="999.999.999-99"
-            maskChar=""
-            type="text"
-            onChange={cpfHandler}
-          ></InputMask>
-          <br />
-          <label>Telefone: </label>
-          <InputMask
-            className="inputCadastro"
-            value={entradaTelefone}
-            mask="(99)999999999"
-            maskChar=""
-            type="text"
-            onChange={telefoneHandler}
-          ></InputMask>
-          <br />
-          <label>Idade: </label>
-          <input
-            className="inputCadastro"
-            value={entradaIdade}
-            type="text"
-            onChange={idadeHandler}
-          ></input>
-          <br />
-          <label>Profissão: </label>
-          <input
-            className="inputCadastro"
-            value={entradaProfissao}
-            type="text"
-            onChange={profissaoHandler}
-          ></input>
-          <br />
-          <select value={entradaSexo} onChange={sexoHandler}>
-            <option value="M">Masculino</option>
-            <option value="F">Feminino</option>
-          </select>
-          <br />
-          <label>Endereço: </label>
-          <input
-            className="inputCadastro"
-            value={entradaEndereco}
-            type="text"
-            onChange={enderecoHandler}
-          ></input>
-          <br />
-          <input
-            checked={entradaPilates}
-            type="checkbox"
-            onChange={pilatesHandler}
-          ></input>
-          &nbsp;
-          <label>Pilates</label>
-          <br />
-          <input
-            checked={entradaAcupuntura}
-            type="checkbox"
-            onChange={acupunturaHandler}
-          ></input>
-          &nbsp;
-          <label>Acupuntura</label>
-          <br />
-          <input
-            checked={entradaAtivo}
-            type="checkbox"
-            onChange={ativoHandler}
-          ></input>
-          &nbsp;
-          <label>Paciente Ativo</label>
-          <div>
-            <BotaoSimples onClick={cancelar} titulo="Cancelar"></BotaoSimples>
-            <BotaoSimples type="submit" titulo="Confirmar"></BotaoSimples>
-          </div>
-        </form>
+        <label>Nome: </label>
+        <input
+          className="inputCadastro"
+          value={entradaNome}
+          type="text"
+          onChange={nomeHandler}
+        ></input>
+        <br />
+        <label>CPF: </label>
+        <InputMask
+          className="inputCadastro"
+          value={entradaCPF}
+          mask="999.999.999-99"
+          maskChar=""
+          type="text"
+          onChange={cpfHandler}
+        ></InputMask>
+        <br />
+        <label>Telefone: </label>
+        <InputMask
+          className="inputCadastro"
+          value={entradaTelefone}
+          mask="(99)999999999"
+          maskChar=""
+          type="text"
+          onChange={telefoneHandler}
+        ></InputMask>
+        <br />
+        <label>Data Nasc.: </label>
+        <InputMask
+          className="inputCadastro"
+          mask="99/99/9999"
+          maskChar=""
+          value={entradaIdade}
+          type="text"
+          onChange={idadeHandler}
+        ></InputMask>
+        <br />
+        <label>Profissão: </label>
+        <input
+          className="inputCadastro"
+          value={entradaProfissao}
+          type="text"
+          onChange={profissaoHandler}
+        ></input>
+        <br />
+        <select value={entradaSexo} onChange={sexoHandler}>
+          <option value="M">Masculino</option>
+          <option value="F">Feminino</option>
+        </select>
+        <br />
+        <label>Endereço: </label>
+        <input
+          className="inputCadastro"
+          value={entradaEndereco}
+          type="text"
+          onChange={enderecoHandler}
+        ></input>
+        <br />
+        <input
+          checked={entradaPilates}
+          type="checkbox"
+          onChange={pilatesHandler}
+        ></input>
+        &nbsp;
+        <label>Pilates</label>
+        <br />
+        <input
+          checked={entradaAcupuntura}
+          type="checkbox"
+          onChange={acupunturaHandler}
+        ></input>
+        &nbsp;
+        <label>Acupuntura</label>
+        <br />
+        <input
+          checked={entradaAtivo}
+          type="checkbox"
+          onChange={ativoHandler}
+        ></input>
+        &nbsp;
+        <label>Paciente Ativo</label>
+        <div>
+          <BotaoSimples onClick={cancelar} titulo="Cancelar"></BotaoSimples>
+          <BotaoSimples
+            onClick={submitHandler}
+            titulo="Confirmar"
+          ></BotaoSimples>
+        </div>
       </div>
       <ModalConfirma modal={modal} setModal={setModal} />
     </div>
