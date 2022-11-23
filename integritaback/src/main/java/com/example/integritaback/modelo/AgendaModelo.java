@@ -17,6 +17,8 @@ public class AgendaModelo {
     private boolean pilates;
     @Column(name="acupuntura")
     private boolean acupuntura;
+    @Column(name="flag")
+    private String flag;
     @Column(name="data")
     private String data;
 
@@ -66,5 +68,13 @@ public class AgendaModelo {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

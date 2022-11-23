@@ -33,5 +33,6 @@ public class AgendaController {
     @RequestMapping(value="/agenda/{idAgenda}", method=RequestMethod.DELETE)
     public @ResponseBody void remover(@PathVariable Integer idAgenda){
         AgendaModelo agendaModelo = listarPeloidAgenda(idAgenda);
-        acoes.delete(agendaModelo);}
+        acoes.delete(agendaModelo);
+    }
 }

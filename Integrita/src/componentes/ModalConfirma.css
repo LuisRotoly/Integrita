@@ -3,6 +3,12 @@
   font-size: 25px;
 }
 
+.escritosModal {
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+  margin-top: 8px;
+}
+
 .botaoOk{
   position: absolute;
   top: 240px;

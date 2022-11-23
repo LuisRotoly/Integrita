@@ -9,18 +9,27 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import BotaoSimples from "../componentes/BotaoSimples";
 import ptBR from "date-fns/locale/pt-BR";
+import ModalConfirma from "../componentes/ModalConfirma";
 
 function Agendas() {
   const calendarRef = createRef();
   const [startDate, setStartDate] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalInclusaoOpen, setModalInclusaoOpen] = useState(false);
   const [dataAtual, setDataAtual] = useState("");
+  const [flag, setFlag] = useState("");
   const [pilates, setPilates] = useState(false);
   const [acupuntura, setAcupuntura] = useState(false);
   const [busca, setBusca] = useState("");
   const [dadosPaciente, setDadosPaciente] = useState([]);
   const [buscaEncontrada, setBuscaEncontrada] = useState(false);
   const [horario, setHorario] = useState([]);
+  const [numeroIdAgenda, setNumeroIdAgenda] = useState("");
+  const [modal, setModal] = useState({
+    isOpen: false,
+    tipo: "",
+    voltarPagina: "",
+    frase: "",
+  });
 
   /*var gapi = window.gapi;
   var CLIENT_ID =;
@@ -96,7 +105,7 @@ function Agendas() {
       var calendar = calendarRef.current.getApi();
       if (pilates !== false) {
         calendar.addEvent({
-          title: dadosPaciente[0].nomePaciente,
+          title: dadosPaciente[0].nomePaciente+" - "+flag,
           date: dataAtual,
           color: "green",
         });
@@ -105,12 +114,13 @@ function Agendas() {
           dadosPaciente[0].nomePaciente,
           pilates,
           acupuntura,
+          flag,
           dataAtual
         );
         setPilates(false);
       } else if (acupuntura !== false) {
         calendar.addEvent({
-          title: dadosPaciente[0].nomePaciente,
+          title: dadosPaciente[0].nomePaciente+" - "+flag,
           date: dataAtual,
           color: "red",
         });
@@ -120,11 +130,12 @@ function Agendas() {
           dadosPaciente[0].nomePaciente,
           pilates,
           acupuntura,
+          flag,
           dataAtual
         );
       }
       setBusca("");
-      setModalOpen(false);
+      setModalInclusaoOpen(false);
       setStartDate(new Date());
       window.location.reload(false);
     }
@@ -135,6 +146,7 @@ function Agendas() {
     nomePaciente,
     pilates,
     acupuntura,
+    flag,
     dataAtual
   ) {
     const dados = {
@@ -142,6 +154,7 @@ function Agendas() {
       nomePaciente: nomePaciente,
       pilates: pilates,
       acupuntura: acupuntura,
+      flag: flag,
       data: dataAtual,
     };
     try {
@@ -153,19 +166,18 @@ function Agendas() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        alert("Horário cadastrado com sucesso!");
       }
     } catch (e) {
-      alert("Erro: Não foi possível se conectar ao servidor");
+      console.log(e);
     }
   }
 
   function openModal() {
-    setModalOpen(true);
+    setModalInclusaoOpen(true);
   }
 
   function closeModal() {
-    setModalOpen(false);
+    setModalInclusaoOpen(false);
   }
 
   function dateHandler(date) {
@@ -213,14 +225,14 @@ function Agendas() {
           if (apiData[i].pilates !== false) {
             horarioProv.push({
               id: apiData[i].idAgenda,
-              title: apiData[i].nomePaciente,
+              title: apiData[i].nomePaciente+" - "+apiData[i].flag,
               date: apiData[i].data,
               color: "green",
             });
           } else if (apiData[i].acupuntura !== false) {
             horarioProv.push({
               id: apiData[i].idAgenda,
-              title: apiData[i].nomePaciente,
+              title: apiData[i].nomePaciente+" - "+apiData[i].flag,
               date: apiData[i].data,
               color: "red",
             });
@@ -230,25 +242,67 @@ function Agendas() {
       });
   }
 
-  async function onClickEventHandler(info) {
-    try {
-      const resposta = await fetch(
-        "http://localhost:8080/agenda/" + info.event.id,
-        {
-          method: "DELETE",
+  async function confirmaDeleta(valor) {
+    if (valor) {
+      try {
+        const resposta = await fetch(
+          "http://localhost:8080/agenda/" + numeroIdAgenda,
+          {
+            method: "DELETE",
+          }
+        );
+        if (!resposta.ok) {
+          throw new Error("Algo deu Errado");
+        } else {
+          setModal({
+            isOpen: true,
+            tipo: "ok",
+            voltarPagina: "",
+            frase: "Horário removido com sucesso!",
+          });
         }
-      );
+      } catch (e) {
+        console.log(e);
+        setModal({ isOpen: true, tipo: "erro", voltarPagina: "" });
+      }
+    }
+    pegaHorarios();
+  }
+
+  async function flagis(valor) {
+    var dados = "";
+    try {
+      await fetch("http://localhost:8080/agenda/" + numeroIdAgenda)
+        .then((resp) => resp.json())
+        .then((apiData) => {
+          dados = {
+            idAgenda: apiData.idAgenda,
+            codigo: apiData.codigo,
+            nomePaciente: apiData.nomePaciente,
+            pilates: apiData.pilates,
+            acupuntura: apiData.acupuntura,
+            flag: valor,
+            data: apiData.data,
+          };
+        });
+      const resposta = await fetch("http://localhost:8080/agenda", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados),
+      });
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        var calendar = calendarRef.current.getApi();
-        var removeEvents = calendar.getEventById(info.event.id);
-        removeEvents.remove();
-        alert("Horário removido com sucesso!");
       }
     } catch (e) {
-      alert("Erro: Não foi possível se conectar ao servidor");
+      console.log(e);
     }
+    pegaHorarios();
+  }
+
+  function onClickEventHandler(info) {
+    setModal({ isOpen: true, tipo: "agenda" });
+    setNumeroIdAgenda(info.event.id);
   }
 
   return (
@@ -284,7 +338,7 @@ function Agendas() {
       <div className="modal">
         <Modal
           ariaHideApp={false}
-          isOpen={modalOpen}
+          isOpen={modalInclusaoOpen}
           onRequestClose={closeModal}
           style={{
             overlay: {
@@ -376,6 +430,12 @@ function Agendas() {
           </form>
         </Modal>
       </div>
+      <ModalConfirma
+        flagis={flagis}
+        confirmaDeleta={confirmaDeleta}
+        modal={modal}
+        setModal={setModal}
+      />
     </div>
   );
 }
