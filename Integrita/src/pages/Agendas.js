@@ -93,6 +93,12 @@ function Agendas() {
     });
   }*/
 
+  function abreviarNomePaciente(nomePaciente){
+    const nome = nomePaciente.split(' ');
+    const nomeAbreviado = nome[0]+" "+nome[1].substring(0,1)+".";
+    return nomeAbreviado;
+  }
+
   function onSubmit(event) {
     event.preventDefault();
     //sign();
@@ -305,6 +311,23 @@ function Agendas() {
     setNumeroIdAgenda(info.event.id);
   }
 
+  function clonarAgendamentos(){
+    /*setModal({
+      isOpen: true,
+      tipo: "certeza?",
+      voltarPagina: "",
+      frase: "Tem certeza que deseja remover esse pagamento?",
+    });*/
+    var calendar = calendarRef.current.getApi();
+    let startDayWeek = calendar.view.currentStart;
+    let endDayWeek = calendar.view.currentEnd;
+    var firstDay = new Date(startDayWeek);
+    var lastDay = new Date(endDayWeek);
+    firstDay.setDate(firstDay.getDate() - 6);
+    lastDay.setDate(lastDay.getDate() - 9);
+    console.log(firstDay.toISOString().substring(0,10),lastDay.toISOString().substring(0,10));
+  }
+
   return (
     <div>
       <div className="calendar">
@@ -320,13 +343,17 @@ function Agendas() {
           aspectRatio={2}
           buttonText={{ today: "Hoje" }}
           headerToolbar={{
-            start: "clickButton",
+            start: "clickButton2 clickButton",
             center: "title",
           }}
           customButtons={{
             clickButton: {
               text: "Incluir Novo Atendimento ",
               click: (e) => openModal(),
+            },
+            clickButton2: {
+              text: "Clonar Semana Passada",
+              click: (e) => clonarAgendamentos(),
             },
           }}
           eventClick={function (info) {
@@ -382,7 +409,7 @@ function Agendas() {
                 })
                 .map(({ nomePaciente, codigo }) => (
                   <div
-                    onClick={() => pacienteClicado(nomePaciente, codigo)}
+                    onClick={() => pacienteClicado((abreviarNomePaciente(nomePaciente)), codigo)}
                     className="dropdown-row"
                     key={codigo}
                   >

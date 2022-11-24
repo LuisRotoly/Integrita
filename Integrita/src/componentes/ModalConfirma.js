@@ -26,6 +26,16 @@ function ModalConfirma(props) {
     setModal({ ...modal, isOpen: false });
   }
 
+  function remover() {
+    setModal({ ...modal, isOpen: false });
+    setModal({
+      isOpen: true,
+      tipo: "certeza?",
+      voltarPagina: "",
+      frase: "Tem certeza que deseja remover esse agendamento?",
+    });
+  }
+
   function handleFlag(flag){
     flagis(flag);
     setModal({ ...modal, isOpen: false });
@@ -263,25 +273,25 @@ function ModalConfirma(props) {
                 <p></p>
                 <span className="escritosModal">Paciente não compareceu:</span>
                 <BotaoSimples
-                  onClick={(e)=>handleFlag("Faltou")}
+                  onClick={(e)=>handleFlag("Falta")}
                   titulo="Faltou"
                 ></BotaoSimples>
                 <p></p>
                 <span className="escritosModal">Paciente desmarcou:</span>
                 <BotaoSimples
-                  onClick={(e)=>handleFlag("Desmarcou")}
+                  onClick={(e)=>handleFlag("Desm")}
                   titulo="Desmarcou"
                 ></BotaoSimples>
                 <p></p>
                 <span className="escritosModal">Paciente reposição:</span>
                 <BotaoSimples
-                  onClick={(e)=>handleFlag("Reposição")}
+                  onClick={(e)=>handleFlag("Rep")}
                   titulo="Reposição"
                 ></BotaoSimples>
                 <p></p>
                 <span className="escritosModal">Remover agendamento:</span>
                 <BotaoSimples
-                  onClick={confirmaDelecao}
+                  onClick={remover}
                   titulo="Remover"
                 ></BotaoSimples>
                 <p></p>

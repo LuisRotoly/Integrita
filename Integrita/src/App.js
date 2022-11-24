@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Agenda from "./pages/Agenda";
 import Agendas from "./pages/Agendas";
 import Cadastro from "./pages/Cadastro";
 import Avaliacao from "./pages/Avaliacao";
@@ -26,10 +25,7 @@ function App() {
         <Route path="/cadastro/editar/:codigo">
           <EditarCadastro />
         </Route>
-        <Route exact path="/agenda">
-          <Agenda />
-        </Route>
-        <Route path="/agendas">
+        <Route path="/agenda">
           <Agendas />
         </Route>
         <Route path="/cadastro">
