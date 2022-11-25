@@ -35,4 +35,10 @@ public class AgendaController {
         AgendaModelo agendaModelo = listarPeloidAgenda(idAgenda);
         acoes.delete(agendaModelo);
     }
+
+    //clonar os atendimentos da ultima semana
+    @RequestMapping(value="/agenda/clone/{data0}/{data1}/{data2}/{data3}/{data4}", method=RequestMethod.GET)
+    public @ResponseBody List<AgendaModelo> clone(@PathVariable String data0,@PathVariable String data1,@PathVariable String data2,@PathVariable String data3,@PathVariable String data4){
+        return acoes.encontraAtendimento(data0,data1,data2,data3,data4);
+    }
 }

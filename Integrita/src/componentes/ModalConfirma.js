@@ -7,7 +7,7 @@ import erro from "../images/erro.png";
 import check from "../images/check.png";
 
 function ModalConfirma(props) {
-  const { flagis, confirmaDeleta, modal, setModal } = props;
+  const { clonarAgendamentos, flagis, confirmaDeleta, modal, setModal } = props;
   const history = useHistory();
 
   function closeModal() {
@@ -23,6 +23,11 @@ function ModalConfirma(props) {
 
   function confirmaDelecao() {
     confirmaDeleta(true);
+    setModal({ ...modal, isOpen: false });
+  }
+
+  function clone() {
+    clonarAgendamentos(true);
     setModal({ ...modal, isOpen: false });
   }
 
@@ -299,6 +304,56 @@ function ModalConfirma(props) {
                   onClick={closeModal}
                   titulo="Voltar"
                 ></BotaoSimples>
+              </Modal>
+            </div>
+          );
+        }else if (props.modal.tipo === "confirma?") {
+          return (
+            <div>
+              <Modal
+                ariaHideApp={false}
+                isOpen={modal.isOpen}
+                onRequestClose={closeModal}
+                style={{
+                  overlay: {
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    opacity: 1,
+                  },
+                  content: {
+                    textAlign: "center",
+                    position: "absolute",
+                    width: "500px",
+                    height: "360px",
+                    top: "130px",
+                    left: "550px",
+                    right: "500px",
+                    bottom: "200px",
+                    border: "1px solid #ccc",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                    borderRadius: "10px",
+                    outline: "none",
+                    padding: "20px",
+                  },
+                }}
+              >
+                <img src={question} width="150" height="150" alt="Question" />
+                <p></p>
+                <p className="title">{props.modal.frase}</p>
+                <div>
+                  <BotaoSimples
+                    onClick={closeModal}
+                    titulo="Cancelar"
+                  ></BotaoSimples>
+                  <BotaoSimples
+                    onClick={clone}
+                    titulo="Confirmar"
+                  ></BotaoSimples>
+                </div>
               </Modal>
             </div>
           );

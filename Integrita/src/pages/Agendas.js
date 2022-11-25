@@ -93,9 +93,9 @@ function Agendas() {
     });
   }*/
 
-  function abreviarNomePaciente(nomePaciente){
-    const nome = nomePaciente.split(' ');
-    const nomeAbreviado = nome[0]+" "+nome[1].substring(0,1)+".";
+  function abreviarNomePaciente(nomePaciente) {
+    const nome = nomePaciente.split(" ");
+    const nomeAbreviado = nome[0] + " " + nome[1].substring(0, 1) + ".";
     return nomeAbreviado;
   }
 
@@ -111,7 +111,7 @@ function Agendas() {
       var calendar = calendarRef.current.getApi();
       if (pilates !== false) {
         calendar.addEvent({
-          title: dadosPaciente[0].nomePaciente+" - "+flag,
+          title: dadosPaciente[0].nomePaciente + " - " + flag,
           date: dataAtual,
           color: "green",
         });
@@ -126,7 +126,7 @@ function Agendas() {
         setPilates(false);
       } else if (acupuntura !== false) {
         calendar.addEvent({
-          title: dadosPaciente[0].nomePaciente+" - "+flag,
+          title: dadosPaciente[0].nomePaciente + " - " + flag,
           date: dataAtual,
           color: "red",
         });
@@ -231,14 +231,14 @@ function Agendas() {
           if (apiData[i].pilates !== false) {
             horarioProv.push({
               id: apiData[i].idAgenda,
-              title: apiData[i].nomePaciente+" - "+apiData[i].flag,
+              title: apiData[i].nomePaciente + " - " + apiData[i].flag,
               date: apiData[i].data,
               color: "green",
             });
           } else if (apiData[i].acupuntura !== false) {
             horarioProv.push({
               id: apiData[i].idAgenda,
-              title: apiData[i].nomePaciente+" - "+apiData[i].flag,
+              title: apiData[i].nomePaciente + " - " + apiData[i].flag,
               date: apiData[i].data,
               color: "red",
             });
@@ -311,21 +311,57 @@ function Agendas() {
     setNumeroIdAgenda(info.event.id);
   }
 
-  function clonarAgendamentos(){
-    /*setModal({
+  function clonar() {
+    setModal({
       isOpen: true,
-      tipo: "certeza?",
+      tipo: "confirma?",
       voltarPagina: "",
-      frase: "Tem certeza que deseja remover esse pagamento?",
-    });*/
-    var calendar = calendarRef.current.getApi();
-    let startDayWeek = calendar.view.currentStart;
-    let endDayWeek = calendar.view.currentEnd;
-    var firstDay = new Date(startDayWeek);
-    var lastDay = new Date(endDayWeek);
-    firstDay.setDate(firstDay.getDate() - 6);
-    lastDay.setDate(lastDay.getDate() - 9);
-    console.log(firstDay.toISOString().substring(0,10),lastDay.toISOString().substring(0,10));
+      frase: "Tem certeza que deseja clonar a semana passada?",
+    });
+  }
+
+  async function clonarAgendamentos(valor) {
+    if (valor) {
+      var calendar = calendarRef.current.getApi();
+      let startDayWeek = calendar.view.currentStart;
+      var firstDay = new Date(startDayWeek);
+      firstDay.setDate(firstDay.getDate() - 6);
+      const datas = [];
+      for (let i = 0; i < 5; i++) {
+        datas.push(firstDay.toISOString().substring(0, 10));
+        firstDay.setDate(firstDay.getDate() + 1);
+      }
+      await fetch(
+        "http://localhost:8080/agenda/clone/" +
+          datas[0] +
+          "/" +
+          datas[1] +
+          "/" +
+          datas[2] +
+          "/" +
+          datas[3] +
+          "/" +
+          datas[4]
+      )
+        .then((resp) => resp.json())
+        .then((apiData) => {
+          apiData.forEach((element) => {
+            var dia = new Date(element.data.substring(0, 10));
+            dia.setDate(dia.getDate() + 7);
+            var hora = element.data.substring(11, 17);
+            var data = dia.toISOString().substring(0, 10) + " " + hora;
+            postHorarioMarcado(
+              element.codigo,
+              element.nomePaciente,
+              element.pilates,
+              element.acupuntura,
+              "",
+              data
+            );
+          });
+        });
+      window.location.reload(false);
+    }
   }
 
   return (
@@ -353,7 +389,7 @@ function Agendas() {
             },
             clickButton2: {
               text: "Clonar Semana Passada",
-              click: (e) => clonarAgendamentos(),
+              click: (e) => clonar(),
             },
           }}
           eventClick={function (info) {
@@ -409,7 +445,12 @@ function Agendas() {
                 })
                 .map(({ nomePaciente, codigo }) => (
                   <div
-                    onClick={() => pacienteClicado((abreviarNomePaciente(nomePaciente)), codigo)}
+                    onClick={() =>
+                      pacienteClicado(
+                        abreviarNomePaciente(nomePaciente),
+                        codigo
+                      )
+                    }
                     className="dropdown-row"
                     key={codigo}
                   >
@@ -458,6 +499,7 @@ function Agendas() {
         </Modal>
       </div>
       <ModalConfirma
+        clonarAgendamentos={clonarAgendamentos}
         flagis={flagis}
         confirmaDeleta={confirmaDeleta}
         modal={modal}
