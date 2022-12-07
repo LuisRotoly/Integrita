@@ -4,6 +4,8 @@ import Table from "react-bootstrap/Table";
 import imprimir from "../images/imprimir.png";
 import { transformarData, pegaLastSegment } from "./helper";
 import ModalConfirma from "../componentes/ModalConfirma";
+import PDFImprimir from "../componentes/PDFImprimir";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 function AcompanhamentoPaciente() {
   const [entradaNome, setEntradaNome] = useState("");
@@ -13,7 +15,7 @@ function AcompanhamentoPaciente() {
     isOpen: false,
     tipo: "",
     voltarPagina: "",
-    frase: ""
+    frase: "",
   });
 
   useEffect(() => {
@@ -53,7 +55,12 @@ function AcompanhamentoPaciente() {
         if (!resposta.ok) {
           throw new Error("Algo deu Errado");
         } else {
-          setModal({ isOpen: true, tipo: "ok", voltarPagina: "", frase:"Acompanhamento cadastrado com sucesso!" });
+          setModal({
+            isOpen: true,
+            tipo: "ok",
+            voltarPagina: "",
+            frase: "Acompanhamento cadastrado com sucesso!",
+          });
         }
       } catch (e) {
         setModal({ isOpen: true, tipo: "erro", voltarPagina: "" });
@@ -71,7 +78,15 @@ function AcompanhamentoPaciente() {
     <div>
       <div className="data">Data: {transformarData(new Date())}</div>
       <div className="imprimir">
-        <img src={imprimir} width="30" height="30" alt="Edit" />
+        <PDFDownloadLink document={<PDFImprimir titulo={entradaNome} dados={entradaDadosAcompanhamento} />} fileName={entradaNome}>
+          <img
+            src={imprimir}
+            width="30"
+            height="30"
+            alt="Imprimir"
+            className="imagemEnter"
+          />
+        </PDFDownloadLink>
       </div>
       <div className="centralizado">
         <p className="pagamentoTitulo">Acompanhamento {entradaNome}</p>

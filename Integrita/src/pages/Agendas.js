@@ -1,18 +1,18 @@
-import { createRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import DatePicker from "react-datepicker";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Modal from "react-modal";
 import BotaoSimples from "../componentes/BotaoSimples";
 import ptBR from "date-fns/locale/pt-BR";
 import ModalConfirma from "../componentes/ModalConfirma";
+//import { gapi } from "gapi-script";
 
 function Agendas() {
-  const calendarRef = createRef();
+  const calendarRef = useRef();
   const [startDate, setStartDate] = useState(null);
   const [modalInclusaoOpen, setModalInclusaoOpen] = useState(false);
   const [dataAtual, setDataAtual] = useState("");
@@ -30,65 +30,51 @@ function Agendas() {
     voltarPagina: "",
     frase: "",
   });
-
-  /*var gapi = window.gapi;
-  var CLIENT_ID =;
-  var API_KEY = ;
+  
+  /*var CLIENT_ID ="";
+  var API_KEY ="";
   var DISCOVERY_DOCS = [
     "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
   ];
   var SCOPES = "https://www.googleapis.com/auth/calendar.events";
 
-  function sign() {
+  function signIn(nomePacinte, hora) {
     gapi.load("client:auth2", () => {
       gapi.client.init({
         apiKey: API_KEY,
         clientId: CLIENT_ID,
         discoveryDocs: DISCOVERY_DOCS,
         scope: SCOPES,
+        plugin_name: "Integrita",
       });
-      gapi.client.load("calendar", "v3", () => console.log("bam!"));
+      gapi.client.load("calendar", "v3");
+
+      //const isSignedIn = await auth2.isSignedIn.get();
+      //if (!isSignedIn) {
 
       gapi.auth2
         .getAuthInstance()
         .signIn()
         .then(() => {
+          let data = hora.split(" ");
+          data = data[0] + "T" + data[1] + ":00-03:00";
+          let dataEnd = new Date(data);
+          dataEnd.setHours(dataEnd.getHours() + 1);
           var event = {
-            summary: "Awesome Event!",
-            location: "800 Howard St., San Francisco, CA 94103",
-            description: "Really great refreshments",
+            summary: nomePacinte,
             start: {
-              dateTime: "2022-11-18T09:00:00-07:00",
-              timeZone: "America/Los_Angeles",
+              dateTime: data,
             },
             end: {
-              dateTime: "2022-11-18T17:00:00-07:00",
-              timeZone: "America/Los_Angeles",
-            },
-            recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
-            attendees: [
-              { email: "lpage@example.com" },
-              { email: "sbrin@example.com" },
-            ],
-            reminders: {
-              useDefault: false,
-              overrides: [
-                { method: "email", minutes: 24 * 60 },
-                { method: "popup", minutes: 10 },
-              ],
+              dateTime: dataEnd,
             },
           };
-          console.log("oi");
-          var request = gapi.client.calendar.events.insert({
-            calendarId: "primary",
-            resource: event,
-          });
-          console.log("oi2");
-          request.execute((event) => {
-            console.log(event);
-            window.open(event.htmlLink);
-          });
-          console.log("oi3");
+          gapi.client.calendar.events
+            .insert({
+              calendarId: "primary",
+              resource: event,
+            })
+            .execute();
         });
     });
   }*/
@@ -101,7 +87,6 @@ function Agendas() {
 
   function onSubmit(event) {
     event.preventDefault();
-    //sign();
     if (
       dadosPaciente[0].nomePaciente !== "" &&
       (acupuntura !== false || pilates !== false) &&
@@ -140,6 +125,7 @@ function Agendas() {
           dataAtual
         );
       }
+      //signIn(dadosPaciente[0].nomePaciente, dataAtual);
       setBusca("");
       setModalInclusaoOpen(false);
       setStartDate(new Date());
@@ -224,7 +210,26 @@ function Agendas() {
 
   async function pegaHorarios() {
     const horarioProv = [];
-    await fetch("http://localhost:8080/agenda")
+    const datas = [];
+    var calendar = calendarRef.current.getApi();
+    var firstDay = new Date(calendar.view.currentStart);
+    firstDay.setDate(firstDay.getDate() + 1);
+    for (let i = 0; i < 5; i++) {
+      datas.push(firstDay.toISOString().substring(0, 10));
+      firstDay.setDate(firstDay.getDate() + 1);
+    }
+    await fetch(
+      "http://localhost:8080/agenda/clone/" +
+        datas[0] +
+        "/" +
+        datas[1] +
+        "/" +
+        datas[2] +
+        "/" +
+        datas[3] +
+        "/" +
+        datas[4]
+    )
       .then((resp) => resp.json())
       .then((apiData) => {
         for (let i = 0; i < apiData.length; i++) {
@@ -323,8 +328,7 @@ function Agendas() {
   async function clonarAgendamentos(valor) {
     if (valor) {
       var calendar = calendarRef.current.getApi();
-      let startDayWeek = calendar.view.currentStart;
-      var firstDay = new Date(startDayWeek);
+      var firstDay = new Date(calendar.view.currentStart);
       firstDay.setDate(firstDay.getDate() - 6);
       const datas = [];
       for (let i = 0; i < 5; i++) {
@@ -364,6 +368,24 @@ function Agendas() {
     }
   }
 
+  function prev() {
+    var calendar = calendarRef.current.getApi();
+    calendar.prev();
+    pegaHorarios();
+  }
+
+  function next() {
+    var calendar = calendarRef.current.getApi();
+    calendar.next();
+    pegaHorarios();
+  }
+
+  function today() {
+    var calendar = calendarRef.current.getApi();
+    calendar.today();
+    pegaHorarios();
+  }
+
   return (
     <div>
       <div className="calendar">
@@ -377,7 +399,6 @@ function Agendas() {
           slotMinTime="06:00:00"
           slotMaxTime="21:00:00"
           aspectRatio={2}
-          buttonText={{ today: "Hoje" }}
           headerToolbar={{
             start: "clickButton2 clickButton",
             center: "title",
@@ -390,6 +411,16 @@ function Agendas() {
             clickButton2: {
               text: "Clonar Semana Passada",
               click: (e) => clonar(),
+            },
+            prev: {
+              click: (e) => prev(),
+            },
+            next: {
+              click: (e) => next(),
+            },
+            today: {
+              text: "Hoje",
+              click: (e) => today(),
             },
           }}
           eventClick={function (info) {
