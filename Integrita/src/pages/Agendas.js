@@ -9,12 +9,16 @@ import Modal from "react-modal";
 import BotaoSimples from "../componentes/BotaoSimples";
 import ptBR from "date-fns/locale/pt-BR";
 import ModalConfirma from "../componentes/ModalConfirma";
+import getDay from "date-fns/getDay";
 //import { gapi } from "gapi-script";
 
 function Agendas() {
   const calendarRef = useRef();
   const [startDate, setStartDate] = useState(null);
+  const [startDate1, setStartDate1] = useState(null);
+  const [startDate2, setStartDate2] = useState(null);
   const [modalInclusaoOpen, setModalInclusaoOpen] = useState(false);
+  const [modalClone, setModalClone] = useState(false);
   const [dataAtual, setDataAtual] = useState("");
   const [flag, setFlag] = useState("");
   const [pilates, setPilates] = useState(false);
@@ -30,8 +34,17 @@ function Agendas() {
     voltarPagina: "",
     frase: "",
   });
-  
+  const isWeekday = (date) => {
+    const day = getDay(date);
+    return day !== 0 && day !== 6;
+  };
+  const isMonday = (date) => {
+    const day = getDay(date);
+    return day === 1;
+  };
+
   /*var CLIENT_ID ="";
+
   var API_KEY ="";
   var DISCOVERY_DOCS = [
     "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
@@ -113,7 +126,7 @@ function Agendas() {
         calendar.addEvent({
           title: dadosPaciente[0].nomePaciente + " - " + flag,
           date: dataAtual,
-          color: "red",
+          color: "blue",
         });
         setAcupuntura(false);
         postHorarioMarcado(
@@ -170,6 +183,14 @@ function Agendas() {
 
   function closeModal() {
     setModalInclusaoOpen(false);
+  }
+
+  function openModalClone() {
+    setModalClone(true);
+  }
+
+  function closeModalClone() {
+    setModalClone(false);
   }
 
   function dateHandler(date) {
@@ -245,7 +266,7 @@ function Agendas() {
               id: apiData[i].idAgenda,
               title: apiData[i].nomePaciente + " - " + apiData[i].flag,
               date: apiData[i].data,
-              color: "red",
+              color: "blue",
             });
           }
         }
@@ -316,24 +337,66 @@ function Agendas() {
     setNumeroIdAgenda(info.event.id);
   }
 
-  function clonar() {
+  function limpar() {
     setModal({
       isOpen: true,
-      tipo: "confirma?",
+      tipo: "limpar?",
       voltarPagina: "",
-      frase: "Tem certeza que deseja clonar a semana passada?",
+      frase: "Tem certeza que deseja limpar essa semana?",
     });
   }
 
-  async function clonarAgendamentos(valor) {
+  async function limparAgendamentos(valor) {
     if (valor) {
       var calendar = calendarRef.current.getApi();
       var firstDay = new Date(calendar.view.currentStart);
-      firstDay.setDate(firstDay.getDate() - 6);
+      firstDay.setDate(firstDay.getDate() + 1);
       const datas = [];
       for (let i = 0; i < 5; i++) {
         datas.push(firstDay.toISOString().substring(0, 10));
         firstDay.setDate(firstDay.getDate() + 1);
+      }
+      try {
+        const resposta = await fetch(
+          "http://localhost:8080/agenda/limpar/" +
+            datas[0] +
+            "/" +
+            datas[1] +
+            "/" +
+            datas[2] +
+            "/" +
+            datas[3] +
+            "/" +
+            datas[4],
+          {
+            method: "DELETE",
+          }
+        );
+        if (!resposta.ok) {
+          throw new Error("Algo deu Errado");
+        } else {
+          setModal({
+            isOpen: true,
+            tipo: "ok",
+            voltarPagina: "",
+            frase: "Horários removidos com sucesso!",
+          });
+        }
+      } catch (e) {
+        console.log(e);
+        setModal({ isOpen: true, tipo: "erro", voltarPagina: "" });
+      }
+    }
+    pegaHorarios();
+  }
+
+  async function clonarAgendamentos() {
+    if (startDate1 !== "" && startDate2 !== "" && startDate1 !== startDate2) {
+      var diferencaDatas = (startDate2-startDate1)/ (1000 * 60 * 60 * 24);
+      const datas = [];
+      for (let i = 0; i < 5; i++) {
+        datas.push(startDate1.toISOString().substring(0, 10));
+        startDate1.setDate(startDate1.getDate() + 1);
       }
       await fetch(
         "http://localhost:8080/agenda/clone/" +
@@ -351,7 +414,7 @@ function Agendas() {
         .then((apiData) => {
           apiData.forEach((element) => {
             var dia = new Date(element.data.substring(0, 10));
-            dia.setDate(dia.getDate() + 7);
+            dia.setDate(dia.getDate() + diferencaDatas);
             var hora = element.data.substring(11, 17);
             var data = dia.toISOString().substring(0, 10) + " " + hora;
             postHorarioMarcado(
@@ -388,6 +451,11 @@ function Agendas() {
 
   return (
     <div>
+      <div className="legenda">
+        <span>Legenda: </span>
+        <span className="legendaAzul">Pilates</span>&nbsp;
+        <span className="legendaVerde">Acupuntura</span>
+      </div>
       <div className="calendar">
         <FullCalendar
           ref={calendarRef}
@@ -400,17 +468,21 @@ function Agendas() {
           slotMaxTime="21:00:00"
           aspectRatio={2}
           headerToolbar={{
-            start: "clickButton2 clickButton",
+            start: "clickButton3 clickButton2 clickButton",
             center: "title",
           }}
           customButtons={{
             clickButton: {
-              text: "Incluir Novo Atendimento ",
+              text: "Novo Atendimento ",
               click: (e) => openModal(),
             },
             clickButton2: {
-              text: "Clonar Semana Passada",
-              click: (e) => clonar(),
+              text: "Clonar",
+              click: (e) => openModalClone(),
+            },
+            clickButton3: {
+              text: "Limpar",
+              click: (e) => limpar(),
             },
             prev: {
               click: (e) => prev(),
@@ -498,6 +570,7 @@ function Agendas() {
                 selected={startDate}
                 onChange={(date) => dateHandler(date)}
                 showTimeSelect
+                filterDate={isWeekday}
                 timeIntervals={30}
                 minTime={setHours(setMinutes(new Date(), 0), 6)}
                 maxTime={setHours(setMinutes(new Date(), 0), 20)}
@@ -529,8 +602,71 @@ function Agendas() {
           </form>
         </Modal>
       </div>
+      <div className="modal">
+        <Modal
+          ariaHideApp={false}
+          isOpen={modalClone}
+          onRequestClose={closeModalClone}
+          style={{
+            overlay: {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              opacity: 1,
+            },
+            content: {
+              textAlign: "center",
+              position: "absolute",
+              width: "600px",
+              height: "450px",
+              top: "130px",
+              left: "500px",
+              right: "500px",
+              bottom: "200px",
+              border: "1px solid #ccc",
+              overflow: "auto",
+              WebkitOverflowScrolling: "touch",
+              borderRadius: "10px",
+              outline: "none",
+              padding: "20px",
+            },
+          }}
+        >
+          <span className="formCadastro">Escolha a semana a ser clonada:</span>
+          <DatePicker
+            className="inputModal"
+            selected={startDate1}
+            onChange={(date) => setStartDate1(date)}
+            filterDate={isMonday}
+            dateFormat="dd/MM/yyyy"
+            placeholderText="Selecione a data"
+          />
+          <p></p>
+          <span className="formCadastro">Para a semana:</span>
+          <DatePicker
+            className="inputModal"
+            selected={startDate2}
+            onChange={(date) => setStartDate2(date)}
+            filterDate={isMonday}
+            dateFormat="dd/MM/yyyy"
+            placeholderText="Selecione a data"
+          />
+          <div className="botaoEsquerda">
+            <BotaoSimples
+              onClick={closeModalClone}
+              titulo="Cancelar"
+            ></BotaoSimples>
+            <BotaoSimples
+              onClick={clonarAgendamentos}
+              titulo="Confirmar"
+            ></BotaoSimples>
+          </div>
+        </Modal>
+      </div>
       <ModalConfirma
-        clonarAgendamentos={clonarAgendamentos}
+        limparAgendamentos={limparAgendamentos}
         flagis={flagis}
         confirmaDeleta={confirmaDeleta}
         modal={modal}

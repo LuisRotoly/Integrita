@@ -1,7 +1,9 @@
 package com.example.integritaback.repositorios;
 import com.example.integritaback.modelo.AgendaModelo;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +21,12 @@ public interface RepositorioAgenda extends CrudRepository<AgendaModelo, Integer>
     //remove atendimento
     @Query(value = "DELETE agenda FROM agenda WHERE id_agenda = :idAgenda;", nativeQuery = true)
     void delete(Integer idAgenda);
+
+    //limpar a semana
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE agenda FROM agenda WHERE substring(data,1,10) IN (:data0,:data1,:data2,:data3,:data4)", nativeQuery = true)
+    void limpar(String data0, String data1, String data2, String data3, String data4);
 
     //cadastra/altera atendimento
     <AgeMod extends AgendaModelo> AgeMod save(AgeMod agendaModelo);

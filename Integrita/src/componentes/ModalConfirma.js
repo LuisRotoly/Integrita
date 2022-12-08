@@ -7,7 +7,7 @@ import erro from "../images/erro.png";
 import check from "../images/check.png";
 
 function ModalConfirma(props) {
-  const { clonarAgendamentos, flagis, confirmaDeleta, modal, setModal } = props;
+  const { limparAgendamentos, flagis, confirmaDeleta, modal, setModal } = props;
   const history = useHistory();
 
   function closeModal() {
@@ -26,8 +26,8 @@ function ModalConfirma(props) {
     setModal({ ...modal, isOpen: false });
   }
 
-  function clone() {
-    clonarAgendamentos(true);
+  function limpar() {
+    limparAgendamentos(true);
     setModal({ ...modal, isOpen: false });
   }
 
@@ -307,7 +307,7 @@ function ModalConfirma(props) {
               </Modal>
             </div>
           );
-        }else if (props.modal.tipo === "confirma?") {
+        }else if (props.modal.tipo === "limpar?") {
           return (
             <div>
               <Modal
@@ -350,7 +350,7 @@ function ModalConfirma(props) {
                     titulo="Cancelar"
                   ></BotaoSimples>
                   <BotaoSimples
-                    onClick={clone}
+                    onClick={limpar}
                     titulo="Confirmar"
                   ></BotaoSimples>
                 </div>

@@ -464,19 +464,6 @@ td {
   border-color: rgb(122, 78, 76);
 }
 
-.inputModal {
-  text-align: center;
-  margin-top: 8px;
-  width: 200px;
-  height: 35px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
-    0 2px 0 hsla(0, 0%, 100%, 0.15);
-  color: rgb(122, 78, 76);
-  font-size: 18px;
-}
-
 .dropdown {
   background-color: white;
   display: flex;
@@ -507,6 +494,19 @@ td {
 .modal{
   position: relative;
   z-index:2;
+}
+
+.inputModal {
+  text-align: center;
+  margin-top: 8px;
+  width: 200px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
 }
 
 .calendar{
@@ -552,4 +552,24 @@ td {
 
 .imagemEnter{
   cursor: pointer;
+}
+
+.legendaAzul{
+  background: blue;
+  color:#FFF;
+}
+
+.legendaVerde{
+  background: green;
+  color:#FFF;
+}
+
+.legenda{
+  position: absolute;
+  top: 190px; left: 1200px;
+}
+
+.botaoEsquerda{
+  position: absolute;
+  top: 180px; left: 198px;
 }

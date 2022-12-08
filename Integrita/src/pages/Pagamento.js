@@ -204,7 +204,7 @@ function Pagamento() {
             <th className="theadMensalidade">Acupuntura</th>
             <th className="theadMensalidade">Valor Pago</th>
             <th className="theadMensalidade">Data</th>
-            <th className="theadMensalidade">Mês Referência</th>
+            <th className="theadMensalidade">Referência</th>
             <th className="theadMensalidade">Deletar</th>
           </tr>
         </thead>

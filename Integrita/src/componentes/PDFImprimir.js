@@ -54,12 +54,12 @@ function PDFImprimir(props) {
     <Document>
       <Page style={styles.body}>
         <Image style={styles.image} src={clinica} />
-        <Text style={styles.title}>{props.titulo}</Text>
+        <Text style={styles.title}>Paciente: {props.titulo}</Text>
         {props.dados.map(({ idAcompanhamento, descricao, dataAtual }) => (
           <Text style={styles.text} key={idAcompanhamento}>
-            <Text style={styles.textBold}>Data da sessão:</Text> {transformarData(new Date(dataAtual))}
+            <Text style={styles.textBold}>Data da sessão: </Text> {transformarData(new Date(dataAtual))}
             {"\n"}
-            <Text style={styles.textBold}>Descrição:</Text> {descricao}
+            <Text style={styles.textBold}>Descrição: </Text> {descricao}
           </Text>
         ))}
         <Text style={styles.textAssinatura}>

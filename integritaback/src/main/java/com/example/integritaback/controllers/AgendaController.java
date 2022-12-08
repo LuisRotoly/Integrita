@@ -41,4 +41,10 @@ public class AgendaController {
     public @ResponseBody List<AgendaModelo> clone(@PathVariable String data0,@PathVariable String data1,@PathVariable String data2,@PathVariable String data3,@PathVariable String data4){
         return acoes.encontraAtendimento(data0,data1,data2,data3,data4);
     }
+
+    //limpar os atendimentos
+    @RequestMapping(value="/agenda/limpar/{data0}/{data1}/{data2}/{data3}/{data4}", method=RequestMethod.DELETE)
+    public @ResponseBody void limparAtendimentos(@PathVariable String data0,@PathVariable String data1,@PathVariable String data2,@PathVariable String data3,@PathVariable String data4){
+        acoes.limpar(data0,data1,data2,data3,data4);
+    }
 }

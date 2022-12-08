@@ -49,7 +49,7 @@ function Cadastro() {
               <th>Paciente</th>
               <th>CPF</th>
               <th>Telefone</th>
-              <th>Idade</th>
+              <th>Data Nasc.</th>
               <th>Profissão</th>
               <th>Sexo</th>
               <th>Endereço</th>
