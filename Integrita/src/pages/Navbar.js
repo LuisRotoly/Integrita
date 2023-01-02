@@ -2,7 +2,6 @@ import BotaoMenu from "../componentes/BotaoMenu";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-
   return (
     <div>
       <div className="centralizado">

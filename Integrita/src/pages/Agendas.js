@@ -10,6 +10,7 @@ import BotaoSimples from "../componentes/BotaoSimples";
 import ptBR from "date-fns/locale/pt-BR";
 import ModalConfirma from "../componentes/ModalConfirma";
 import getDay from "date-fns/getDay";
+//import jwt_decode from "jwt-decode";
 //import { gapi } from "gapi-script";
 
 function Agendas() {
@@ -28,6 +29,7 @@ function Agendas() {
   const [buscaEncontrada, setBuscaEncontrada] = useState(false);
   const [horario, setHorario] = useState([]);
   const [numeroIdAgenda, setNumeroIdAgenda] = useState("");
+  //const [user, setUser] = useState({});
   const [modal, setModal] = useState({
     isOpen: false,
     tipo: "",
@@ -43,15 +45,14 @@ function Agendas() {
     return day === 1;
   };
 
-  /*var CLIENT_ID ="";
-
-  var API_KEY ="";
+  /*var CLIENT_ID = "";
+  var API_KEY = "";
   var DISCOVERY_DOCS = [
     "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
   ];
   var SCOPES = "https://www.googleapis.com/auth/calendar.events";
 
-  function signIn(nomePacinte, hora) {
+  function insertGoogleCalendar(evento) {
     gapi.load("client:auth2", () => {
       gapi.client.init({
         apiKey: API_KEY,
@@ -62,32 +63,18 @@ function Agendas() {
       });
       gapi.client.load("calendar", "v3");
 
-      //const isSignedIn = await auth2.isSignedIn.get();
-      //if (!isSignedIn) {
-
       gapi.auth2
         .getAuthInstance()
         .signIn()
         .then(() => {
-          let data = hora.split(" ");
-          data = data[0] + "T" + data[1] + ":00-03:00";
-          let dataEnd = new Date(data);
-          dataEnd.setHours(dataEnd.getHours() + 1);
-          var event = {
-            summary: nomePacinte,
-            start: {
-              dateTime: data,
-            },
-            end: {
-              dateTime: dataEnd,
-            },
-          };
           gapi.client.calendar.events
             .insert({
               calendarId: "primary",
-              resource: event,
+              resource: evento,
             })
-            .execute();
+            .execute(function (resp) {
+              console.log(resp);
+            });
         });
     });
   }*/
@@ -138,7 +125,20 @@ function Agendas() {
           dataAtual
         );
       }
-      //signIn(dadosPaciente[0].nomePaciente, dataAtual);
+      /*let data = dataAtual.split(" ");
+      data = data[0] + "T" + data[1] + ":00-03:00";
+      let dataEnd = new Date(data);
+      dataEnd.setHours(dataEnd.getHours() + 1);
+      var evento = {
+        summary: dadosPaciente[0].nomePaciente,
+        start: {
+          dateTime: data,
+        },
+        end: {
+          dateTime: dataEnd,
+        },
+      };
+      insertGoogleCalendar(evento);*/
       setBusca("");
       setModalInclusaoOpen(false);
       setStartDate(new Date());
@@ -225,8 +225,34 @@ function Agendas() {
     setDadosPaciente([{ nomePaciente, codigo }]);
   }
 
+  /*function handleCallback(response) {
+    var userObject = jwt_decode(response.credential);
+    console.log(userObject);
+    setUser(userObject);
+    document.getElementById("signInDiv").hidden = true;
+    localStorage.setItem("user", JSON.stringify(userObject));
+  }*/
+
   useEffect(() => {
+    //const loggedInUser = localStorage.getItem("user");
     pegaHorarios();
+    /*if (loggedInUser) {
+      console.log(loggedInUser);
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+      //localStorage.clear();
+    } else {
+      /*global google*/
+    /*google.accounts.id.initialize({
+        client_id:
+          "165129495407-nlu9867emhnaccjh8319co077qr2gbgc.apps.googleusercontent.com",
+        callback: handleCallback,
+      });
+      google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+        theme: "outline",
+        size: "large",
+      });
+    }*/
   }, []);
 
   async function pegaHorarios() {
@@ -391,8 +417,9 @@ function Agendas() {
   }
 
   async function clonarAgendamentos() {
+    //var olar = [];
     if (startDate1 !== "" && startDate2 !== "" && startDate1 !== startDate2) {
-      var diferencaDatas = (startDate2-startDate1)/ (1000 * 60 * 60 * 24);
+      var diferencaDatas = (startDate2 - startDate1) / (1000 * 60 * 60 * 24);
       const datas = [];
       for (let i = 0; i < 5; i++) {
         datas.push(startDate1.toISOString().substring(0, 10));
@@ -451,10 +478,11 @@ function Agendas() {
 
   return (
     <div>
+      {/*<div id="signInDiv" className="google"></div>*/}
       <div className="legenda">
         <span>Legenda: </span>
-        <span className="legendaAzul">Pilates</span>&nbsp;
-        <span className="legendaVerde">Acupuntura</span>
+        <span className="legendaVerde">Pilates</span>&nbsp;
+        <span className="legendaAzul">Acupuntura</span>
       </div>
       <div className="calendar">
         <FullCalendar
