@@ -1,4 +1,4 @@
-import { Document, Page, Text, Image, StyleSheet } from "@react-18-pdf/renderer";
+import { Document, Page, Text, Image, StyleSheet } from "@react-pdf/renderer";
 import clinica from "../images/clinica.png";
 import { transformarData } from "../pages/helper";
 

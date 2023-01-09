@@ -5,7 +5,7 @@ import imprimir from "../images/imprimir.png";
 import { transformarData, pegaLastSegment } from "./helper";
 import ModalConfirma from "../componentes/ModalConfirma";
 import PDFImprimir from "../componentes/PDFImprimir";
-import { PDFDownloadLink } from "@react-18-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 function AcompanhamentoPaciente() {
   const [entradaNome, setEntradaNome] = useState("");
