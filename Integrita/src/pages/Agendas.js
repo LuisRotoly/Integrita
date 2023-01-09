@@ -93,13 +93,13 @@ function Agendas() {
       (acupuntura !== true || pilates !== true) &&
       dataAtual !== ""
     ) {
-      var calendar = calendarRef.current.getApi();
+      //var calendar = calendarRef.current.getApi();
       if (pilates !== false) {
-        calendar.addEvent({
+        /*calendar.addEvent({
           title: dadosPaciente[0].nomePaciente + " - " + flag,
           date: dataAtual,
           color: "green",
-        });
+        });*/
         postHorarioMarcado(
           dadosPaciente[0].codigo,
           dadosPaciente[0].nomePaciente,
@@ -110,11 +110,11 @@ function Agendas() {
         );
         setPilates(false);
       } else if (acupuntura !== false) {
-        calendar.addEvent({
+        /*calendar.addEvent({
           title: dadosPaciente[0].nomePaciente + " - " + flag,
           date: dataAtual,
           color: "blue",
-        });
+        });*/
         setAcupuntura(false);
         postHorarioMarcado(
           dadosPaciente[0].codigo,
@@ -140,9 +140,7 @@ function Agendas() {
       };
       insertGoogleCalendar(evento);*/
       setBusca("");
-      setModalInclusaoOpen(false);
-      setStartDate(new Date());
-      window.location.reload(false);
+      setStartDate("");
     }
   }
 
@@ -171,8 +169,12 @@ function Agendas() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
+        setModalInclusaoOpen(false);
+        pegaHorarios();
       }
     } catch (e) {
+      setModalInclusaoOpen(false);
+      pegaHorarios();
       console.log(e);
     }
   }
@@ -417,7 +419,6 @@ function Agendas() {
   }
 
   async function clonarAgendamentos() {
-    //var olar = [];
     if (startDate1 !== "" && startDate2 !== "" && startDate1 !== startDate2) {
       var diferencaDatas = (startDate2 - startDate1) / (1000 * 60 * 60 * 24);
       const datas = [];
@@ -454,7 +455,16 @@ function Agendas() {
             );
           });
         });
-      window.location.reload(false);
+      closeModalClone();
+      setModal({
+        isOpen: true,
+        tipo: "ok",
+        voltarPagina: "",
+        frase: "Horários clonados com sucesso!",
+      });
+      setStartDate1("");
+      setStartDate2("");
+      pegaHorarios();
     }
   }
 
