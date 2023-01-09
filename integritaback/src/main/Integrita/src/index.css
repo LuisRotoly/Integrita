@@ -1,0 +1,580 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(246, 230, 200);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.centralizado {
+  text-align: center;
+}
+
+.titulo {
+  color: rgb(122, 78, 76);
+  font-family: "Great Vibes", cursive;
+  font-size: 60px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.formCadastro {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pagamentoEscritoDireita {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.pagamentoEscritoEsquerda {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bolder;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.pagamentoTitulo {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: bolder;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.acompanhamentoTitulo {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.formAvaliacao {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  text-align: center;
+}
+
+.fontBold {
+  font-weight: bolder;
+}
+
+.data {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  position: absolute;
+  top: 165px;
+  right: 250px;
+}
+
+.relatorio {
+  position: absolute;
+  top: 165px;
+  right: 130px;
+}
+
+.imprimir {
+  position: absolute;
+  top: 175px;
+  right: 80px;
+}
+
+.alinharEsquerda {
+  position: absolute;
+  top: 165px;
+  right: 1000px;
+}
+
+.alinharColuna {
+  position: absolute;
+  top: 670px;
+  right: 1180px;
+}
+
+.alinharDireita {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bolder;
+  position: absolute;
+  top: 180px;
+  right: 450px;
+}
+.alinharTabela {
+  padding: 50px;
+  text-align: center;
+}
+
+.alinharObs {
+  position: absolute;
+  top: 1010px;
+  right: 1132px;
+}
+
+.alinharHDAeHDP {
+  position: relative;
+  top: -60px;
+}
+
+.alinharTabelaPesquisa {
+  padding: 40px;
+  text-align: center;
+}
+
+.resultadosPesquisa {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+}
+
+.descricao {
+  color: rgb(122, 78, 76);
+  font-family: inherit;
+  font-size: 20px;
+  position: absolute;
+  top: 225px;
+  right: 1120px;
+}
+
+.inputCadastro {
+  margin-top: 8px;
+  width: 380px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputAvaliacao {
+  margin-top: 8px;
+  width: 800px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputAvaliacaoDuasLinhas {
+  margin-top: 8px;
+  width: 800px;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+  resize: none;
+}
+
+.dataSessao {
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputQueixa {
+  margin-top: 8px;
+  width: 760px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputColuna {
+  margin-top: 8px;
+  width: 550px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputArt {
+  margin-top: 8px;
+  width: 715px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.texteAreaObs {
+  margin-top: 12px;
+  width: 900px;
+  height: 130px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+  resize: none;
+}
+
+.texteAreaAcomp {
+  margin-top: 12px;
+  width: 900px;
+  height: 130px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+  resize: none;
+  display: inline-block;
+  vertical-align: top;
+}
+
+select {
+  margin-top: 8px;
+  width: 130px;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.selectPagamento {
+  margin-top: 8px;
+  width: 60px;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.selectMesReferencia {
+  margin-top: 8px;
+  width: 130px;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+label {
+  display: inline-block;
+  width: 120px;
+  text-align: left;
+}
+
+.hrNavbar {
+  border: 5px solid rgb(122, 78, 76);
+  width: 100%;
+}
+
+.hrAcompanhamento {
+  border: 3px solid rgb(122, 78, 76);
+  width: 70%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.tr {
+  background-color: rgba(246, 230, 200);
+  border-color: rgba(246, 230, 200);
+}
+
+th {
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+td {
+  color: rgb(122, 78, 76);
+}
+
+.linhaTabela{
+  background-color: rgba(246, 230, 200);
+  border-color: rgba(246, 230, 200);
+}
+
+.linhaTabela:hover {
+  box-shadow: 0 0.3em 1em -0.5em #7a4e4c;
+  background-color: #0a0a0a15;
+}
+
+.tamanhoColuna {
+  width: 800px;
+  text-align: center;
+  margin: auto;
+}
+
+.tamanhoColunaPagamento {
+  width: 900px;
+  text-align: center;
+  margin: auto;
+}
+
+.tamanhoColunaAcompanhamento {
+  width: 1040px;
+  text-align: center;
+  margin: auto;
+}
+
+.tamanhoColunaAcomp {
+  width: 400px;
+  text-align: center;
+  margin: auto;
+}
+
+.inputCardio {
+  margin-top: 8px;
+  width: 740px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputDermato {
+  margin-top: 8px;
+  width: 770px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputVasc {
+  margin-top: 8px;
+  width: 775px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputAltera {
+  margin-top: 8px;
+  width: 690px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputMat {
+  margin-top: 8px;
+  width: 750px;
+  height: 35px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.inputMensalidade {
+  margin-top: 8px;
+  width: 100px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.theadMensalidade {
+  color: rgb(122, 78, 76);
+  font-size: 20px;
+  border-color: rgb(122, 78, 76);
+}
+
+.dropdown {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 380px;
+  margin-left: 90px;
+  z-index:1;
+}
+
+.dropdown:empty {
+  border: none;
+}
+
+.dropdown-row {
+  cursor: pointer;
+  text-align: start;
+  margin: 2px 0;
+}
+
+.formModal{
+  position: absolute;
+  top: 100px; left: 90px;
+  z-index:0;
+}
+
+.modal{
+  position: relative;
+  z-index:2;
+}
+
+.inputModal {
+  text-align: center;
+  margin-top: 8px;
+  width: 200px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
+.calendar{
+  position: relative;
+  z-index:0;
+}
+
+.fc-event{
+  cursor: pointer;
+}
+
+.fc-col-header-cell-cushion{
+  color:gray;
+}
+
+.fc-col-header-cell-cushion:hover{
+  color:gray;
+}
+
+.fc-toolbar-title {
+  color:gray;
+}
+
+.fc-timegrid-slot-label-cushion{
+  color: black;
+}
+
+.fc-theme-standard td{
+  border-left: 1px solid var(--fc-border-color, black) !important;
+  border-right: 0.5px solid var(--fc-border-color, black) !important;
+  border-radius: 4px;
+}
+
+.fc-timegrid-slot-minor{
+  border-bottom: 1px solid var(--fc-border-color, black) !important;
+  border-top: 1px dotted var(--fc-border-color, black) !important;
+}
+
+.fc-theme-standard th{
+  border: 1px solid black !important;
+  border-radius: 4px;
+}
+
+.imagemEnter{
+  cursor: pointer;
+}
+
+.legendaAzul{
+  background: blue;
+  color:#FFF;
+}
+
+.legendaVerde{
+  background: green;
+  color:#FFF;
+}
+
+.legenda{
+  position: absolute;
+  top: 190px; left: 1200px;
+}
+
+.botaoEsquerda{
+  position: absolute;
+  top: 180px; left: 198px;
+}
+
+.google{
+  position: absolute;
+  top: 10px; left: 1350px;
+}
