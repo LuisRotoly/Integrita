@@ -12,38 +12,38 @@ public class AgendaController {
     private RepositorioAgenda acoes;
 
     //listar todos os atendimentos
-    @RequestMapping(value="/agenda", method=RequestMethod.GET)
+    @RequestMapping(value="/agendas", method=RequestMethod.GET)
     public @ResponseBody List<AgendaModelo> filtrar(){
         return acoes.findAll();
     }
 
     //listar um atendimento pelo idAgenda
-    @RequestMapping(value="/agenda/{idAgenda}", method=RequestMethod.GET)
+    @RequestMapping(value="/agendas/{idAgenda}", method=RequestMethod.GET)
     public @ResponseBody AgendaModelo listarPeloidAgenda(@PathVariable Integer idAgenda){
         return acoes.findByidAgenda(idAgenda);
     }
 
     //cadastrar o atendimento na agenda
-    @RequestMapping(value="/agenda", method=RequestMethod.POST)
+    @RequestMapping(value="/agendas", method=RequestMethod.POST)
     public @ResponseBody AgendaModelo cadastrar(@RequestBody AgendaModelo agendaModelo){
         return acoes.save(agendaModelo);
     }
 
     //remover o atendimento
-    @RequestMapping(value="/agenda/{idAgenda}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/agendas/{idAgenda}", method=RequestMethod.DELETE)
     public @ResponseBody void remover(@PathVariable Integer idAgenda){
         AgendaModelo agendaModelo = listarPeloidAgenda(idAgenda);
         acoes.delete(agendaModelo);
     }
 
     //clonar os atendimentos da ultima semana
-    @RequestMapping(value="/agenda/clone/{data0}/{data1}/{data2}/{data3}/{data4}", method=RequestMethod.GET)
+    @RequestMapping(value="/agendas/clone/{data0}/{data1}/{data2}/{data3}/{data4}", method=RequestMethod.GET)
     public @ResponseBody List<AgendaModelo> clone(@PathVariable String data0,@PathVariable String data1,@PathVariable String data2,@PathVariable String data3,@PathVariable String data4){
         return acoes.encontraAtendimento(data0,data1,data2,data3,data4);
     }
 
     //limpar os atendimentos
-    @RequestMapping(value="/agenda/limpar/{data0}/{data1}/{data2}/{data3}/{data4}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/agendas/limpar/{data0}/{data1}/{data2}/{data3}/{data4}", method=RequestMethod.DELETE)
     public @ResponseBody void limparAtendimentos(@PathVariable String data0,@PathVariable String data1,@PathVariable String data2,@PathVariable String data3,@PathVariable String data4){
         acoes.limpar(data0,data1,data2,data3,data4);
     }

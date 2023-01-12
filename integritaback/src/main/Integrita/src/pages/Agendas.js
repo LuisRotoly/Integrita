@@ -161,7 +161,7 @@ function Agendas() {
       data: dataAtual,
     };
     try {
-      const resposta = await fetch("http://localhost:8080/agenda", {
+      const resposta = await fetch("http://localhost:8080/agendas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados),
@@ -268,7 +268,7 @@ function Agendas() {
       firstDay.setDate(firstDay.getDate() + 1);
     }
     await fetch(
-      "http://localhost:8080/agenda/clone/" +
+      "http://localhost:8080/agendas/clone/" +
         datas[0] +
         "/" +
         datas[1] +
@@ -306,7 +306,7 @@ function Agendas() {
     if (valor) {
       try {
         const resposta = await fetch(
-          "http://localhost:8080/agenda/" + numeroIdAgenda,
+          "http://localhost:8080/agendas/" + numeroIdAgenda,
           {
             method: "DELETE",
           }
@@ -332,7 +332,7 @@ function Agendas() {
   async function flagis(valor) {
     var dados = "";
     try {
-      await fetch("http://localhost:8080/agenda/" + numeroIdAgenda)
+      await fetch("http://localhost:8080/agendas/" + numeroIdAgenda)
         .then((resp) => resp.json())
         .then((apiData) => {
           dados = {
@@ -345,7 +345,7 @@ function Agendas() {
             data: apiData.data,
           };
         });
-      const resposta = await fetch("http://localhost:8080/agenda", {
+      const resposta = await fetch("http://localhost:8080/agendas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados),
@@ -386,7 +386,7 @@ function Agendas() {
       }
       try {
         const resposta = await fetch(
-          "http://localhost:8080/agenda/limpar/" +
+          "http://localhost:8080/agendas/limpar/" +
             datas[0] +
             "/" +
             datas[1] +
@@ -427,7 +427,7 @@ function Agendas() {
         startDate1.setDate(startDate1.getDate() + 1);
       }
       await fetch(
-        "http://localhost:8080/agenda/clone/" +
+        "http://localhost:8080/agendas/clone/" +
           datas[0] +
           "/" +
           datas[1] +
