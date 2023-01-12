@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.b485947d.css",
-    "main.js": "/static/js/main.c2c53f60.js",
+    "main.js": "/static/js/main.b26897bc.js",
     "static/media/check.png": "/static/media/check.07c1b430de71a343ecdc.png",
     "static/media/question.png": "/static/media/question.22c38de21547aab05ad9.png",
     "static/media/clinica.png": "/static/media/clinica.6a21fdd544e8ce93f23a.png",
@@ -10,10 +10,10 @@
     "static/media/editIcon.png": "/static/media/editIcon.2bd449c4073072b1679e.png",
     "index.html": "/index.html",
     "main.b485947d.css.map": "/static/css/main.b485947d.css.map",
-    "main.c2c53f60.js.map": "/static/js/main.c2c53f60.js.map"
+    "main.b26897bc.js.map": "/static/js/main.b26897bc.js.map"
   },
   "entrypoints": [
     "static/css/main.b485947d.css",
-    "static/js/main.c2c53f60.js"
+    "static/js/main.b26897bc.js"
   ]
 }

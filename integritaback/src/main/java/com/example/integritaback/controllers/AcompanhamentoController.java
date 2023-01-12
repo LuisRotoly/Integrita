@@ -12,7 +12,7 @@ public class AcompanhamentoController {
     private RepositorioAcompanhamento acoes;
 
     //listar uma avaliacao especifica pelo codigo
-    @RequestMapping(value="/acompanhamento/{codigo}", method=RequestMethod.GET)
+    @RequestMapping(value="/acompanhamentos/{codigo}", method=RequestMethod.GET)
     public @ResponseBody List<AcompanhamentoModelo> filtrar(@PathVariable Integer codigo){
         return acoes.findByCodigoOrderByDataAtualDesc(codigo);
     }

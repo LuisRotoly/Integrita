@@ -125,7 +125,7 @@ function Pagamento() {
   }
 
   function fetchMensalidade(lastSegment) {
-    fetch("http://localhost:8080/mensalidade/" + lastSegment)
+    fetch("http://localhost:8080/mensalidades/" + lastSegment)
       .then((resp) => resp.json())
       .then((apiData) => {
         setDadosMensalidade(apiData);

@@ -11,7 +11,7 @@ public class AvaliacaoPilatesController {
     private RepositorioPilates acoes;
 
     //listar uma avaliacao especifica pelo codigo
-    @RequestMapping(value="/avaliacao/pilates/{codigo}", method=RequestMethod.GET)
+    @RequestMapping(value="/avaliacao/pilatess/{codigo}", method=RequestMethod.GET)
     public @ResponseBody AvaliacaoPilatesModelo filtrar(@PathVariable Integer codigo){
         return acoes.findByCodigo(codigo);
     }

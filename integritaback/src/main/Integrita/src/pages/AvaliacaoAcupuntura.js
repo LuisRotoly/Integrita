@@ -53,7 +53,7 @@ function AvaliacaoAcupuntura() {
   }
 
   function fetchDataAvaliacao(lastSegment) {
-    fetch("http://localhost:8080/avaliacao/acupuntura/" + lastSegment)
+    fetch("http://localhost:8080/avaliacao/acupunturas/" + lastSegment)
       .then((resp) => resp.json())
       .then((apiData) => {
         setQueixa(apiData.queixa);

@@ -22,7 +22,7 @@ public class MensalidadeController {
     }
 
     //listar a mensalidade de um paciente especifico pelo codigo do paciente
-    @RequestMapping(value="/mensalidade/{codigo}", method=RequestMethod.GET)
+    @RequestMapping(value="/mensalidades/{codigo}", method=RequestMethod.GET)
     public @ResponseBody List<MensalidadeModelo> filtrar(@PathVariable Integer codigo, Sort sort){
         sort = Sort.by(Sort.Direction.DESC,"dataAtual");
         return acoes.findByCodigo(codigo, sort);

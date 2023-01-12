@@ -11,7 +11,7 @@ public class AvaliacaoAcupunturaController {
     private RepositorioAcupuntura acoes;
 
     //listar uma avaliacao especifica pelo codigo
-    @RequestMapping(value="/avaliacao/acupuntura/{codigo}", method=RequestMethod.GET)
+    @RequestMapping(value="/avaliacao/acupunturas/{codigo}", method=RequestMethod.GET)
     public @ResponseBody AvaliacaoAcunpunturaModelo filtrar(@PathVariable Integer codigo){
         return acoes.findByCodigo(codigo);
     }

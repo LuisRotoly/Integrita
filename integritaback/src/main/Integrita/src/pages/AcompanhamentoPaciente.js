@@ -32,7 +32,7 @@ function AcompanhamentoPaciente() {
   }
 
   function fetchAcompanhamento(lastSegment) {
-    fetch("http://localhost:8080/acompanhamento/" + lastSegment)
+    fetch("http://localhost:8080/acompanhamentos/" + lastSegment)
       .then((resp) => resp.json())
       .then((apiData) => {
         setDadosAcompanhamento(apiData);

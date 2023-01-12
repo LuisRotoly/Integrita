@@ -38,7 +38,7 @@ function AvaliacaoPilates() {
   }
 
   function fetchDataAvaliacao(lastSegment) {
-    fetch("http://localhost:8080/avaliacao/pilates/" + lastSegment)
+    fetch("http://localhost:8080/avaliacao/pilatess/" + lastSegment)
       .then((resp) => resp.json())
       .then((apiData) => {
         setQueixa(apiData.queixa);
