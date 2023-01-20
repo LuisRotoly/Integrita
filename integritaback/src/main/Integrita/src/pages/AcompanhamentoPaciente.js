@@ -112,16 +112,14 @@ function AcompanhamentoPaciente() {
           <tbody>
             {entradaDadosAcompanhamento.map(
               ({ idAcompanhamento, descricao, dataAtual }) => (
-                <tr key={idAcompanhamento}>
+                <tr className="trAcompanhamento" key={idAcompanhamento}>
                   <td className="dataSessao">
                     Data Sessão: {transformarData(new Date(dataAtual))}
                   </td>
                   <td>
-                    <textarea
-                      value={descricao}
+                    <span
                       className="texteAreaAcomp"
-                      readOnly
-                    ></textarea>
+                    > {descricao} </span>
                   </td>
                 </tr>
               )

@@ -203,6 +203,11 @@ code {
 .dataSessao {
   color: rgb(122, 78, 76);
   font-size: 18px;
+  text-align: left;
+}
+
+.trAcompanhamento{
+  border-color: rgb(122, 78, 76);
 }
 
 .inputQueixa {
@@ -259,19 +264,12 @@ code {
 }
 
 .texteAreaAcomp {
-  margin-top: 12px;
   width: 900px;
   height: 130px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
-    0 2px 0 hsla(0, 0%, 100%, 0.15);
   color: rgb(122, 78, 76);
   font-size: 18px;
-  resize: none;
   display: inline-block;
-  vertical-align: top;
+  text-align: justify;
 }
 
 select {
