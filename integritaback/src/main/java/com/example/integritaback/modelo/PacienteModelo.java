@@ -27,6 +27,8 @@ public class PacienteModelo {
     private boolean acupuntura;
     @Column(name="pilates")
     private boolean pilates;
+    @Column(name="fisioterapia")
+    private boolean fisioterapia;
     @Column(name="ativo")
     private boolean ativo;
     @Column(name="dataAtual")
@@ -126,5 +128,13 @@ public class PacienteModelo {
 
     public void setDataAtual(Date dataAtual) {
         this.dataAtual = dataAtual;
+    }
+
+    public boolean isFisioterapia() {
+        return fisioterapia;
+    }
+
+    public void setFisioterapia(boolean fisioterapia) {
+        this.fisioterapia = fisioterapia;
     }
 }

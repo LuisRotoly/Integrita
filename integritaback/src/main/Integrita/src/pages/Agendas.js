@@ -81,11 +81,10 @@ function Agendas() {
 
   function abreviarNomePaciente(nomePaciente) {
     const nome = nomePaciente.split(" ");
-    console.log(nome[1]);
     var nomeAbreviado;
     if (typeof nome[1] != "undefined") {
       nomeAbreviado = nome[0] + " " + nome[1].substring(0, 1) + ".";
-    }else{
+    } else {
       nomeAbreviado = nome[0];
     }
     return nomeAbreviado;

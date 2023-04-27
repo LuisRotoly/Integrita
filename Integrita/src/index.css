@@ -46,6 +46,42 @@ code {
   white-space: nowrap;
 }
 
+.pagamentoFisio {
+  position: absolute;
+  top: 270px;
+  right: 780px;
+}
+
+.pagamentoAcupuntura {
+  position: absolute;
+  top: 270px;
+  right: 1000px;
+}
+
+.pagamentoPilates {
+  position: absolute;
+  top: 270px;
+  right: 1300px;
+}
+
+.pagamentoValor {
+  position: absolute;
+  top: 278px;
+  right: 470px;
+}
+
+.pagamentoMes {
+  position: absolute;
+  top: 274px;
+  right: 180px;
+}
+
+.pagamentoBotao {
+  position: absolute;
+  top: 270px;
+  right: 100px;
+}
+
 .pagamentoEscritoEsquerda {
   color: rgb(122, 78, 76);
   font-family: inherit;
@@ -206,7 +242,7 @@ code {
   text-align: left;
 }
 
-.trAcompanhamento{
+.trAcompanhamento {
   border-color: rgb(122, 78, 76);
 }
 
@@ -345,7 +381,7 @@ td {
   color: rgb(122, 78, 76);
 }
 
-.linhaTabela{
+.linhaTabela {
   background-color: rgba(246, 230, 200);
   border-color: rgba(246, 230, 200);
 }
@@ -364,6 +400,7 @@ td {
 .tamanhoColunaPagamento {
   width: 900px;
   text-align: center;
+  margin-top: 100px !important;
   margin: auto;
 }
 
@@ -470,7 +507,7 @@ td {
   border-radius: 4px;
   width: 380px;
   margin-left: 90px;
-  z-index:1;
+  z-index: 1;
 }
 
 .dropdown:empty {
@@ -483,15 +520,16 @@ td {
   margin: 2px 0;
 }
 
-.formModal{
+.formModal {
   position: absolute;
-  top: 100px; left: 90px;
-  z-index:0;
+  top: 100px;
+  left: 90px;
+  z-index: 0;
 }
 
-.modal{
+.modal {
   position: relative;
-  z-index:2;
+  z-index: 2;
 }
 
 .inputModal {
@@ -507,72 +545,75 @@ td {
   font-size: 18px;
 }
 
-.calendar{
+.calendar {
   position: relative;
-  z-index:0;
+  z-index: 0;
 }
 
-.fc-event{
+.fc-event {
   cursor: pointer;
 }
 
-.fc-col-header-cell-cushion{
-  color:gray;
+.fc-col-header-cell-cushion {
+  color: gray;
 }
 
-.fc-col-header-cell-cushion:hover{
-  color:gray;
+.fc-col-header-cell-cushion:hover {
+  color: gray;
 }
 
 .fc-toolbar-title {
-  color:gray;
+  color: gray;
 }
 
-.fc-timegrid-slot-label-cushion{
+.fc-timegrid-slot-label-cushion {
   color: black;
 }
 
-.fc-theme-standard td{
+.fc-theme-standard td {
   border-left: 1px solid var(--fc-border-color, black) !important;
   border-right: 0.5px solid var(--fc-border-color, black) !important;
   border-radius: 4px;
 }
 
-.fc-timegrid-slot-minor{
+.fc-timegrid-slot-minor {
   border-bottom: 1px solid var(--fc-border-color, black) !important;
   border-top: 1px dotted var(--fc-border-color, black) !important;
 }
 
-.fc-theme-standard th{
+.fc-theme-standard th {
   border: 1px solid black !important;
   border-radius: 4px;
 }
 
-.imagemEnter{
+.imagemEnter {
   cursor: pointer;
 }
 
-.legendaAzul{
+.legendaAzul {
   background: blue;
-  color:#FFF;
+  color: #fff;
 }
 
-.legendaVerde{
+.legendaVerde {
   background: green;
-  color:#FFF;
+  color: #fff;
 }
 
-.legenda{
+.legenda {
   position: absolute;
-  top: 190px; left: 1200px;
+  top: 190px;
+  left: 1200px;
 }
 
-.botaoEsquerda{
+.botaoEsquerda {
   position: absolute;
-  top: 180px; left: 198px;
+  top: 180px;
+  left: 198px;
 }
 
-.google{
+.google {
   position: absolute;
-  top: 10px; left: 1350px;
+  top: 10px;
+  left: 1350px;
 }

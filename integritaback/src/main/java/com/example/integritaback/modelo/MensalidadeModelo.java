@@ -16,6 +16,8 @@ public class MensalidadeModelo {
     private int pilates;
     @Column(name="acupuntura")
     private int acupuntura;
+    @Column(name="fisioterapia")
+    private int fisioterapia;
     @Column(name="valorTotal")
     private int valorTotal;
     @Column(name="dataAtual")
@@ -76,5 +78,13 @@ public class MensalidadeModelo {
 
     public void setMesReferencia(String mesReferencia) {
         this.mesReferencia = mesReferencia;
+    }
+
+    public int getFisioterapia() {
+        return fisioterapia;
+    }
+
+    public void setFisioterapia(int fisioterapia) {
+        this.fisioterapia = fisioterapia;
     }
 }
