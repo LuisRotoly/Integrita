@@ -42,44 +42,12 @@ code {
   font-family: inherit;
   font-size: 20px;
   font-weight: bolder;
-  text-align: right;
-  white-space: nowrap;
-}
-
-.pagamentoFisio {
-  position: absolute;
-  top: 270px;
-  right: 780px;
-}
-
-.pagamentoAcupuntura {
-  position: absolute;
-  top: 270px;
-  right: 1000px;
-}
-
-.pagamentoPilates {
-  position: absolute;
-  top: 270px;
-  right: 1300px;
-}
-
-.pagamentoValor {
-  position: absolute;
-  top: 278px;
-  right: 470px;
-}
-
-.pagamentoMes {
-  position: absolute;
-  top: 274px;
-  right: 180px;
 }
 
 .pagamentoBotao {
   position: absolute;
-  top: 270px;
-  right: 100px;
+  top: 280px;
+  right: 110px;
 }
 
 .pagamentoEscritoEsquerda {
@@ -87,7 +55,6 @@ code {
   font-family: inherit;
   font-size: 16px;
   font-weight: bolder;
-  text-align: left;
   white-space: nowrap;
 }
 
@@ -334,6 +301,20 @@ select {
   font-size: 18px;
 }
 
+.selectAnoPagamento {
+  margin-top: 8px;
+  text-align: center;
+  width: 50px;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
 .selectMesReferencia {
   margin-top: 8px;
   width: 130px;
@@ -381,6 +362,11 @@ td {
   color: rgb(122, 78, 76);
 }
 
+.linhaTabelaMensalidade {
+  background-color: rgba(246, 230, 200);
+  border-color: rgba(246, 230, 200);
+}
+
 .linhaTabela {
   background-color: rgba(246, 230, 200);
   border-color: rgba(246, 230, 200);
@@ -397,10 +383,16 @@ td {
   margin: auto;
 }
 
+.tamanhoTabelaMensalidade {
+  width: 1200px;
+  text-align: center;
+  margin: auto;
+}
+
 .tamanhoColunaPagamento {
   width: 900px;
   text-align: center;
-  margin-top: 100px !important;
+  margin-top: 50px !important;
   margin: auto;
 }
 
@@ -483,8 +475,9 @@ td {
 
 .inputMensalidade {
   margin-top: 8px;
+  text-align: center;
   width: 100px;
-  height: 35px;
+  height: 45px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
@@ -600,10 +593,15 @@ td {
   color: #fff;
 }
 
+.legendaVermelho {
+  background: red;
+  color: #fff;
+}
+
 .legenda {
   position: absolute;
   top: 190px;
-  left: 1200px;
+  left: 1130px;
 }
 
 .botaoEsquerda {

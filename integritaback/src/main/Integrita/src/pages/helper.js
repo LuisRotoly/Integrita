@@ -17,10 +17,5 @@ function pegaLastSegment(pathname) {
   const lastSegment = url.split("/").pop();
   return lastSegment;
 }
-function converteNumeroMes(numero) {
-  const date = new Date();
-  date.setMonth(numero - 1);
-  return date.toLocaleString('pt-BR', {month: 'long',});
-}
 
-export { transformarData, verificarSexo, pegaLastSegment, converteNumeroMes };
+export { transformarData, verificarSexo, pegaLastSegment };

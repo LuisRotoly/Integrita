@@ -1,7 +1,6 @@
 import { Chart } from "react-google-charts";
 import { useEffect, useState } from "react";
 import BotaoSimples from "../componentes/BotaoSimples";
-import { converteNumeroMes } from "./helper";
 
 function Relatorio() {
   const [entradaAno, setAno] = useState(new Date().getFullYear());
@@ -26,8 +25,8 @@ function Relatorio() {
   function pegaSoma() {
     const soma = [entradaAno.toString()];
     for (let i = 0, k = 0; i < entradaDadosMensalidade.length; i++) {
-      var mesEntrada = entradaDadosMensalidade[i].data.split("-");
-      while (converteNumeroMes(parseInt(mesEntrada[1])).toUpperCase() !== meses[i + 1].toUpperCase()) {
+      var mesEntrada = entradaDadosMensalidade[i].data;
+      while (mesEntrada !== meses[i + 1]) {
         soma.push(0);
         i = i + 1;
       }
@@ -42,7 +41,10 @@ function Relatorio() {
 
   function trocaAno(entradaAno) {
     setAno(entradaAno);
-    fetch("http://localhost:8080/mensalidade/relatorio/" + entradaAno)
+    fetch(
+      "http://localhost:8080/mensalidade/relatorio/" +
+        entradaAno.toString().substr(-2)
+    )
       .then((resp) => resp.json())
       .then((apiData) => {
         setDadosMensalidade(apiData);
@@ -78,7 +80,10 @@ function Relatorio() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8080/mensalidade/relatorio/" + entradaAno)
+    fetch(
+      "http://localhost:8080/mensalidade/relatorio/" +
+        entradaAno.toString().substr(-2)
+    )
       .then((resp) => resp.json())
       .then((apiData) => {
         setDadosMensalidade(apiData);

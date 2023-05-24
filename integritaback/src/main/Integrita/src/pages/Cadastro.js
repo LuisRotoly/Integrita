@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import edit from "../images/editIcon.png";
-import {verificarSexo} from './helper';
+import { verificarSexo } from "./helper";
 
 function Cadastro() {
   const [data, setData] = useState([]);
@@ -19,17 +19,17 @@ function Cadastro() {
       });
   }, []);
 
-  function digitaHandler(event){
+  function digitaHandler(event) {
     setBusca(event.target.value);
-    if(event.target.value!==''){
-      fetch("http://localhost:8080/editar/listar/"+ event.target.value)
+    if (event.target.value !== "") {
+      fetch("http://localhost:8080/editar/listar/" + event.target.value)
         .then((resp) => resp.json())
         .then((apiData) => {
           setData(apiData);
         });
-      }else{
-        setData(buscainicial);
-      }
+    } else {
+      setData(buscainicial);
+    }
   }
 
   return (
@@ -39,8 +39,14 @@ function Cadastro() {
           <BotaoSimples titulo="Novo Paciente"></BotaoSimples>
         </div>
       </Link>
-      <div className="alinharDireita">Pesquisar:&nbsp;
-          <input className="inputCadastro" type="text" value={busca} onChange={digitaHandler}></input>
+      <div className="alinharDireita">
+        Pesquisar:&nbsp;
+        <input
+          className="inputCadastro"
+          type="text"
+          value={busca}
+          onChange={digitaHandler}
+        ></input>
       </div>
       <div className="alinharTabela">
         <Table size="sm">
@@ -54,7 +60,8 @@ function Cadastro() {
               <th>Sexo</th>
               <th>Endereço</th>
               <th>Pilates</th>
-              <th>Acupuntura</th>
+              <th>Acup.</th>
+              <th>Fisio.</th>
               <th>Editar</th>
             </tr>
           </thead>
@@ -71,6 +78,7 @@ function Cadastro() {
                 endereco,
                 pilates,
                 acupuntura,
+                fisioterapia,
               }) => (
                 <tr className="linhaTabela" key={codigo}>
                   <td>{nomePaciente}</td>
@@ -80,8 +88,27 @@ function Cadastro() {
                   <td>{profissao}</td>
                   <td>{verificarSexo(sexo)}</td>
                   <td>{endereco}</td>
-                  <td><input defaultChecked={pilates} disabled type="checkbox"></input></td>
-                  <td><input defaultChecked={acupuntura} disabled type="checkbox"></input></td>
+                  <td>
+                    <input
+                      defaultChecked={pilates}
+                      disabled
+                      type="checkbox"
+                    ></input>
+                  </td>
+                  <td>
+                    <input
+                      defaultChecked={acupuntura}
+                      disabled
+                      type="checkbox"
+                    ></input>
+                  </td>
+                  <td>
+                    <input
+                      defaultChecked={fisioterapia}
+                      disabled
+                      type="checkbox"
+                    ></input>
+                  </td>
                   <td>
                     <Link to={`/cadastro/editar/${codigo}`}>
                       <img src={edit} width="28" height="28" alt="Edit" />

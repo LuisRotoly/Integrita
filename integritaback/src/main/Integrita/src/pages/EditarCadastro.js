@@ -14,12 +14,13 @@ function EditarCadastro() {
   const [entradaEndereco, setEntradaEndereco] = useState("");
   const [entradaPilates, setEntradaPilates] = useState("");
   const [entradaAcupuntura, setEntradaAcupuntura] = useState("");
+  const [entradaFisioterapia, setEntradaFisioterapia] = useState("");
   const [entradaAtivo, setAtivo] = useState("");
   const [modal, setModal] = useState({
     isOpen: false,
     tipo: "",
     voltarPagina: "",
-    frase: ""
+    frase: "",
   });
 
   function nomeHandler(event) {
@@ -49,6 +50,9 @@ function EditarCadastro() {
   function acupunturaHandler(event) {
     setEntradaAcupuntura(event.target.checked);
   }
+  function fisioterapiaHandler(event) {
+    setEntradaFisioterapia(event.target.checked);
+  }
   function ativoHandler(event) {
     setAtivo(event.target.checked);
   }
@@ -70,6 +74,7 @@ function EditarCadastro() {
       endereco: entradaEndereco,
       pilates: entradaPilates,
       acupuntura: entradaAcupuntura,
+      fisioterapia: entradaFisioterapia,
       ativo: entradaAtivo,
     };
     try {
@@ -85,7 +90,12 @@ function EditarCadastro() {
       if (!resposta.ok) {
         throw new Error("Algo deu Errado");
       } else {
-        setModal({ isOpen: true, tipo: "ok", voltarPagina: "/cadastro", frase:"Paciente editado com sucesso!"});
+        setModal({
+          isOpen: true,
+          tipo: "ok",
+          voltarPagina: "/cadastro",
+          frase: "Paciente editado com sucesso!",
+        });
       }
     } catch (e) {
       setModal({ isOpen: true, tipo: "erro", voltarPagina: "" });
@@ -108,6 +118,7 @@ function EditarCadastro() {
         setEntradaEndereco(apiData.endereco);
         setEntradaPilates(apiData.pilates);
         setEntradaAcupuntura(apiData.acupuntura);
+        setEntradaFisioterapia(apiData.fisioterapia);
         setAtivo(apiData.ativo);
       });
   }, []);
@@ -190,6 +201,14 @@ function EditarCadastro() {
         ></input>
         &nbsp;
         <label>Acupuntura</label>
+        <br />
+        <input
+          checked={entradaFisioterapia}
+          type="checkbox"
+          onChange={fisioterapiaHandler}
+        ></input>
+        &nbsp;
+        <label>Fisioterapia</label>
         <br />
         <input
           checked={entradaAtivo}

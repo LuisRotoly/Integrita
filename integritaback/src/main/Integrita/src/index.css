@@ -42,8 +42,12 @@ code {
   font-family: inherit;
   font-size: 20px;
   font-weight: bolder;
-  text-align: right;
-  white-space: nowrap;
+}
+
+.pagamentoBotao {
+  position: absolute;
+  top: 280px;
+  right: 110px;
 }
 
 .pagamentoEscritoEsquerda {
@@ -51,7 +55,6 @@ code {
   font-family: inherit;
   font-size: 16px;
   font-weight: bolder;
-  text-align: left;
   white-space: nowrap;
 }
 
@@ -206,7 +209,7 @@ code {
   text-align: left;
 }
 
-.trAcompanhamento{
+.trAcompanhamento {
   border-color: rgb(122, 78, 76);
 }
 
@@ -298,6 +301,20 @@ select {
   font-size: 18px;
 }
 
+.selectAnoPagamento {
+  margin-top: 8px;
+  text-align: center;
+  width: 50px;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
+    0 2px 0 hsla(0, 0%, 100%, 0.15);
+  color: rgb(122, 78, 76);
+  font-size: 18px;
+}
+
 .selectMesReferencia {
   margin-top: 8px;
   width: 130px;
@@ -345,7 +362,12 @@ td {
   color: rgb(122, 78, 76);
 }
 
-.linhaTabela{
+.linhaTabelaMensalidade {
+  background-color: rgba(246, 230, 200);
+  border-color: rgba(246, 230, 200);
+}
+
+.linhaTabela {
   background-color: rgba(246, 230, 200);
   border-color: rgba(246, 230, 200);
 }
@@ -361,9 +383,16 @@ td {
   margin: auto;
 }
 
+.tamanhoTabelaMensalidade {
+  width: 1200px;
+  text-align: center;
+  margin: auto;
+}
+
 .tamanhoColunaPagamento {
   width: 900px;
   text-align: center;
+  margin-top: 50px !important;
   margin: auto;
 }
 
@@ -446,8 +475,9 @@ td {
 
 .inputMensalidade {
   margin-top: 8px;
+  text-align: center;
   width: 100px;
-  height: 35px;
+  height: 45px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: inset 0 2px 2px hsla(0, 0%, 0%, 0.35),
@@ -470,7 +500,7 @@ td {
   border-radius: 4px;
   width: 380px;
   margin-left: 90px;
-  z-index:1;
+  z-index: 1;
 }
 
 .dropdown:empty {
@@ -483,15 +513,16 @@ td {
   margin: 2px 0;
 }
 
-.formModal{
+.formModal {
   position: absolute;
-  top: 100px; left: 90px;
-  z-index:0;
+  top: 100px;
+  left: 90px;
+  z-index: 0;
 }
 
-.modal{
+.modal {
   position: relative;
-  z-index:2;
+  z-index: 2;
 }
 
 .inputModal {
@@ -507,72 +538,80 @@ td {
   font-size: 18px;
 }
 
-.calendar{
+.calendar {
   position: relative;
-  z-index:0;
+  z-index: 0;
 }
 
-.fc-event{
+.fc-event {
   cursor: pointer;
 }
 
-.fc-col-header-cell-cushion{
-  color:gray;
+.fc-col-header-cell-cushion {
+  color: gray;
 }
 
-.fc-col-header-cell-cushion:hover{
-  color:gray;
+.fc-col-header-cell-cushion:hover {
+  color: gray;
 }
 
 .fc-toolbar-title {
-  color:gray;
+  color: gray;
 }
 
-.fc-timegrid-slot-label-cushion{
+.fc-timegrid-slot-label-cushion {
   color: black;
 }
 
-.fc-theme-standard td{
+.fc-theme-standard td {
   border-left: 1px solid var(--fc-border-color, black) !important;
   border-right: 0.5px solid var(--fc-border-color, black) !important;
   border-radius: 4px;
 }
 
-.fc-timegrid-slot-minor{
+.fc-timegrid-slot-minor {
   border-bottom: 1px solid var(--fc-border-color, black) !important;
   border-top: 1px dotted var(--fc-border-color, black) !important;
 }
 
-.fc-theme-standard th{
+.fc-theme-standard th {
   border: 1px solid black !important;
   border-radius: 4px;
 }
 
-.imagemEnter{
+.imagemEnter {
   cursor: pointer;
 }
 
-.legendaAzul{
+.legendaAzul {
   background: blue;
-  color:#FFF;
+  color: #fff;
 }
 
-.legendaVerde{
+.legendaVerde {
   background: green;
-  color:#FFF;
+  color: #fff;
 }
 
-.legenda{
-  position: absolute;
-  top: 190px; left: 1200px;
+.legendaVermelho {
+  background: red;
+  color: #fff;
 }
 
-.botaoEsquerda{
+.legenda {
   position: absolute;
-  top: 180px; left: 198px;
+  top: 190px;
+  left: 1130px;
 }
 
-.google{
+.botaoEsquerda {
   position: absolute;
-  top: 10px; left: 1350px;
+  top: 180px;
+  left: 198px;
+}
+
+.google {
+  position: absolute;
+  top: 10px;
+  left: 1350px;
 }

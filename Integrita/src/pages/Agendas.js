@@ -24,6 +24,7 @@ function Agendas() {
   const [flag, setFlag] = useState("");
   const [pilates, setPilates] = useState(false);
   const [acupuntura, setAcupuntura] = useState(false);
+  const [fisioterapia, setFisioterapia] = useState(false);
   const [busca, setBusca] = useState("");
   const [dadosPaciente, setDadosPaciente] = useState([]);
   const [buscaEncontrada, setBuscaEncontrada] = useState(false);
@@ -94,12 +95,11 @@ function Agendas() {
     event.preventDefault();
     if (
       dadosPaciente[0].nomePaciente !== "" &&
-      (acupuntura !== false || pilates !== false) &&
-      (acupuntura !== true || pilates !== true) &&
+      (acupuntura !== false || pilates !== false || fisioterapia !== false) &&
       dataAtual !== ""
     ) {
       //var calendar = calendarRef.current.getApi();
-      if (pilates !== false) {
+      if (pilates === true) {
         /*calendar.addEvent({
           title: dadosPaciente[0].nomePaciente + " - " + flag,
           date: dataAtual,
@@ -110,11 +110,12 @@ function Agendas() {
           dadosPaciente[0].nomePaciente,
           pilates,
           acupuntura,
+          fisioterapia,
           flag,
           dataAtual
         );
         setPilates(false);
-      } else if (acupuntura !== false) {
+      } else if (acupuntura === true) {
         /*calendar.addEvent({
           title: dadosPaciente[0].nomePaciente + " - " + flag,
           date: dataAtual,
@@ -126,6 +127,18 @@ function Agendas() {
           dadosPaciente[0].nomePaciente,
           pilates,
           acupuntura,
+          fisioterapia,
+          flag,
+          dataAtual
+        );
+      } else if (fisioterapia === true) {
+        setFisioterapia(false);
+        postHorarioMarcado(
+          dadosPaciente[0].codigo,
+          dadosPaciente[0].nomePaciente,
+          pilates,
+          acupuntura,
+          fisioterapia,
           flag,
           dataAtual
         );
@@ -154,6 +167,7 @@ function Agendas() {
     nomePaciente,
     pilates,
     acupuntura,
+    fisioterapia,
     flag,
     dataAtual
   ) {
@@ -162,6 +176,7 @@ function Agendas() {
       nomePaciente: nomePaciente,
       pilates: pilates,
       acupuntura: acupuntura,
+      fisioterapia: fisioterapia,
       flag: flag,
       data: dataAtual,
     };
@@ -301,6 +316,13 @@ function Agendas() {
               date: apiData[i].data,
               color: "blue",
             });
+          } else if (apiData[i].fisioterapia !== false) {
+            horarioProv.push({
+              id: apiData[i].idAgenda,
+              title: apiData[i].nomePaciente + " - " + apiData[i].flag,
+              date: apiData[i].data,
+              color: "red",
+            });
           }
         }
         setHorario(horarioProv);
@@ -346,6 +368,7 @@ function Agendas() {
             nomePaciente: apiData.nomePaciente,
             pilates: apiData.pilates,
             acupuntura: apiData.acupuntura,
+            fisioterapia: apiData.fisioterapia,
             flag: valor,
             data: apiData.data,
           };
@@ -455,6 +478,7 @@ function Agendas() {
               element.nomePaciente,
               element.pilates,
               element.acupuntura,
+              element.fisioterapia,
               "",
               data
             );
@@ -497,7 +521,8 @@ function Agendas() {
       <div className="legenda">
         <span>Legenda: </span>
         <span className="legendaVerde">Pilates</span>&nbsp;
-        <span className="legendaAzul">Acupuntura</span>
+        <span className="legendaAzul">Acupuntura</span>&nbsp;
+        <span className="legendaVermelho">Fisioterapia</span>
       </div>
       <div className="calendar">
         <FullCalendar
@@ -625,14 +650,35 @@ function Agendas() {
               <p></p>
               <span className="formCadastro">Pilates:</span>&nbsp;
               <input
-                onChange={(e) => setPilates(e.target.checked)}
+                onChange={(e) => {
+                  setPilates(e.target.checked);
+                  setAcupuntura(false);
+                  setFisioterapia(false);
+                }}
                 type="checkbox"
+                checked={pilates}
               ></input>
               <p></p>
               <span className="formCadastro">Acupuntura:</span>&nbsp;
               <input
-                onChange={(e) => setAcupuntura(e.target.checked)}
+                onChange={(e) => {
+                  setPilates(false);
+                  setAcupuntura(e.target.checked);
+                  setFisioterapia(false);
+                }}
                 type="checkbox"
+                checked={acupuntura}
+              ></input>
+              <p></p>
+              <span className="formCadastro">Fisioterapia:</span>&nbsp;
+              <input
+                onChange={(e) => {
+                  setPilates(false);
+                  setAcupuntura(false);
+                  setFisioterapia(e.target.checked);
+                }}
+                type="checkbox"
+                checked={fisioterapia}
               ></input>
               <div>
                 <BotaoSimples

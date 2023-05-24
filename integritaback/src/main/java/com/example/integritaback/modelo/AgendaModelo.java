@@ -17,6 +17,8 @@ public class AgendaModelo {
     private boolean pilates;
     @Column(name="acupuntura")
     private boolean acupuntura;
+    @Column(name="fisioterapia")
+    private boolean fisioterapia;
     @Column(name="flag")
     private String flag;
     @Column(name="data")
@@ -76,5 +78,13 @@ public class AgendaModelo {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public boolean isFisioterapia() {
+        return fisioterapia;
+    }
+
+    public void setFisioterapia(boolean fisioterapia) {
+        this.fisioterapia = fisioterapia;
     }
 }

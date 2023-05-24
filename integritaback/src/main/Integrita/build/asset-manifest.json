@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.912345e3.css",
-    "main.js": "/static/js/main.3ba6ca42.js",
+    "main.css": "/static/css/main.ddc66a58.css",
+    "main.js": "/static/js/main.1b68df34.js",
     "static/media/check.png": "/static/media/check.07c1b430de71a343ecdc.png",
     "static/media/question.png": "/static/media/question.22c38de21547aab05ad9.png",
     "static/media/clinica.png": "/static/media/clinica.6a21fdd544e8ce93f23a.png",
@@ -9,11 +9,11 @@
     "static/media/deletes.png": "/static/media/deletes.4cf85250644be08b0e98.png",
     "static/media/editIcon.png": "/static/media/editIcon.2bd449c4073072b1679e.png",
     "index.html": "/index.html",
-    "main.912345e3.css.map": "/static/css/main.912345e3.css.map",
-    "main.3ba6ca42.js.map": "/static/js/main.3ba6ca42.js.map"
+    "main.ddc66a58.css.map": "/static/css/main.ddc66a58.css.map",
+    "main.1b68df34.js.map": "/static/js/main.1b68df34.js.map"
   },
   "entrypoints": [
-    "static/css/main.912345e3.css",
-    "static/js/main.3ba6ca42.js"
+    "static/css/main.ddc66a58.css",
+    "static/js/main.1b68df34.js"
   ]
 }

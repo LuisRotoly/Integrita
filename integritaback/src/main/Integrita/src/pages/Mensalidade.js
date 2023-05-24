@@ -54,13 +54,21 @@ function Mensalidade() {
               <th>Paciente</th>
               <th>Pilates</th>
               <th>Acupuntura</th>
+              <th>Fisioterapia</th>
               <th>Status</th>
               <th>Lançar Pagamento</th>
             </tr>
           </thead>
           <tbody>
             {data.map(
-              ({ codigo, nomePaciente, pilates, acupuntura, ativo }) => (
+              ({
+                codigo,
+                nomePaciente,
+                pilates,
+                acupuntura,
+                fisioterapia,
+                ativo,
+              }) => (
                 <tr className="linhaTabela" key={codigo}>
                   <td>{nomePaciente}</td>
                   <td>
@@ -73,6 +81,13 @@ function Mensalidade() {
                   <td>
                     <input
                       defaultChecked={acupuntura}
+                      disabled
+                      type="checkbox"
+                    ></input>
+                  </td>
+                  <td>
+                    <input
+                      defaultChecked={fisioterapia}
                       disabled
                       type="checkbox"
                     ></input>

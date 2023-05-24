@@ -24,6 +24,8 @@ public class MensalidadeModelo {
     private Date dataAtual = new Date();
     @Column(name="mesReferencia")
     private String mesReferencia;
+    @Column(name="anoReferencia")
+    private String anoReferencia;
 
     public int getIdMensalidade() {
         return idMensalidade;
@@ -86,5 +88,13 @@ public class MensalidadeModelo {
 
     public void setFisioterapia(int fisioterapia) {
         this.fisioterapia = fisioterapia;
+    }
+
+    public String getAnoReferencia() {
+        return anoReferencia;
+    }
+
+    public void setAnoReferencia(String anoReferencia) {
+        this.anoReferencia = anoReferencia;
     }
 }
