@@ -25,8 +25,8 @@ public interface RepositorioPaciente extends CrudRepository<PacienteModelo, Inte
     String findByCodigoReturnNomePaciente(int codigo);
 
     //pesquisa pacientes que fazem acupuntura
-    @Query(value = "SELECT * FROM paciente WHERE acupuntura = 1", nativeQuery = true)
-    List<PacienteModelo> findAllAcupuntura();
+    @Query(value = "SELECT * FROM paciente WHERE acupuntura = 1 || fisioterapia = 1 ORDER BY nome_paciente", nativeQuery = true)
+    List<PacienteModelo> findAllAcupunturaFisioterapia();
 
     //remove paciente
     void delete(PacienteModelo paciente);

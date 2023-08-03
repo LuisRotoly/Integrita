@@ -10,9 +10,11 @@ import AvaliacaoAcupuntura from "./pages/AvaliacaoAcupuntura";
 import AvaliacaoPilates from "./pages/AvaliacaoPilates";
 import Pagamento from "./pages/Pagamento";
 import Acompanhamento from "./pages/Acompanhamento";
-import AcompanhamentoPaciente from "./pages/AcompanhamentoPaciente";
+import AcompanhamentoAcupuntura from "./pages/AcompanhamentoAcupuntura";
 import Navbar from "./pages/Navbar";
-import Relatorio from "./pages/Relatorio"
+import Relatorio from "./pages/Relatorio";
+import AvaliacaoFisioterapia from "./pages/AvaliacaoFisioterapia";
+import AcompanhamentoFisioterapia from "./pages/AcompanhamentoFisioterapia";
 
 function App() {
   return (
@@ -40,6 +42,9 @@ function App() {
         <Route path="/avaliacao/pilates/:codigo">
           <AvaliacaoPilates />
         </Route>
+        <Route path="/avaliacao/fisioterapia/:codigo">
+          <AvaliacaoFisioterapia />
+        </Route>
         <Route exact path="/mensalidade">
           <Mensalidade />
         </Route>
@@ -49,8 +54,11 @@ function App() {
         <Route exact path="/acompanhamento">
           <Acompanhamento />
         </Route>
-        <Route path="/acompanhamento/:codigo">
-          <AcompanhamentoPaciente />
+        <Route path="/acompanhamento/acupuntura/:codigo">
+          <AcompanhamentoAcupuntura />
+        </Route>
+        <Route path="/acompanhamento/fisioterapia/:codigo">
+          <AcompanhamentoFisioterapia />
         </Route>
         <Route path="/relatorio">
           <Relatorio />

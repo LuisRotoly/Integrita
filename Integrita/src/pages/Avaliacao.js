@@ -42,50 +42,68 @@ function Avaliacao() {
         ></input>
       </div>
       <div>
-        <Table className="tamanhoColuna">
+        <Table className="tamanhoColuna1">
           <thead>
             <tr className="tr">
               <th>Paciente</th>
               <th>Acupuntura</th>
               <th>Pilates</th>
+              <th>Fisioterapia</th>
               <th>Avaliar Acupuntura</th>
               <th>Avaliar Pilates</th>
+              <th>Avaliar Fisioterapia</th>
             </tr>
           </thead>
           <tbody>
-            {data.map(({ codigo, nomePaciente, pilates, acupuntura }) => (
-              <tr className="linhaTabela" key={codigo}>
-                <td>{nomePaciente}</td>
-                <td>
-                  <input
-                    defaultChecked={acupuntura}
-                    disabled
-                    type="checkbox"
-                  ></input>
-                </td>
-                <td>
-                  <input
-                    defaultChecked={pilates}
-                    disabled
-                    type="checkbox"
-                  ></input>
-                </td>
-                <td>
-                  {acupuntura && (
-                    <Link to={`avaliacao/acunpuntura/${codigo}`}>
-                      <img src={select} width="25" height="25" alt="Edit" />
-                    </Link>
-                  )}
-                </td>
-                <td>
-                  {pilates && (
-                    <Link to={`avaliacao/pilates/${codigo}`}>
-                      <img src={select} width="25" height="25" alt="Edit" />
-                    </Link>
-                  )}
-                </td>
-              </tr>
-            ))}
+            {data.map(
+              ({ codigo, nomePaciente, pilates, acupuntura, fisioterapia }) => (
+                <tr className="linhaTabela" key={codigo}>
+                  <td>{nomePaciente}</td>
+                  <td>
+                    <input
+                      defaultChecked={acupuntura}
+                      disabled
+                      type="checkbox"
+                    ></input>
+                  </td>
+                  <td>
+                    <input
+                      defaultChecked={pilates}
+                      disabled
+                      type="checkbox"
+                    ></input>
+                  </td>
+                  <td>
+                    <input
+                      defaultChecked={fisioterapia}
+                      disabled
+                      type="checkbox"
+                    ></input>
+                  </td>
+                  <td>
+                    {acupuntura && (
+                      <Link to={`avaliacao/acunpuntura/${codigo}`}>
+                        <img src={select} width="25" height="25" alt="Edit" />
+                      </Link>
+                    )}
+                  </td>
+                  <td>
+                    {pilates && (
+                      <Link to={`avaliacao/pilates/${codigo}`}>
+                        <img src={select} width="25" height="25" alt="Edit" />
+                      </Link>
+                    )}
+                  </td>
+                  <td>
+                    {fisioterapia && (
+                      <Link to={`avaliacao/fisioterapia/${codigo}`}>
+                        <img src={select} width="25" height="25" alt="Edit" />
+                      </Link>
+                    )}
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </Table>
       </div>

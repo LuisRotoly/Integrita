@@ -11,13 +11,19 @@ public class AcompanhamentoController {
     @Autowired
     private RepositorioAcompanhamento acoes;
 
-    //listar uma avaliacao especifica pelo codigo
-    @RequestMapping(value="/acompanhamentos/{codigo}", method=RequestMethod.GET)
-    public @ResponseBody List<AcompanhamentoModelo> filtrar(@PathVariable Integer codigo){
-        return acoes.findByCodigoOrderByDataAtualDesc(codigo);
+    //listar um acompanhamento especifica pelo codigo
+    @RequestMapping(value="/acompanhamentos/acupuntura/{codigo}", method=RequestMethod.GET)
+    public @ResponseBody List<AcompanhamentoModelo> filtrarAcupuntura(@PathVariable Integer codigo){
+        return acoes.findByCodigoAndAcupuntura(codigo);
     }
 
-    //cadastrar avaliacao pilates
+    //listar um acompanhamento especifica pelo codigo
+    @RequestMapping(value="/acompanhamentos/fisioterapia/{codigo}", method=RequestMethod.GET)
+    public @ResponseBody List<AcompanhamentoModelo> filtrarFisioterapia(@PathVariable Integer codigo){
+        return acoes.findByCodigoAndFisioterapia(codigo);
+    }
+
+    //cadastrar acompanhamento fisioterapia ou acupuntura
     @RequestMapping(value="/acompanhamento", method=RequestMethod.POST)
     public @ResponseBody AcompanhamentoModelo cadastrar(@RequestBody AcompanhamentoModelo acompanhamentoModelo){
         return acoes.save(acompanhamentoModelo);

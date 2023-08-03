@@ -14,6 +14,10 @@ public class AcompanhamentoModelo {
     private int codigo;
     @Column(name="descricao", columnDefinition="LONGTEXT")
     private String descricao;
+    @Column(name="acupuntura")
+    private boolean acupuntura;
+    @Column(name="fisioterapia")
+    private boolean fisioterapia;
     @Column(name="dataAtual")
     private Date dataAtual = new Date();
 
@@ -47,5 +51,21 @@ public class AcompanhamentoModelo {
 
     public void setDataAtual(Date dataAtual) {
         this.dataAtual = dataAtual;
+    }
+
+    public boolean isAcupuntura() {
+        return acupuntura;
+    }
+
+    public void setAcupuntura(boolean acupuntura) {
+        this.acupuntura = acupuntura;
+    }
+
+    public boolean isFisioterapia() {
+        return fisioterapia;
+    }
+
+    public void setFisioterapia(boolean fisioterapia) {
+        this.fisioterapia = fisioterapia;
     }
 }

@@ -13,10 +13,10 @@ function Navbar() {
           <BotaoMenu titulo="Cadastro Paciente"></BotaoMenu>
         </Link>
         <Link to="/avaliacao">
-          <BotaoMenu titulo="Avaliação Acupuntura/Pilates"></BotaoMenu>
+          <BotaoMenu titulo="Avaliações"></BotaoMenu>
         </Link>
         <Link to="/acompanhamento">
-          <BotaoMenu titulo="Acompanhamento Acupuntura"></BotaoMenu>
+          <BotaoMenu titulo="Acompanhamentos"></BotaoMenu>
         </Link>
         <Link to="/mensalidade">
           <BotaoMenu titulo="Mensalidade"></BotaoMenu>

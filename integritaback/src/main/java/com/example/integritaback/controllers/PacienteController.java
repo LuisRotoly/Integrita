@@ -36,9 +36,9 @@ public class PacienteController {
     }
 
     //listar o nomePaciente e idPaciente que fazem acupuntura
-    @RequestMapping(value="/paciente/acupuntura", method=RequestMethod.GET)
-    public @ResponseBody List<PacienteModelo> filtrarNomeIdAcupuntura(){
-        return acoes.findAllAcupuntura();
+    @RequestMapping(value="/paciente/acupunturafisioterapia", method=RequestMethod.GET)
+    public @ResponseBody List<PacienteModelo> filtrarNomeIdAcupunturaFisioterapia(){
+        return acoes.findAllAcupunturaFisioterapia();
     }
 
     //cadastrar paciente

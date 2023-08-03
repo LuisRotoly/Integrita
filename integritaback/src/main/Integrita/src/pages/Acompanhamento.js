@@ -9,7 +9,7 @@ function Acompanhamento() {
   const [buscainicial, setBuscaInicial] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8080/paciente/acupuntura")
+    fetch("http://localhost:8080/paciente/acupunturafisioterapia")
       .then((resp) => resp.json())
       .then((apiData) => {
         setData(apiData);
@@ -42,22 +42,32 @@ function Acompanhamento() {
         ></input>
       </div>
       <div>
-        <br/>
+        <br />
         <Table className="tamanhoColunaAcomp">
           <thead>
             <tr className="tr">
               <th>Paciente</th>
-              <th>Selecionar</th>
+              <th>Acupuntura</th>
+              <th>Fisioterapia</th>
             </tr>
           </thead>
           <tbody>
-            {data.map(({ codigo, nomePaciente }) => (
+            {data.map(({ codigo, nomePaciente, acupuntura, fisioterapia }) => (
               <tr className="linhaTabela" key={codigo}>
                 <td>{nomePaciente}</td>
                 <td>
-                  <Link to={`acompanhamento/${codigo}`}>
-                    <img src={select} width="25" height="25" alt="Edit" />
-                  </Link>
+                  {acupuntura && (
+                    <Link to={`acompanhamento/acupuntura/${codigo}`}>
+                      <img src={select} width="25" height="25" alt="Edit" />
+                    </Link>
+                  )}
+                </td>
+                <td>
+                  {fisioterapia && (
+                    <Link to={`acompanhamento/fisioterapia/${codigo}`}>
+                      <img src={select} width="25" height="25" alt="Edit" />
+                    </Link>
+                  )}
                 </td>
               </tr>
             ))}

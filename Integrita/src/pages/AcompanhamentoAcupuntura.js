@@ -7,7 +7,7 @@ import ModalConfirma from "../componentes/ModalConfirma";
 import PDFImprimir from "../componentes/PDFImprimir";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-function AcompanhamentoPaciente() {
+function AcompanhamentoAcupuntura() {
   const [entradaNome, setEntradaNome] = useState("");
   const [entradaDescricao, setDescricao] = useState("");
   const [entradaDadosAcompanhamento, setDadosAcompanhamento] = useState([]);
@@ -32,7 +32,7 @@ function AcompanhamentoPaciente() {
   }
 
   function fetchAcompanhamento(lastSegment) {
-    fetch("http://localhost:8080/acompanhamentos/" + lastSegment)
+    fetch("http://localhost:8080/acompanhamentos/acupuntura/" + lastSegment)
       .then((resp) => resp.json())
       .then((apiData) => {
         setDadosAcompanhamento(apiData);
@@ -44,6 +44,8 @@ function AcompanhamentoPaciente() {
     const dados = {
       codigo: parseInt(pegaLastSegment(window.location.pathname)),
       descricao: entradaDescricao,
+      acupuntura: true,
+      fisioterapia: false,
     };
     if (entradaDescricao !== "") {
       try {
@@ -78,7 +80,15 @@ function AcompanhamentoPaciente() {
     <div>
       <div className="data">Data: {transformarData(new Date())}</div>
       <div className="imprimir">
-        <PDFDownloadLink document={<PDFImprimir titulo={entradaNome} dados={entradaDadosAcompanhamento} />} fileName={entradaNome}>
+        <PDFDownloadLink
+          document={
+            <PDFImprimir
+              titulo={entradaNome}
+              dados={entradaDadosAcompanhamento}
+            />
+          }
+          fileName={entradaNome}
+        >
           <img
             src={imprimir}
             width="30"
@@ -89,7 +99,9 @@ function AcompanhamentoPaciente() {
         </PDFDownloadLink>
       </div>
       <div className="centralizado">
-        <p className="pagamentoTitulo">Acompanhamento {entradaNome}</p>
+        <p className="pagamentoTitulo">
+          Acompanhamento Acupuntura {entradaNome}
+        </p>
         <div className="descricao">
           <label>Descrição:</label>
         </div>
@@ -117,9 +129,7 @@ function AcompanhamentoPaciente() {
                     Data Sessão: {transformarData(new Date(dataAtual))}
                   </td>
                   <td>
-                    <span
-                      className="texteAreaAcomp"
-                    > {descricao} </span>
+                    <span className="texteAreaAcomp"> {descricao} </span>
                   </td>
                 </tr>
               )
@@ -131,4 +141,4 @@ function AcompanhamentoPaciente() {
     </div>
   );
 }
-export default AcompanhamentoPaciente;
+export default AcompanhamentoAcupuntura;

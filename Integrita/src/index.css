@@ -383,6 +383,12 @@ td {
   margin: auto;
 }
 
+.tamanhoColuna1 {
+  width: 1200px;
+  text-align: center;
+  margin: auto;
+}
+
 .tamanhoTabelaMensalidade {
   width: 1200px;
   text-align: center;
@@ -403,7 +409,7 @@ td {
 }
 
 .tamanhoColunaAcomp {
-  width: 400px;
+  width: 700px;
   text-align: center;
   margin: auto;
 }
